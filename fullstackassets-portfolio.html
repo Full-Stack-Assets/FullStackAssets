@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Full Stack Assets — Nic Albertson · Builder of Software Assets</title>
+<meta name="description" content="Nic Albertson builds revenue-ready software assets: patent-pending AI orchestration, micro-SaaS products, and full-stack systems. Fall River, MA.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,700;12..96,800&family=Public+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --space:#0B1426;
+  --panel:#111E38;
+  --panel-2:#0E1930;
+  --star:#E9EDF5;
+  --dim:#8C99B0;
+  --amber:#F2A93B;
+  --cyan:#62B6CB;
+  --line:rgba(140,153,176,.18);
+  --maxw:1160px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--space);
+  color:var(--star);
+  font-family:'Public Sans',system-ui,sans-serif;
+  font-weight:300;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--amber);color:var(--space)}
+a{color:inherit;text-decoration:none}
+.mono{font-family:'IBM Plex Mono',monospace}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+/* ---------- NAV ---------- */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  background:rgba(11,20,38,.82);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{max-width:var(--maxw);margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:'Bricolage Grotesque';font-weight:800;font-size:1.05rem;letter-spacing:.02em}
+.logo span{color:var(--amber)}
+.nav-links{display:flex;gap:28px;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.nav-links a:hover{color:var(--star)}
+.nav-links a:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+@media(max-width:640px){.nav-links{display:none}}
+
+/* ---------- HERO ---------- */
+header{position:relative;min-height:92vh;display:flex;align-items:center;overflow:hidden}
+#sky{position:absolute;inset:0;width:100%;height:100%}
+.hero-content{position:relative;z-index:2;padding:120px 0 80px}
+.eyebrow{font-family:'IBM Plex Mono';font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--amber);margin-bottom:22px}
+h1{
+  font-family:'Bricolage Grotesque';
+  font-weight:800;
+  font-size:clamp(2.6rem,7.5vw,5.4rem);
+  line-height:1.02;
+  letter-spacing:-.02em;
+  max-width:14ch;
+}
+h1 em{font-style:normal;color:var(--amber)}
+.hero-sub{margin-top:26px;max-width:54ch;font-size:1.06rem;color:var(--dim)}
+.hero-sub strong{color:var(--star);font-weight:500}
+.hero-ctas{margin-top:38px;display:flex;gap:14px;flex-wrap:wrap}
+.btn{
+  display:inline-block;padding:13px 26px;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;
+  font-weight:600;border:1px solid var(--amber);transition:all .2s;
+}
+.btn-solid{background:var(--amber);color:var(--space)}
+.btn-solid:hover{background:#ffc05e}
+.btn-ghost{color:var(--amber)}
+.btn-ghost:hover{background:rgba(242,169,59,.1)}
+.btn:focus-visible{outline:2px solid var(--star);outline-offset:3px}
+.hero-coord{
+  position:absolute;bottom:28px;right:28px;z-index:2;
+  font-family:'IBM Plex Mono';font-size:.68rem;color:var(--dim);
+  text-align:right;letter-spacing:.14em;line-height:1.9;
+}
+@media(max-width:640px){.hero-coord{display:none}}
+
+/* ---------- SECTION SCAFFOLD ---------- */
+section{padding:96px 0;border-top:1px solid var(--line)}
+.sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:14px;flex-wrap:wrap}
+.sec-tag{font-family:'IBM Plex Mono';font-size:.7rem;letter-spacing:.26em;text-transform:uppercase;color:var(--amber)}
+h2{font-family:'Bricolage Grotesque';font-weight:700;font-size:clamp(1.7rem,3.6vw,2.5rem);letter-spacing:-.01em}
+.sec-intro{color:var(--dim);max-width:62ch;margin-bottom:48px}
+
+/* ---------- ASSET PLATES ---------- */
+.assets{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:18px}
+.asset{
+  background:var(--panel);border:1px solid var(--line);
+  padding:28px 26px 24px;position:relative;
+  transition:border-color .25s, transform .25s;
+}
+.asset:hover{border-color:var(--amber);transform:translateY(-3px)}
+.asset-serial{
+  position:absolute;top:0;right:0;
+  font-family:'IBM Plex Mono';font-size:.66rem;letter-spacing:.16em;
+  color:var(--space);background:var(--amber);
+  padding:5px 12px;font-weight:500;
+}
+.asset h3{font-family:'Bricolage Grotesque';font-weight:700;font-size:1.3rem;margin-bottom:4px;padding-right:80px}
+.asset .role{font-family:'IBM Plex Mono';font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:16px}
+.asset p{font-size:.92rem;color:var(--dim);margin-bottom:20px;min-height:66px}
+.specs{border-top:1px solid var(--line)}
+.spec{display:flex;justify-content:space-between;gap:14px;padding:8px 0;border-bottom:1px solid var(--line);font-size:.78rem}
+.spec dt{font-family:'IBM Plex Mono';letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-size:.66rem;padding-top:2px}
+.spec dd{text-align:right;color:var(--star);font-weight:400}
+.spec dd.hl{color:var(--amber)}
+
+/* ---------- PROOF STRIP ---------- */
+.proof{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.proof div{background:var(--panel-2);padding:30px 24px}
+.proof .n{font-family:'Bricolage Grotesque';font-weight:800;font-size:2.4rem;color:var(--amber);line-height:1}
+.proof .l{font-family:'IBM Plex Mono';font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-top:10px}
+
+/* ---------- CAPABILITIES ---------- */
+.caps{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:40px}
+.cap h3{font-family:'IBM Plex Mono';font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.cap ul{list-style:none}
+.cap li{padding:6px 0;font-size:.92rem;color:var(--dim)}
+.cap li strong{color:var(--star);font-weight:500}
+
+/* ---------- ABOUT ---------- */
+.about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:60px;align-items:start}
+.about-grid p{color:var(--dim);margin-bottom:18px}
+.about-grid p strong{color:var(--star);font-weight:500}
+.fact{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-bottom:1px solid var(--line);font-size:.85rem}
+.fact span:first-child{font-family:'IBM Plex Mono';font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);padding-top:3px}
+@media(max-width:760px){.about-grid{grid-template-columns:1fr}}
+
+/* ---------- CONTACT ---------- */
+.contact{text-align:center;padding:110px 0}
+.contact h2{font-size:clamp(2rem,5vw,3.4rem);max-width:20ch;margin:0 auto 22px}
+.contact p{color:var(--dim);max-width:48ch;margin:0 auto 36px}
+footer{border-top:1px solid var(--line);padding:26px 0;font-family:'IBM Plex Mono';font-size:.68rem;letter-spacing:.14em;color:var(--dim);text-transform:uppercase}
+.foot-inner{max-width:var(--maxw);margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+/* reveal on scroll */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  .rv{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">FULL STACK <span>ASSETS</span></a>
+    <div class="nav-links">
+      <a href="#assets">Assets</a>
+      <a href="#capabilities">Capabilities</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <canvas id="sky" aria-hidden="true"></canvas>
+  <div class="wrap hero-content">
+    <div class="eyebrow">Nic Albertson · Fall River, Massachusetts</div>
+    <h1>I build software <em>assets</em> — products engineered to ship, earn, and sell.</h1>
+    <p class="hero-sub">Indie founder and full-stack engineer. <strong>Patent-pending AI orchestration</strong>, a catalog of <strong>20+ micro-SaaS products</strong>, and production systems across Python, TypeScript, React, and Next.js — all built solo, end to end.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-solid" href="#assets">View the asset index</a>
+      <a class="btn btn-ghost" href="https://github.com/Full-Stack-Assets" target="_blank" rel="noopener">GitHub →</a>
+    </div>
+  </div>
+  <div class="hero-coord">N 41.70° · W 71.15°<br>// EVERY STAR IS A SHIPPED PRODUCT</div>
+</header>
+
+<!-- ================= PROOF ================= -->
+<section style="border-top:none;padding-top:0">
+  <div class="wrap">
+    <div class="proof rv">
+      <div><div class="n">7</div><div class="l">Patent claims drafted</div></div>
+      <div><div class="n">39</div><div class="l">Passing tests, COO engine</div></div>
+      <div><div class="n">20+</div><div class="l">SaaS products built</div></div>
+      <div><div class="n">22</div><div class="l">Public repositories</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ASSETS ================= -->
+<section id="assets">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-tag">01 — Asset Index</span><h2>Featured work</h2></div>
+    <p class="sec-intro">Each asset is a complete, working system — designed, built, tested, and documented solo. Serial numbers are real: this is an inventory, not a mood board.</p>
+
+    <div class="assets">
+
+      <article class="asset rv">
+        <div class="asset-serial">FSA-001</div>
+        <h3>Constellation COO</h3>
+        <div class="role">AI Agent Orchestration · Flagship</div>
+        <p>Patent-pending Constraint-Optimized Orchestration for LLM agent lifecycles. Multi-dimensional fitness scoring routes, spawns, and retires agents against real cost, latency, and budget constraints.</p>
+        <dl class="specs">
+          <div class="spec"><dt>Stack</dt><dd>Python · pytest</dd></div>
+          <div class="spec"><dt>Scale</dt><dd>13 modules · 39 tests</dd></div>
+          <div class="spec"><dt>Benchmarks</dt><dd>+16.5% SLA · −41% load variance</dd></div>
+          <div class="spec"><dt>Status</dt><dd class="hl">Patent pending</dd></div>
+        </dl>
+      </article>
+
+      <article class="asset rv">
+        <div class="asset-serial">FSA-002</div>
+        <h3>TaskFlow</h3>
+        <div class="role">Autonomous Agent Framework</div>
+        <p>Three-phase AI agent — Plan, Execute, Verify — with markdown-backed persistent memory, a typed LangGraph orchestration graph, and full deployment documentation for Vercel, Docker, and VPS.</p>
+        <dl class="specs">
+          <div class="spec"><dt>Stack</dt><dd>Next.js 15 · React 19 · LangGraph</dd></div>
+          <div class="spec"><dt>Scale</dt><dd>30 files · 36K words of docs</dd></div>
+          <div class="spec"><dt>Status</dt><dd class="hl">Complete · Documented</dd></div>
+        </dl>
+      </article>
+
+      <article class="asset rv">
+        <div class="asset-serial">FSA-003</div>
+        <h3>Scanline</h3>
+        <div class="role">AI Photo Digitization</div>
+        <p>Phone-scan-to-searchable-library for physical photographs. Perspective correction, face clustering, duplicate detection by perceptual hash, full-text search, and AI vision tagging.</p>
+        <dl class="specs">
+          <div class="spec"><dt>Stack</dt><dd>React · OpenCV.js · face-api.js</dd></div>
+          <div class="spec"><dt>Scale</dt><dd>2,300+ line single-file build</dd></div>
+          <div class="spec"><dt>AI</dt><dd>Claude Vision wired end-to-end</dd></div>
+          <div class="spec"><dt>Status</dt><dd class="hl">MVP complete</dd></div>
+        </dl>
+      </article>
+
+      <article class="asset rv">
+        <div class="asset-serial">FSA-004</div>
+        <h3>HostGraph</h3>
+        <div class="role">Restaurant Procurement Intelligence</div>
+        <p>Margin-leak detection command center for restaurant groups: vendor analysis, reorder logic, shrinkage tracking, and alerting across six dashboard views. Clean TypeScript build, verified end to end.</p>
+        <dl class="specs">
+          <div class="spec"><dt>Stack</dt><dd>React 19 · Vite · Tailwind</dd></div>
+          <div class="spec"><dt>Scope</dt><dd>6 views · full margin engine</dd></div>
+          <div class="spec"><dt>Status</dt><dd class="hl">Demo-ready</dd></div>
+        </dl>
+      </article>
+
+      <article class="asset rv">
+        <div class="asset-serial">FSA-005</div>
+        <h3>StoreForge</h3>
+        <div class="role">Multi-Tenant Commerce Platform</div>
+        <p>AI dropshipping orchestrator: a six-stage spawn pipeline generates market research and brand identity via live LLM calls, backed by Prisma, Stripe webhooks, SSE streaming, and subdomain routing.</p>
+        <dl class="specs">
+          <div class="spec"><dt>Stack</dt><dd>Next.js · Prisma · Stripe</dd></div>
+          <div class="spec"><dt>Scope</dt><dd>Full backend + storefront</dd></div>
+          <div class="spec"><dt>Status</dt><dd class="hl">Acquisition asset</dd></div>
+        </dl>
+      </article>
+
+      <article class="asset rv">
+        <div class="asset-serial">FSA-006</div>
+        <h3>Autoblog Pipeline</h3>
+        <div class="role">Zero-Cost Content Automation</div>
+        <p>Fully automated publishing system: six source fetchers, composite scoring and dedup, LLM generation with schema-validated MDX, and GitHub-commit deploys to Cloudflare Pages. Runs for $0/month.</p>
+        <dl class="specs">
+          <div class="spec"><dt>Stack</dt><dd>Next.js · TinaCMS · Groq</dd></div>
+          <div class="spec"><dt>Sources</dt><dd>Reddit · HN · DEV · RSS · YT · Brave</dd></div>
+          <div class="spec"><dt>Status</dt><dd class="hl">Production pipeline</dd></div>
+        </dl>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= CAPABILITIES ================= -->
+<section id="capabilities">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-tag">02 — Capabilities</span><h2>What I work in</h2></div>
+    <div class="caps rv">
+      <div class="cap">
+        <h3>Languages &amp; Frameworks</h3>
+        <ul>
+          <li><strong>Python</strong> — engines, pipelines, pytest</li>
+          <li><strong>TypeScript / JavaScript</strong></li>
+          <li><strong>React 19 · Next.js 15</strong></li>
+          <li><strong>Tailwind · Vite</strong></li>
+        </ul>
+      </div>
+      <div class="cap">
+        <h3>AI &amp; Agents</h3>
+        <ul>
+          <li><strong>LLM orchestration</strong> — routing, lifecycle, cost control</li>
+          <li><strong>LangGraph</strong> agent workflows</li>
+          <li><strong>Anthropic &amp; OpenAI APIs</strong> in production</li>
+          <li><strong>Vision pipelines</strong> — OCR, tagging, clustering</li>
+        </ul>
+      </div>
+      <div class="cap">
+        <h3>Systems &amp; Infra</h3>
+        <ul>
+          <li><strong>Prisma · Stripe</strong> billing &amp; webhooks</li>
+          <li><strong>GitHub Actions</strong> CI/CD &amp; cron</li>
+          <li><strong>Vercel · Cloudflare</strong> deploys</li>
+          <li><strong>SSE streaming · OAuth2</strong></li>
+        </ul>
+      </div>
+      <div class="cap">
+        <h3>Beyond Code</h3>
+        <ul>
+          <li><strong>Patent prosecution</strong> — prior art, claims drafting</li>
+          <li><strong>Benchmarking</strong> with statistical rigor</li>
+          <li><strong>Technical writing</strong> — docs people can actually use</li>
+          <li><strong>Product strategy</strong> — build-to-revenue, build-to-sell</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-tag">03 — About</span><h2>The builder</h2></div>
+    <div class="about-grid rv">
+      <div>
+        <p>I'm <strong>Nic Albertson</strong> — a founder-engineer in Fall River, Massachusetts who treats software like real estate: find undervalued ground, build something solid on it, and make it produce.</p>
+        <p>My flagship work is <strong>Constellation COO</strong>, a patent-pending algorithm for managing fleets of AI agents against hard cost and latency constraints — drafted into seven claims, benchmarked with bootstrap confidence intervals, and implemented as a tested Python engine.</p>
+        <p>Around it sits a catalog of <strong>shipped products</strong>: agent frameworks, commerce platforms, automation pipelines, and vertical SaaS tools. I design, build, test, document, and position every one of them myself — from first commit to data room.</p>
+      </div>
+      <div>
+        <div class="fact"><span>Base</span><span>Fall River / Brockton, MA</span></div>
+        <div class="fact"><span>Education</span><span>A.S., AI &amp; Software Engineering (in progress)</span></div>
+        <div class="fact"><span>Focus</span><span>AI orchestration · Micro-SaaS</span></div>
+        <div class="fact"><span>Mode</span><span>Solo, end-to-end</span></div>
+        <div class="fact"><span>IP</span><span>1 provisional track · 7 claims</span></div>
+        <div class="fact"><span>GitHub</span><span>@Full-Stack-Assets</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact" class="contact">
+  <div class="wrap rv">
+    <div class="sec-tag" style="margin-bottom:18px">04 — Contact</div>
+    <h2>Looking to acquire, hire, or build something together?</h2>
+    <p>Every asset in the index is available for demo, licensing, or acquisition — and I'm open to the right engineering and partnership conversations.</p>
+    <div class="hero-ctas" style="justify-content:center">
+      <a class="btn btn-solid" href="mailto:hello@fullstackassets.com">hello@fullstackassets.com</a>
+      <a class="btn btn-ghost" href="https://github.com/Full-Stack-Assets" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <span>© 2026 Full Stack Assets · Nic Albertson</span>
+    <span>Built solo · Fall River, MA</span>
+  </div>
+</footer>
+
+<script>
+/* ---------- Constellation hero ---------- */
+(function(){
+  const canvas = document.getElementById('sky');
+  const ctx = canvas.getContext('2d');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let W,H,stars=[],named=[];
+
+  const ASSETS = ['CONSTELLATION','TASKFLOW','SCANLINE','HOSTGRAPH','STOREFORGE','AUTOBLOG'];
+
+  function resize(){
+    W = canvas.width = canvas.offsetWidth * devicePixelRatio;
+    H = canvas.height = canvas.offsetHeight * devicePixelRatio;
+    build();
+  }
+
+  function build(){
+    stars = [];
+    const count = Math.floor((W*H)/26000);
+    for(let i=0;i<count;i++){
+      stars.push({
+        x:Math.random()*W, y:Math.random()*H,
+        r:(Math.random()*1.1+.3)*devicePixelRatio,
+        a:Math.random()*.5+.15,
+        tw:Math.random()*Math.PI*2,
+        sp:Math.random()*.015+.004
+      });
+    }
+    // named stars: the products, placed in the right 55% of the sky
+    named = ASSETS.map((name,i)=>{
+      const fx = .48 + (i%3)*.2 + Math.random()*.06;
+      const fy = .18 + Math.floor(i/3)*.34 + Math.random()*.1;
+      return {name, x:fx*W, y:fy*H, r:2.6*devicePixelRatio, tw:Math.random()*Math.PI*2};
+    });
+  }
+
+  function draw(t){
+    ctx.clearRect(0,0,W,H);
+    // background stars
+    for(const s of stars){
+      if(!reduced) s.tw += s.sp;
+      ctx.globalAlpha = s.a + Math.sin(s.tw)*.15;
+      ctx.fillStyle = '#E9EDF5';
+      ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fill();
+    }
+    // constellation lines
+    ctx.globalAlpha = .35;
+    ctx.strokeStyle = '#62B6CB';
+    ctx.lineWidth = .7*devicePixelRatio;
+    ctx.beginPath();
+    for(let i=0;i<named.length-1;i++){
+      ctx.moveTo(named[i].x,named[i].y);
+      ctx.lineTo(named[i+1].x,named[i+1].y);
+    }
+    ctx.stroke();
+    // named stars + labels
+    const fs = 10*devicePixelRatio;
+    ctx.font = `500 ${fs}px "IBM Plex Mono", monospace`;
+    for(const n of named){
+      if(!reduced) n.tw += .02;
+      const glow = 1 + Math.sin(n.tw)*.25;
+      ctx.globalAlpha = .9;
+      ctx.fillStyle = '#F2A93B';
+      ctx.beginPath(); ctx.arc(n.x,n.y,n.r*glow,0,Math.PI*2); ctx.fill();
+      ctx.globalAlpha = .55;
+      ctx.fillStyle = '#8C99B0';
+      ctx.fillText(n.name, n.x + 10*devicePixelRatio, n.y + 4*devicePixelRatio);
+    }
+    ctx.globalAlpha = 1;
+    if(!reduced) requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  draw();
+})();
+
+/* ---------- scroll reveal ---------- */
+const io = new IntersectionObserver(es=>{
+  es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+},{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
