@@ -445,5 +445,12 @@ const io = new IntersectionObserver(es=>{
 },{threshold:.12});
 document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 </script>
+
+<!-- Vercel Web Analytics -->
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
 </body>
 </html>

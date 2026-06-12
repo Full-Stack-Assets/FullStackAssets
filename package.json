@@ -1,0 +1,14 @@
+{
+  "name": "fullstackassets",
+  "version": "1.0.0",
+  "description": "Full Stack Assets - Portfolio and Asset Index",
+  "private": true,
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'Static HTML - no build needed'",
+    "lint": "echo 'No linting configured'"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^1.1.1"
+  }
+}
