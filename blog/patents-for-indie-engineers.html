@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why I Patent My Own Algorithms as a Solo Engineer | Full Stack Assets</title>
+<meta name="description" content="Filing a provisional patent felt like overkill for an indie engineer — until I understood what it actually protects, what it costs, and why it matters for building acquisition-ready software assets.">
+<meta name="author" content="Nic Albertson">
+<link rel="canonical" href="https://fullstackassets.com/blog/patents-for-indie-engineers.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Full Stack Assets">
+<meta property="og:title" content="Why I Patent My Own Algorithms as a Solo Engineer">
+<meta property="og:description" content="Filing a provisional patent felt like overkill for an indie engineer — until I understood what it actually protects, what it costs, and why it matters for building acquisition-ready software assets.">
+<meta property="og:url" content="https://fullstackassets.com/blog/patents-for-indie-engineers.html">
+<meta property="og:image" content="https://fullstackassets.com/assets/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Why I Patent My Own Algorithms as a Solo Engineer">
+<meta name="twitter:description" content="Filing a provisional patent felt like overkill for an indie engineer — until I understood what it actually protects, what it costs, and why it matters for building acquisition-ready software assets.">
+<meta name="twitter:image" content="https://fullstackassets.com/assets/og-card.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B1426'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23F2A93B'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,700;12..96,800&family=Public+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Why I Patent My Own Algorithms as a Solo Engineer",
+  "description": "Filing a provisional patent felt like overkill for an indie engineer — until I understood what it actually protects, what it costs, and why it matters for building acquisition-ready software assets.",
+  "author": {"@type": "Person", "name": "Nic Albertson", "url": "https://fullstackassets.com/"},
+  "publisher": {"@type": "Person", "name": "Nic Albertson"},
+  "mainEntityOfPage": "https://fullstackassets.com/blog/patents-for-indie-engineers.html",
+  "datePublished": "2026-06-28",
+  "dateModified": "2026-07-03"
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">FULL STACK <span>ASSETS</span></a>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <div class="nav-links">
+      <a href="/#assets">Case Studies</a>
+      <a href="/#capabilities">Capabilities</a>
+      <a href="/#process">Process</a>
+      <a href="/#about">About</a>
+      <a href="/blog/" class="active">Insights</a>
+      <a href="/#contact" class="nav-cta">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+<div class="page-hero">
+  <div class="wrap">
+    <div class="breadcrumbs"><a href="/">Home</a><span class="sep">/</span><a href="/blog/">Insights</a><span class="sep">/</span><span>Why I Patent My Own Algorithms</span></div>
+    <div class="eyebrow">IP Strategy</div>
+    <h1>Why I patent my own algorithms as a solo engineer</h1>
+    <p class="lede">Patents felt like something big companies do with legal departments and litigation budgets, not something a one-person shop in Fall River files on a Tuesday. Then I actually looked into what a patent protects, and the instinct stopped making sense.</p>
+    <dl class="meta-row">
+      <div class="meta-item"><dt>Published</dt><dd>June 28, 2026</dd></div>
+      <div class="meta-item"><dt>Read time</dt><dd>6 min</dd></div>
+      <div class="meta-item"><dt>Category</dt><dd class="hl">Strategy</dd></div>
+      <div class="meta-item"><dt>Author</dt><dd>Nic Albertson</dd></div>
+    </dl>
+  </div>
+</div>
+
+<section style="padding-top:64px">
+  <div class="wrap">
+    <div class="article-layout">
+      <div class="prose">
+
+        <p>Earlier this year I filed a provisional patent application with seven claims covering <a href="/case-studies/constellation-coo.html">Constellation COO</a>, the constraint-optimized orchestration algorithm I built for scheduling fleets of LLM agents against cost, latency, and concurrency budgets. I'm a solo engineer working toward an A.S. in AI &amp; Software Engineering, filing from a home office, with no in-house counsel and no legal budget line item. If you'd told me a year earlier that I'd do this, I'd have assumed I misunderstood something — patents are for companies with portfolios and defense strategies, not for a guy shipping micro-SaaS products between client work.</p>
+
+        <p>That instinct is common among indie builders, and it's wrong in a specific, fixable way. It comes from conflating what a patent is <em>for</em> with what most people assume it does. This is the version of that correction, and the reasoning that got me from "this is overkill" to "this is the one piece of IP in my catalog that actually warrants it."</p>
+
+        <h2 id="what-a-patent-protects">What a patent actually protects, versus what people assume</h2>
+        <p>The assumption I started with was that a patent mainly exists so you can sue someone. That's the Hollywood version — the aggressive-litigant caricature — and it's not wrong exactly, but it's incomplete enough to be misleading. A patent is a government-granted, time-limited right to exclude others from practicing a claimed invention. What it protects is narrower and more specific than "my idea": it protects the particular, novel <em>method</em> you've claimed, not the general problem space, not the product built around it, and not the fact that you thought of something first if someone else can show they got there independently through a materially different technique.</p>
+        <p>That narrowness is the part most solo engineers underweight. It means a patent doesn't protect "an AI scheduling system" — it protects specific claimed mechanics, like a particular multi-dimensional fitness function or a particular hysteresis behavior for retiring degraded capacity. Most of what any of us build day to day doesn't rise to that level of novelty, and shouldn't be forced into a patent filing. But when something genuinely does, the protection is real, and it's not gated behind having a company or a legal team — an individual inventor can file exactly the same application a corporation can.</p>
+
+        <h2 id="provisional-mechanics">The mechanics of a provisional, specifically</h2>
+        <p>The filing I made was a <strong>provisional</strong> application, not a full utility patent, and that distinction is most of why this was tractable for a solo builder in the first place. A provisional doesn't require formal claims to be examined or granted — it establishes a priority date, documents the invention in enough detail to support a later filing, and buys twelve months to decide whether converting to a full non-provisional utility application is worth doing. It has a materially lower bar and a materially lower cost than the full application, both in preparation effort and in filing fees, which is precisely why it exists: to let an inventor lock in a filing date before a product, an investor conversation, or a publication forces the timeline.</p>
+        <p>I still wrote seven claims into it, covering the fitness-scoring approach, the spawn/retire hysteresis mechanism, and the constraint-aware deferral behavior — not because a provisional strictly requires claim-level precision, but because writing them forced the kind of rigor that makes the eventual non-provisional filing (if I convert) faster and stronger. A provisional filed vaguely is a weaker placeholder than one filed with real specificity.</p>
+        <div class="callout"><strong>Not legal advice.</strong> I'm an engineer describing my own experience and general understanding of how provisional filings work, not a patent attorney giving you guidance on yours. Costs, timelines, and strategy vary by jurisdiction, technology area, and the specifics of what you're claiming — provisional filings are generally understood to run in the low thousands of dollars in typical self-prepared or lightly-assisted cases, but that is not a quote, an estimate for your situation, or a substitute for talking to a registered patent attorney before you file anything.</div>
+
+        <h2 id="novel-not-clever">"Clever implementation" versus "novel method" — and how I told them apart</h2>
+        <p>The hardest and most useful part of this process wasn't the paperwork. It was figuring out, honestly, which bucket Constellation COO's core mechanism actually belonged in. Most clever code is not patentable, and treating it as if it were would be a waste of money and a category error. A well-written retry loop, a nice caching layer, a clean API design — these are good engineering, but they're implementations of well-known techniques applied competently. Novelty, for patent purposes, means a new method for solving a class of problem, not a nice way of solving an old one.</p>
+        <p>What made me think the fitness-scoring plus hysteresis approach might be different is described in more depth in <a href="/blog/constraint-optimized-orchestration.html">the orchestration piece itself</a>, but the short version is that it wasn't just "an implementation of load balancing" — it was a specific method for scoring agent fitness across multiple weighted, non-linear dimensions simultaneously, combined with an asymmetric hysteresis mechanism for retiring and re-admitting agents that I hadn't found described elsewhere in comparable form. I'm not a patent attorney and didn't pretend to do attorney-grade prior-art research. But before deciding this was even worth a provisional filing, I did the rudimentary version any engineer can do: searched existing patents and patent applications in adjacent classifications, read published papers on multi-agent scheduling and load balancing, and looked at how existing orchestration frameworks described their own routing logic. That search didn't turn up the same combination of mechanisms. It's not proof of novelty — only a formal prior-art search and examination can establish that — but it was enough evidence to justify the modest cost of a provisional over just publishing a blog post and moving on.</p>
+        <p>That self-directed research step is the one I'd tell other solo engineers not to skip, regardless of what they decide to file. It's cheap, it's fast, and it's usually enough to tell you whether you're looking at a clever implementation of something known, or a genuinely new method — before you spend money finding out the hard way.</p>
+
+        <h2 id="credibility-signal">What it actually changes for a solo builder selling software</h2>
+        <p>The instinct that patents are mainly defensive — insurance against getting sued or copied — undersells the more immediate value for someone in my position. Full Stack Assets exists to build software assets meant to be acquired, licensed, or sold outright, not just operated indefinitely. In that context, a filed patent does something a defensive read misses entirely: it's a credibility and diligence signal in the conversation itself.</p>
+        <p>When a buyer or licensor is evaluating whether a piece of technology is a defensible asset or just a well-executed feature, "the core method is documented and has a filed priority date" answers a question that otherwise gets asked skeptically in diligence — is there anything here that couldn't be rebuilt by a competent team in a month? A provisional filing doesn't answer that question definitively (grant isn't guaranteed, and I address that honestly below), but it demonstrates that the inventor took the novelty question seriously enough to formalize it, which is exactly the kind of signal that shortens diligence conversations rather than lengthening them.</p>
+
+        <h2 id="honest-caveats">The honest caveats</h2>
+        <p>I don't want to oversell this, because overselling it is exactly the mistake I'm warning other solo engineers away from. Patents are not free, even at the provisional stage. They are not fast — a provisional buys time, it doesn't grant rights on its own, and converting to a full utility application is a longer and more expensive process with no guarantee of allowance at the end. Filing does not mean granted, and granted eventually does not mean enforceable against every possible design-around.</p>
+        <p>Just as importantly, a patent is the wrong tool for almost everything else in my catalog. Most of what I build — the twenty-plus micro-SaaS products, the client integrations, the day-to-day feature work — is good engineering, not novel invention, and forcing patent filings onto that work would be a waste of time and money that better belongs in shipping. This was a deliberate, selective call made about one specific piece of IP that cleared a real novelty bar after honest self-assessment and rudimentary prior-art research — not a blanket strategy I now apply to everything I write. Knowing the difference between the two is, I think, the actual skill here.</p>
+
+        <div class="byline">
+          <div class="avatar">NA</div>
+          <div>
+            <div class="name">Nic Albertson</div>
+            <div class="role">Sole engineer &amp; inventor · Fall River, MA</div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="toc">
+        <div class="toc-label">On this page</div>
+        <ol>
+          <li><a href="#what-a-patent-protects">What a patent protects</a></li>
+          <li><a href="#provisional-mechanics">Provisional mechanics</a></li>
+          <li><a href="#novel-not-clever">Clever vs. novel</a></li>
+          <li><a href="#credibility-signal">A credibility signal</a></li>
+          <li><a href="#honest-caveats">The honest caveats</a></li>
+        </ol>
+        <div class="share-box">
+          <div class="toc-label">Share</div>
+          <div class="share-row">
+            <button class="share-btn" data-share="x">Share on X</button>
+            <button class="share-btn" data-share="linkedin">LinkedIn</button>
+            <button class="share-btn" data-share="copy">Copy link</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-tag">More Insights</span><h2>Keep reading</h2></div>
+    <div class="related">
+      <a class="post-card" href="/blog/constraint-optimized-orchestration.html">
+        <div class="post-tag">AI Orchestration</div>
+        <h3>Constraint-Optimized Orchestration: Rethinking How Agent Fleets Get Scheduled</h3>
+        <p>Why fitness-scoring beats round-robin and greedy-cheapest routing for LLM agent fleets.</p>
+      </a>
+      <a class="post-card" href="/blog/shipping-20-microsaas-solo.html">
+        <div class="post-tag">Product</div>
+        <h3>Shipping 20+ Micro-SaaS Products Solo: A Playbook</h3>
+        <p>The repeatable loop that makes a one-person product catalog possible without burning out.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="contact">
+  <div class="wrap">
+    <div class="sec-tag" style="margin-bottom:18px">Contact</div>
+    <h2>Building something similar and want a second opinion?</h2>
+    <p>Happy to talk through orchestration design, benchmarking methodology, or the Constellation COO engine itself.</p>
+    <div class="hero-ctas" style="justify-content:center">
+      <a class="btn btn-solid" href="mailto:hello@fullstackassets.com">hello@fullstackassets.com</a>
+      <a class="btn btn-ghost" href="/blog/">All insights</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <a href="/" class="logo">FULL STACK <span>ASSETS</span></a>
+        <p style="color:var(--dim);font-size:.85rem;margin-top:14px;max-width:32ch">Nic Albertson builds and documents revenue-ready software assets, solo, from Fall River, Massachusetts.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Case Studies</h4>
+        <a href="/case-studies/constellation-coo.html">Constellation COO</a>
+        <a href="/case-studies/taskflow.html">TaskFlow</a>
+        <a href="/case-studies/storeforge.html">StoreForge</a>
+        <a href="/case-studies/">View all →</a>
+      </div>
+      <div class="foot-col">
+        <h4>Insights</h4>
+        <a href="/blog/constraint-optimized-orchestration.html">Orchestration Design</a>
+        <a href="/blog/patents-for-indie-engineers.html">Patent Strategy</a>
+        <a href="/blog/shipping-20-microsaas-solo.html">Micro-SaaS Playbook</a>
+        <a href="/blog/">View all →</a>
+      </div>
+      <div class="foot-col">
+        <h4>Connect</h4>
+        <a href="/#about">About</a>
+        <a href="mailto:hello@fullstackassets.com">hello@fullstackassets.com</a>
+        <a href="https://github.com/Full-Stack-Assets" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Full Stack Assets · Nic Albertson</span>
+      <span>Built solo · Fall River, MA</span>
+    </div>
+  </div>
+</footer>
+<button class="totop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<script src="/assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StoreForge — Multi-Tenant AI Commerce Platform | Full Stack Assets</title>
+<meta name="description" content="Inside the six-stage spawn pipeline that generates market research, brand identity, and a live multi-tenant storefront via real LLM calls.">
+<meta name="author" content="Nic Albertson">
+<link rel="canonical" href="https://fullstackassets.com/case-studies/storeforge.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Full Stack Assets">
+<meta property="og:title" content="StoreForge — Multi-Tenant AI Commerce Platform">
+<meta property="og:description" content="Inside the six-stage spawn pipeline that generates market research, brand identity, and a live multi-tenant storefront via real LLM calls.">
+<meta property="og:url" content="https://fullstackassets.com/case-studies/storeforge.html">
+<meta property="og:image" content="https://fullstackassets.com/assets/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="StoreForge — Multi-Tenant AI Commerce Platform">
+<meta name="twitter:description" content="Inside the six-stage spawn pipeline that generates market research, brand identity, and a live multi-tenant storefront via real LLM calls.">
+<meta name="twitter:image" content="https://fullstackassets.com/assets/og-card.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B1426'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23F2A93B'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,700;12..96,800&family=Public+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "StoreForge: Multi-Tenant AI Commerce Platform",
+  "description": "Inside the six-stage spawn pipeline that generates market research, brand identity, and a live multi-tenant storefront via real LLM calls.",
+  "author": {"@type": "Person", "name": "Nic Albertson", "url": "https://fullstackassets.com/"},
+  "publisher": {"@type": "Person", "name": "Nic Albertson"},
+  "mainEntityOfPage": "https://fullstackassets.com/case-studies/storeforge.html",
+  "datePublished": "2026-06-18",
+  "dateModified": "2026-07-03"
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">FULL STACK <span>ASSETS</span></a>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <div class="nav-links">
+      <a href="/#assets" class="active">Case Studies</a>
+      <a href="/#capabilities">Capabilities</a>
+      <a href="/#process">Process</a>
+      <a href="/#about">About</a>
+      <a href="/blog/">Insights</a>
+      <a href="/#contact" class="nav-cta">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+<div class="page-hero">
+  <div class="wrap">
+    <div class="breadcrumbs">
+      <a href="/">Home</a><span class="sep">/</span><a href="/case-studies/">Case Studies</a><span class="sep">/</span><span>StoreForge</span>
+    </div>
+    <div class="eyebrow">FSA-005 · Multi-Tenant Commerce Platform</div>
+    <h1>StoreForge: turning a market idea into a live storefront through a six-stage AI spawn pipeline</h1>
+    <p class="lede">An AI dropshipping orchestrator: a six-stage spawn pipeline generates market research and brand identity via live LLM calls, backed by Prisma, Stripe webhooks, SSE streaming, and subdomain routing.</p>
+    <dl class="meta-row">
+      <div class="meta-item"><dt>Stack</dt><dd>Next.js · Prisma · Stripe</dd></div>
+      <div class="meta-item"><dt>Scope</dt><dd>Full backend + storefront</dd></div>
+      <div class="meta-item"><dt>Pipeline</dt><dd>6-stage spawn, live LLM calls</dd></div>
+      <div class="meta-item"><dt>Status</dt><dd class="hl">Acquisition asset</dd></div>
+    </dl>
+  </div>
+</div>
+
+<section style="padding-top:64px">
+  <div class="wrap">
+    <div class="article-layout">
+      <div class="prose">
+
+        <p>StoreForge is a multi-tenant commerce platform built to remove the slowest, most repeatable part of launching a dropshipping storefront: the days of manual market research, brand naming, and store setup that happen before a single product ever goes live. Instead of generating a mockup, StoreForge's spawn pipeline produces a real, running store on a real platform — with its own tenant record, its own payment wiring, and its own address.</p>
+
+        <h2 id="problem">The problem</h2>
+        <p>Spinning up a new dropshipping storefront is repetitive in a specific way: pick a niche, research whether it's viable, come up with a brand name and positioning, and then wire up a store around all of that. None of those steps are conceptually hard on their own, but doing them well, in sequence, for every new niche idea, is slow — and most of that work is repeatable enough to automate.</p>
+        <p>The harder problem is making that automation <strong>actually reliable end to end</strong>. It's easy to build a demo that produces a plausible-looking brand name for one perfect input prompt. It's much harder to build a pipeline that takes an arbitrary market or niche idea, survives a bad or ambiguous input at an early stage, and still lands on a working, payable storefront rather than stalling out silently partway through.</p>
+
+        <h2 id="approach">The approach</h2>
+        <p>StoreForge's core is a <strong>six-stage spawn pipeline</strong>. It takes a market or niche idea as input and, through live LLM calls at each stage, produces market research, a brand identity — name, positioning, visual direction — and a working storefront. Each stage's output becomes the next stage's input, so the pipeline is a chain, not six independent calls fired in parallel:</p>
+        <ul>
+          <li><strong>Market research</strong> is generated first, grounded in the raw niche input</li>
+          <li><strong>Brand identity</strong> — name, positioning, visual direction — is generated <em>from</em> that market research, not independently of it</li>
+          <li><strong>Storefront assembly</strong> and payment wiring are generated from the brand identity, so the store that comes out the other end is internally consistent with the research that justified it</li>
+        </ul>
+        <p>That sequencing is deliberate. If the market-research stage produces a weak result, it's visible in the pipeline's live output before the system commits real effort to naming and designing a brand around it — rather than that weakness only surfacing once a storefront is already live.</p>
+        <p>Just as important: the pipeline lands on a real multi-tenant platform, not a static mockup or a one-off generated repo. The output of a spawn is a store that can actually take a payment.</p>
+
+        <h2 id="architecture">Architecture</h2>
+        <p>StoreForge is full backend plus storefront, not a code generator that hands off a template. Four pieces do the load-bearing work:</p>
+        <div class="callout"><strong>Design principle:</strong> every spawned store is a first-class tenant on one platform — not a forked codebase or a separate deployment — which is what makes the spawn pipeline something that can run repeatedly instead of something that has to be re-architected per store.</div>
+        <p><strong>Prisma</strong> is the data layer supporting many independent stores inside a single platform, giving each tenant its own products, orders, and configuration without duplicating infrastructure per store. <strong>Stripe webhooks</strong> handle real payment and subscription events per tenant, so billing state is driven by Stripe's own event stream rather than polled or assumed. <strong>Server-Sent Events (SSE)</strong> stream the spawn pipeline's progress live to the operator as each of the six stages completes, instead of leaving the operator staring at a spinner while LLM calls run in sequence. <strong>Subdomain routing</strong> gives each spawned store its own address on the platform the moment the pipeline finishes, so "go-live" means the store is actually reachable, not just recorded as done in a database.</p>
+
+        <h2 id="results">Results</h2>
+        <p>StoreForge is measured on what it reliably ships, not on store count or GMV projections — as an acquisition asset, the platform mechanics themselves are the product.</p>
+        <div class="results">
+          <div><div class="n">6</div><div class="l">Spawn pipeline stages</div></div>
+          <div><div class="n">1</div><div class="l">Multi-tenant platform</div></div>
+          <div><div class="n">3</div><div class="l">Core integrations — Prisma, Stripe, SSE</div></div>
+        </div>
+
+        <figure class="chart-block">
+          <div class="chart-title">The six-stage spawn pipeline</div>
+          <svg viewBox="0 0 700 190" role="img" aria-label="Horizontal process diagram of the six-stage spawn pipeline: Stage 1 Input, Stage 2 Market Research, Stage 3 Brand Identity, Stage 4 Storefront Assembly, Stage 5 Payments Wiring, Stage 6 Go-Live.">
+            <rect x="0" y="70" width="104" height="60" fill="#F2A93B"/>
+            <text x="52" y="60" font-size="12" font-weight="500" text-anchor="middle" fill="#F2A93B">1</text>
+            <text x="52" y="150" font-size="12" text-anchor="middle" fill="#0B1426">Input</text>
+
+            <polygon points="108,92 122,100 108,108" fill="#4A5570"/>
+
+            <rect x="126" y="70" width="104" height="60" fill="#62B6CB"/>
+            <text x="178" y="60" font-size="12" font-weight="500" text-anchor="middle" fill="#62B6CB">2</text>
+            <text x="178" y="145" font-size="11" text-anchor="middle" fill="#0B1426">Market</text>
+            <text x="178" y="159" font-size="11" text-anchor="middle" fill="#0B1426">Research</text>
+
+            <polygon points="234,92 248,100 234,108" fill="#4A5570"/>
+
+            <rect x="252" y="70" width="104" height="60" fill="#F2A93B"/>
+            <text x="304" y="60" font-size="12" font-weight="500" text-anchor="middle" fill="#F2A93B">3</text>
+            <text x="304" y="145" font-size="11" text-anchor="middle" fill="#0B1426">Brand</text>
+            <text x="304" y="159" font-size="11" text-anchor="middle" fill="#0B1426">Identity</text>
+
+            <polygon points="360,92 374,100 360,108" fill="#4A5570"/>
+
+            <rect x="378" y="70" width="104" height="60" fill="#62B6CB"/>
+            <text x="430" y="60" font-size="12" font-weight="500" text-anchor="middle" fill="#62B6CB">4</text>
+            <text x="430" y="145" font-size="11" text-anchor="middle" fill="#0B1426">Storefront</text>
+            <text x="430" y="159" font-size="11" text-anchor="middle" fill="#0B1426">Assembly</text>
+
+            <polygon points="486,92 500,100 486,108" fill="#4A5570"/>
+
+            <rect x="504" y="70" width="104" height="60" fill="#F2A93B"/>
+            <text x="556" y="60" font-size="12" font-weight="500" text-anchor="middle" fill="#F2A93B">5</text>
+            <text x="556" y="145" font-size="11" text-anchor="middle" fill="#0B1426">Payments</text>
+            <text x="556" y="159" font-size="11" text-anchor="middle" fill="#0B1426">Wiring</text>
+
+            <polygon points="612,92 626,100 612,108" fill="#4A5570"/>
+
+            <rect x="630" y="70" width="70" height="60" fill="#62B6CB"/>
+            <text x="665" y="60" font-size="12" font-weight="500" text-anchor="middle" fill="#62B6CB">6</text>
+            <text x="665" y="150" font-size="11" text-anchor="middle" fill="#0B1426">Go-Live</text>
+          </svg>
+          <figcaption>Each stage's live LLM output feeds the next stage's input — from a raw market/niche idea to a reachable, payable multi-tenant storefront.</figcaption>
+        </figure>
+
+        <p>The pipeline's reliability comes from that chaining, not from any single stage being clever in isolation: a weak market-research output is visible in stage two, well before the platform has committed a brand identity, a subdomain, and Stripe wiring to it.</p>
+
+        <h2 id="lessons">Lessons learned</h2>
+        <p>The SSE streaming layer ended up mattering as much as the pipeline logic itself. A six-stage pipeline making live LLM calls at every stage can take real wall-clock time to run — and without visible progress, an operator watching a spawn in progress has no way to tell "still working" from "silently stuck." Streaming each stage's completion the moment it happens turned an opaque, anxiety-inducing wait into a legible process the operator can actually watch and trust. Building that feedback loop wasn't an afterthought bolted on for polish — it was what made a multi-stage LLM pipeline feel like a reliable piece of infrastructure instead of a black box.</p>
+
+        <div class="byline">
+          <div class="avatar">NA</div>
+          <div>
+            <div class="name">Nic Albertson</div>
+            <div class="role">Sole engineer &amp; inventor · Fall River, MA</div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="toc">
+        <div class="toc-label">On this page</div>
+        <ol>
+          <li><a href="#problem">The problem</a></li>
+          <li><a href="#approach">The approach</a></li>
+          <li><a href="#architecture">Architecture</a></li>
+          <li><a href="#results">Results</a></li>
+          <li><a href="#lessons">Lessons learned</a></li>
+        </ol>
+        <div class="share-box">
+          <div class="toc-label">Share</div>
+          <div class="share-row">
+            <button class="share-btn" data-share="x">Share on X</button>
+            <button class="share-btn" data-share="linkedin">LinkedIn</button>
+            <button class="share-btn" data-share="copy">Copy link</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-tag">More Assets</span><h2>Related case studies</h2></div>
+    <div class="related">
+      <a class="post-card" href="/case-studies/hostgraph.html">
+        <div class="post-tag">FSA-004 · Analytics Platforms</div>
+        <h3>HostGraph</h3>
+        <p>Margin-leak detection command center for restaurant groups across six dashboard views.</p>
+      </a>
+      <a class="post-card" href="/case-studies/autoblog-pipeline.html">
+        <div class="post-tag">FSA-006 · Automation</div>
+        <h3>Autoblog Pipeline</h3>
+        <p>A fully automated publishing system running for $0/month across six content sources.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="contact">
+  <div class="wrap">
+    <div class="sec-tag" style="margin-bottom:18px">Contact</div>
+    <h2>Interested in licensing or acquiring StoreForge?</h2>
+    <p>The full platform, spawn pipeline, and tenant architecture are available for technical review.</p>
+    <div class="hero-ctas" style="justify-content:center">
+      <a class="btn btn-solid" href="mailto:hello@fullstackassets.com">hello@fullstackassets.com</a>
+      <a class="btn btn-ghost" href="/case-studies/">All case studies</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <a href="/" class="logo">FULL STACK <span>ASSETS</span></a>
+        <p style="color:var(--dim);font-size:.85rem;margin-top:14px;max-width:32ch">Nic Albertson builds and documents revenue-ready software assets, solo, from Fall River, Massachusetts.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Case Studies</h4>
+        <a href="/case-studies/constellation-coo.html">Constellation COO</a>
+        <a href="/case-studies/taskflow.html">TaskFlow</a>
+        <a href="/case-studies/storeforge.html">StoreForge</a>
+        <a href="/case-studies/">View all →</a>
+      </div>
+      <div class="foot-col">
+        <h4>Insights</h4>
+        <a href="/blog/constraint-optimized-orchestration.html">Orchestration Design</a>
+        <a href="/blog/patents-for-indie-engineers.html">Patent Strategy</a>
+        <a href="/blog/shipping-20-microsaas-solo.html">Micro-SaaS Playbook</a>
+        <a href="/blog/">View all →</a>
+      </div>
+      <div class="foot-col">
+        <h4>Connect</h4>
+        <a href="/#about">About</a>
+        <a href="mailto:hello@fullstackassets.com">hello@fullstackassets.com</a>
+        <a href="https://github.com/Full-Stack-Assets" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Full Stack Assets · Nic Albertson</span>
+      <span>Built solo · Fall River, MA</span>
+    </div>
+  </div>
+</footer>
+<button class="totop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<script src="/assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Constraint-Optimized Orchestration: Rethinking How Agent Fleets Get Scheduled | Full Stack Assets</title>
+<meta name="description" content="Why fitness-scoring beats round-robin and greedy-cheapest routing once an LLM agent fleet has to respect real cost, latency, and concurrency budgets — and what actually moved the needle when I benchmarked it.">
+<meta name="author" content="Nic Albertson">
+<link rel="canonical" href="https://fullstackassets.com/blog/constraint-optimized-orchestration.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Full Stack Assets">
+<meta property="og:title" content="Constraint-Optimized Orchestration: Rethinking How Agent Fleets Get Scheduled">
+<meta property="og:description" content="Why fitness-scoring beats round-robin and greedy-cheapest routing once an LLM agent fleet has real cost, latency, and concurrency budgets to respect.">
+<meta property="og:url" content="https://fullstackassets.com/blog/constraint-optimized-orchestration.html">
+<meta property="og:image" content="https://fullstackassets.com/assets/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Constraint-Optimized Orchestration: Rethinking How Agent Fleets Get Scheduled">
+<meta name="twitter:description" content="Why fitness-scoring beats round-robin and greedy-cheapest routing once an LLM agent fleet has real cost, latency, and concurrency budgets to respect.">
+<meta name="twitter:image" content="https://fullstackassets.com/assets/og-card.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B1426'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23F2A93B'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,700;12..96,800&family=Public+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Constraint-Optimized Orchestration: Rethinking How Agent Fleets Get Scheduled",
+  "description": "Why fitness-scoring beats round-robin and greedy-cheapest routing once an LLM agent fleet has real cost, latency, and concurrency budgets to respect.",
+  "author": {"@type": "Person", "name": "Nic Albertson", "url": "https://fullstackassets.com/"},
+  "publisher": {"@type": "Person", "name": "Nic Albertson"},
+  "mainEntityOfPage": "https://fullstackassets.com/blog/constraint-optimized-orchestration.html",
+  "datePublished": "2026-06-25",
+  "dateModified": "2026-07-03"
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">FULL STACK <span>ASSETS</span></a>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <div class="nav-links">
+      <a href="/#assets">Case Studies</a>
+      <a href="/#capabilities">Capabilities</a>
+      <a href="/#process">Process</a>
+      <a href="/#about">About</a>
+      <a href="/blog/" class="active">Insights</a>
+      <a href="/#contact" class="nav-cta">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+<div class="page-hero">
+  <div class="wrap">
+    <div class="breadcrumbs"><a href="/">Home</a><span class="sep">/</span><a href="/blog/">Insights</a><span class="sep">/</span><span>Constraint-Optimized Orchestration</span></div>
+    <div class="eyebrow">AI Orchestration</div>
+    <h1>Constraint-optimized orchestration: rethinking how agent fleets get scheduled</h1>
+    <p class="lede">Most multi-agent systems route work with round-robin or greedy-cheapest selection. Both work fine in a demo. Both quietly fall apart under real load — and the fix isn't a bigger model, it's a better scheduler.</p>
+    <dl class="meta-row">
+      <div class="meta-item"><dt>Published</dt><dd>June 25, 2026</dd></div>
+      <div class="meta-item"><dt>Read time</dt><dd>8 min</dd></div>
+      <div class="meta-item"><dt>Category</dt><dd class="hl">Engineering</dd></div>
+      <div class="meta-item"><dt>Author</dt><dd>Nic Albertson</dd></div>
+    </dl>
+  </div>
+</div>
+
+<section style="padding-top:64px">
+  <div class="wrap">
+    <div class="article-layout">
+      <div class="prose">
+
+        <p>I built <a href="/case-studies/constellation-coo.html">Constellation COO</a> because I kept watching the same failure pattern in agent frameworks — mine included. It never shows up as a crash. It shows up as a system that technically works, is technically "up," and is quietly getting worse at its job in a way no dashboard is built to catch. This is the version of that story worth generalizing, for anyone building or operating a fleet of LLM agents.</p>
+
+        <h2 id="two-schedulers">The two schedulers everyone starts with</h2>
+        <p>If you've built more than one agent and needed to route work between them, you've probably reached for one of two defaults:</p>
+        <ul>
+          <li><strong>Round-robin</strong> — send the next task to the next agent in line, cycling evenly. Simple, fair, and completely blind to the fact that "fair" and "efficient" are different goals.</li>
+          <li><strong>Greedy-cheapest</strong> — send every task to whichever agent (or model) is cheapest per call. Great for the invoice, terrible for latency, because cheap agents get hammered while expensive ones idle.</li>
+        </ul>
+        <p>Both are <em>schedulers with one dimension</em>. Round-robin optimizes for even distribution. Greedy-cheapest optimizes for cost. Neither one knows about the other's constraint, and neither knows about latency at all. That's fine when load is low. It stops being fine the moment you have more concurrent tasks than your fastest, cheapest agents can absorb — which, if your product is working, is exactly when it starts mattering most.</p>
+
+        <h2 id="silent-erosion">Why the failure is invisible</h2>
+        <p>The dangerous part isn't that a single-dimension scheduler fails badly. It's that it fails <strong>quietly</strong>. Tasks still complete. Nothing throws an exception. What actually happens is SLA erosion: p95 latency creeps from 4 seconds to 9, then to 14, over the course of an afternoon, and unless you're explicitly plotting that curve, the first signal you get is a support ticket or a churn event three weeks later.</p>
+        <p>A one-dimensional scheduler has no way to notice this, because it isn't tracking the thing that's degrading. Round-robin doesn't know an agent is slow — it just knows whose "turn" it is. Greedy-cheapest doesn't know an agent is overloaded — it just knows what the last invoice said.</p>
+
+        <h2 id="fitness-function">Scheduling as constrained optimization</h2>
+        <p>The reframe that actually fixed this for me: stop treating routing as "pick the next agent" and start treating it as a constrained optimization problem, evaluated fresh on every task. Every candidate agent gets scored on a small set of fitness dimensions, and the highest score wins — or, if nothing clears a floor, the system spawns capacity or defers gracefully instead of forcing a bad assignment.</p>
+        <p>In Constellation, that's four dimensions, blended into one score:</p>
+        <pre><code>fitness(agent, task) =
+    w_cost    * cost_headroom(agent, task)
+  + w_latency * latency_margin(agent, task)
+  + w_load    * (1 - saturation_penalty(agent))
+  + w_affinity* warm_context_bonus(agent, task)</code></pre>
+        <p>None of the individual terms is exotic. <code>cost_headroom</code> is just remaining budget minus expected task cost. <code>latency_margin</code> is the agent's live p95 against the task's SLA window. <code>saturation_penalty</code> is non-linear — it stays near zero until an agent approaches its concurrency ceiling, then rises sharply, because the cost of overloading an agent isn't linear either. The value isn't in any single term. It's in scoring all of them <em>together, per task, in real time</em>, instead of picking one axis and hoping the others stay out of the way.</p>
+
+        <h2 id="retire-phase">The phase nobody designs for: retiring an agent</h2>
+        <p>Here's the part that surprised me most when I benchmarked this against a round-robin baseline: the biggest SLA win didn't come from routing better. It came from <strong>retiring degraded agents faster</strong> — and doing it without flapping.</p>
+        <p>Most orchestration writing focuses entirely on the assignment decision: given a new task, where does it go? That's necessary but not sufficient. A fleet also needs a continuous rebalancing loop that asks, independent of any single task: <em>is this agent still fit to be in the pool?</em> An agent whose live latency has drifted up, or whose error rate has ticked up, needs to be pulled from rotation — but pulled based on <strong>sustained</strong> degradation, not a single bad sample, or you end up thrashing agents in and out of service on noise.</p>
+        <div class="callout"><strong>What worked:</strong> hysteresis on the retire threshold. An agent has to stay below the fitness floor for a sustained window before it's retired, and has to clear a higher bar before it's allowed back in. That asymmetry is what stopped the fleet from oscillating.</div>
+
+        <h2 id="benchmark">What it actually moved</h2>
+        <p>Benchmarked against a round-robin baseline under identical synthetic load — same task mix, same pool size, same budget ceiling, repeated trials with bootstrap confidence intervals to separate signal from noise — the fitness-scored scheduler held <strong>16.5% better SLA compliance</strong> and cut <strong>load variance across the fleet by 41%</strong>. The full benchmark methodology and results are in the <a href="/case-studies/constellation-coo.html">Constellation COO case study</a>.</p>
+        <p>The gain wasn't uniform, though — and this is the generalizable part. The advantage over a naive scheduler scaled with how <em>heterogeneous</em> the agent pool was. If every agent has near-identical cost and latency profiles, round-robin and fitness-scoring converge — there's nothing for the extra dimensions to exploit. The more your fleet mixes fast/expensive and slow/cheap agents, the more a constraint-aware scheduler earns its complexity.</p>
+
+        <h2 id="takeaways">If you're building this yourself</h2>
+        <ul>
+          <li><strong>Instrument before you optimize.</strong> You can't score fitness dimensions you're not measuring live. Latency, cost headroom, and saturation all need to be real-time signals, not end-of-day aggregates.</li>
+          <li><strong>Don't skip the retire/rebalance loop.</strong> Routing decisions get all the attention; the recurring health check on agents already in the pool is where a lot of the actual SLA protection lives.</li>
+          <li><strong>Add hysteresis before you add more dimensions.</strong> A five-dimension fitness function that flaps agents in and out of service on noisy samples is worse than a two-dimension one that's stable.</li>
+          <li><strong>Check whether your pool is even heterogeneous enough to need this.</strong> If every agent is functionally identical, a simpler scheduler may be the right call — constraint-optimization earns its keep on mixed fleets, not uniform ones.</li>
+        </ul>
+
+        <p>This is also, not incidentally, why the approach ended up in a patent filing rather than just a blog post — the specifics are covered in <a href="/blog/patents-for-indie-engineers.html">why I patent my own algorithms as a solo engineer</a>.</p>
+
+        <div class="byline">
+          <div class="avatar">NA</div>
+          <div>
+            <div class="name">Nic Albertson</div>
+            <div class="role">Sole engineer &amp; inventor · Fall River, MA</div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="toc">
+        <div class="toc-label">On this page</div>
+        <ol>
+          <li><a href="#two-schedulers">The two default schedulers</a></li>
+          <li><a href="#silent-erosion">Why the failure is invisible</a></li>
+          <li><a href="#fitness-function">Scheduling as optimization</a></li>
+          <li><a href="#retire-phase">The retire phase</a></li>
+          <li><a href="#benchmark">What it actually moved</a></li>
+          <li><a href="#takeaways">If you're building this</a></li>
+        </ol>
+        <div class="share-box">
+          <div class="toc-label">Share</div>
+          <div class="share-row">
+            <button class="share-btn" data-share="x">Share on X</button>
+            <button class="share-btn" data-share="linkedin">LinkedIn</button>
+            <button class="share-btn" data-share="copy">Copy link</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-tag">More Insights</span><h2>Keep reading</h2></div>
+    <div class="related">
+      <a class="post-card" href="/blog/patents-for-indie-engineers.html">
+        <div class="post-tag">IP Strategy</div>
+        <h3>Why I Patent My Own Algorithms as a Solo Engineer</h3>
+        <p>Filing a provisional as an indie builder felt like overkill — until I understood what it actually protects.</p>
+      </a>
+      <a class="post-card" href="/blog/shipping-20-microsaas-solo.html">
+        <div class="post-tag">Product</div>
+        <h3>Shipping 20+ Micro-SaaS Products Solo: A Playbook</h3>
+        <p>The repeatable loop that makes a one-person product catalog possible without burning out.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="contact">
+  <div class="wrap">
+    <div class="sec-tag" style="margin-bottom:18px">Contact</div>
+    <h2>Building something similar and want a second opinion?</h2>
+    <p>Happy to talk through orchestration design, benchmarking methodology, or the Constellation COO engine itself.</p>
+    <div class="hero-ctas" style="justify-content:center">
+      <a class="btn btn-solid" href="mailto:hello@fullstackassets.com">hello@fullstackassets.com</a>
+      <a class="btn btn-ghost" href="/blog/">All insights</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <a href="/" class="logo">FULL STACK <span>ASSETS</span></a>
+        <p style="color:var(--dim);font-size:.85rem;margin-top:14px;max-width:32ch">Nic Albertson builds and documents revenue-ready software assets, solo, from Fall River, Massachusetts.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Case Studies</h4>
+        <a href="/case-studies/constellation-coo.html">Constellation COO</a>
+        <a href="/case-studies/taskflow.html">TaskFlow</a>
+        <a href="/case-studies/storeforge.html">StoreForge</a>
+        <a href="/case-studies/">View all →</a>
+      </div>
+      <div class="foot-col">
+        <h4>Insights</h4>
+        <a href="/blog/constraint-optimized-orchestration.html">Orchestration Design</a>
+        <a href="/blog/patents-for-indie-engineers.html">Patent Strategy</a>
+        <a href="/blog/shipping-20-microsaas-solo.html">Micro-SaaS Playbook</a>
+        <a href="/blog/">View all →</a>
+      </div>
+      <div class="foot-col">
+        <h4>Connect</h4>
+        <a href="/#about">About</a>
+        <a href="mailto:hello@fullstackassets.com">hello@fullstackassets.com</a>
+        <a href="https://github.com/Full-Stack-Assets" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Full Stack Assets · Nic Albertson</span>
+      <span>Built solo · Fall River, MA</span>
+    </div>
+  </div>
+</footer>
+<button class="totop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<script src="/assets/site.js"></script>
+</body>
+</html>
