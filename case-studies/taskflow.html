@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TaskFlow — Autonomous AI Agent Framework | Full Stack Assets</title>
+<meta name="description" content="How a three-phase Plan/Execute/Verify loop, typed LangGraph orchestration, and markdown-backed memory turned a demo agent into a documented, deployable framework.">
+<meta name="author" content="Nic Albertson">
+<link rel="canonical" href="https://fullstackassets.com/case-studies/taskflow.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Full Stack Assets">
+<meta property="og:title" content="TaskFlow — Autonomous AI Agent Framework">
+<meta property="og:description" content="A three-phase Plan, Execute, Verify agent loop with markdown-backed persistent memory, a typed LangGraph orchestration graph, and full deployment documentation.">
+<meta property="og:url" content="https://fullstackassets.com/case-studies/taskflow.html">
+<meta property="og:image" content="https://fullstackassets.com/assets/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TaskFlow — Autonomous AI Agent Framework">
+<meta name="twitter:description" content="A three-phase Plan, Execute, Verify agent loop with markdown-backed persistent memory, a typed LangGraph orchestration graph, and full deployment documentation.">
+<meta name="twitter:image" content="https://fullstackassets.com/assets/og-card.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B1426'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23F2A93B'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,700;12..96,800&family=Public+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "TaskFlow: Autonomous AI Agent Framework",
+  "description": "How a three-phase Plan/Execute/Verify loop, typed LangGraph orchestration, and markdown-backed memory turned a demo agent into a documented, deployable framework.",
+  "author": {"@type": "Person", "name": "Nic Albertson", "url": "https://fullstackassets.com/"},
+  "publisher": {"@type": "Person", "name": "Nic Albertson"},
+  "mainEntityOfPage": "https://fullstackassets.com/case-studies/taskflow.html",
+  "datePublished": "2026-06-05",
+  "dateModified": "2026-07-03"
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">FULL STACK <span>ASSETS</span></a>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <div class="nav-links">
+      <a href="/#assets" class="active">Case Studies</a>
+      <a href="/#capabilities">Capabilities</a>
+      <a href="/#process">Process</a>
+      <a href="/#about">About</a>
+      <a href="/blog/">Insights</a>
+      <a href="/#contact" class="nav-cta">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+<div class="page-hero">
+  <div class="wrap">
+    <div class="breadcrumbs">
+      <a href="/">Home</a><span class="sep">/</span><a href="/case-studies/">Case Studies</a><span class="sep">/</span><span>TaskFlow</span>
+    </div>
+    <div class="eyebrow">FSA-002 · Autonomous Agent Framework</div>
+    <h1>TaskFlow: an agent that plans, executes, verifies — and remembers what it did</h1>
+    <p class="lede">A three-phase Plan → Execute → Verify agent loop with markdown-backed persistent memory, a typed LangGraph orchestration graph, and full deployment documentation for Vercel, Docker, and a bare VPS — because a demo that only runs on one person's laptop isn't a shippable asset.</p>
+    <dl class="meta-row">
+      <div class="meta-item"><dt>Stack</dt><dd>Next.js 15 · React 19 · LangGraph</dd></div>
+      <div class="meta-item"><dt>Scale</dt><dd>30 files · 36K words of docs</dd></div>
+      <div class="meta-item"><dt>Status</dt><dd class="hl">Complete · Documented</dd></div>
+      <div class="meta-item"><dt>Role</dt><dd>Sole engineer</dd></div>
+    </dl>
+  </div>
+</div>
+
+<section style="padding-top:64px">
+  <div class="wrap">
+    <div class="article-layout">
+      <div class="prose">
+
+        <p>TaskFlow (FSA-002) is an autonomous agent framework built on Next.js 15, React 19, and LangGraph. Where most agent demos are a single prompt wired to a single tool call, TaskFlow is structured as a disciplined, typed orchestration loop with persistent memory and thirty files of documented deployment paths — the difference between a weekend proof of concept and something a team could actually run in production.</p>
+
+        <h2 id="problem">The problem</h2>
+        <p>Most autonomous agent demos work great for exactly one thing: a single happy-path prompt, run once, in a fresh session. The moment a real task requires multi-step planning, error recovery, or memory that survives across sessions, the wheels come off. Agents either loop forever chasing a goal they've lost track of, or they lose context between runs and repeat work they already finished — because there was never a durable, inspectable record of what the agent actually believed it had done.</p>
+        <p>The failure isn't usually a crash. It's an agent that <strong>looks</strong> like it's working — issuing tool calls, producing output — while quietly drifting away from the original goal with no verification step to catch it.</p>
+
+        <h2 id="approach">The approach</h2>
+        <p>TaskFlow enforces a strict three-phase loop for every task, rather than trusting a single model call to plan, act, and judge its own work all at once:</p>
+        <ul>
+          <li><strong>Plan</strong> — decompose the goal into a typed task graph before any execution begins</li>
+          <li><strong>Execute</strong> — run each node in the graph, with LangGraph managing state transitions and retries</li>
+          <li><strong>Verify</strong> — an explicit verification pass checks the output against the original goal before a task is ever marked complete</li>
+        </ul>
+        <p>That last phase is the one most agent frameworks skip. It's tempting to trust the execution step blindly — the tool call succeeded, so the task must be done — but success at the tool-call level and success at the goal level are different things. Verify is a separate, dedicated pass specifically so those two can't be silently conflated.</p>
+        <div class="callout"><strong>Design principle:</strong> persistent memory is plain markdown files, not a vector database or hidden binary state. That was a deliberate choice — a human should be able to open the memory file and read, in plain language, exactly what the agent believes it has done so far.</div>
+
+        <h2 id="architecture">Architecture</h2>
+        <p>Under the hood, TaskFlow's orchestration graph is a typed LangGraph — every node and edge has a defined shape, so state transitions between Plan, Execute, and Verify are checked rather than assumed. The codebase is organized across 30 files with a clear separation of concerns: planning, execution, verification, memory, and deployment each live in their own space rather than being tangled together in one monolithic agent loop.</p>
+        <p>That last concern — deployment — gets the same seriousness as the agent logic itself. TaskFlow ships with 36,000 words of documentation covering three separate deployment targets: <strong>Vercel</strong> (serverless), <strong>Docker</strong> (containerized), and a <strong>bare VPS</strong>. A framework that only runs on the author's laptop isn't a shippable asset — it's a demo. TaskFlow is documented to run wherever a team already deploys.</p>
+
+        <h2 id="results">Results</h2>
+        <p>TaskFlow is complete and fully documented: the three-phase orchestration loop, the typed LangGraph graph, and the deployment paths are all implemented and written up end to end.</p>
+        <div class="results">
+          <div><div class="n">3</div><div class="l">Orchestration phases</div></div>
+          <div><div class="n">30</div><div class="l">Files, cleanly separated</div></div>
+          <div><div class="n">36K</div><div class="l">Words of documentation</div></div>
+          <div><div class="n">3</div><div class="l">Deployment targets supported</div></div>
+        </div>
+
+        <figure class="chart-block">
+          <div class="chart-title">TaskFlow's orchestration loop</div>
+          <svg viewBox="0 0 560 150" role="img" aria-label="Diagram showing TaskFlow's three sequential orchestration phases: Plan, Execute, and Verify, each occupying roughly one third of the loop.">
+            <rect x="0" y="55" width="176" height="50" fill="#F2A93B"/>
+            <text x="88" y="85" font-size="14" font-weight="700" fill="#0B1426" text-anchor="middle">PLAN</text>
+            <text x="184" y="85" font-size="16" text-anchor="middle">&#8250;</text>
+            <rect x="192" y="55" width="176" height="50" fill="#62B6CB"/>
+            <text x="280" y="85" font-size="14" font-weight="700" fill="#0B1426" text-anchor="middle">EXECUTE</text>
+            <text x="376" y="85" font-size="16" text-anchor="middle">&#8250;</text>
+            <rect x="384" y="55" width="176" height="50" fill="#8C99B0"/>
+            <text x="472" y="85" font-size="14" font-weight="700" fill="#0B1426" text-anchor="middle">VERIFY</text>
+          </svg>
+          <figcaption>Plan decomposes the goal into a typed task graph; Execute runs each node with LangGraph managing state transitions and retries; Verify checks the output against the original goal before the task is marked complete.</figcaption>
+        </figure>
+
+        <h2 id="lessons">Lessons learned</h2>
+        <p>The most interesting decision in TaskFlow wasn't the LangGraph orchestration — it was choosing plain markdown files for persistent memory instead of a vector database. A vector DB would have been the more "impressive" choice on paper. But when an agent's plan goes wrong, what you need most is to be able to open the memory file and read, in plain English, exactly what the agent thought it had done and why it made the next decision it made. A hidden embedding store can't give you that. A markdown file can. Trust and debuggability turned out to matter more than sounding sophisticated.</p>
+
+        <div class="byline">
+          <div class="avatar">NA</div>
+          <div>
+            <div class="name">Nic Albertson</div>
+            <div class="role">Sole engineer · Fall River, MA</div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="toc">
+        <div class="toc-label">On this page</div>
+        <ol>
+          <li><a href="#problem">The problem</a></li>
+          <li><a href="#approach">The approach</a></li>
+          <li><a href="#architecture">Architecture</a></li>
+          <li><a href="#results">Results</a></li>
+          <li><a href="#lessons">Lessons learned</a></li>
+        </ol>
+        <div class="share-box">
+          <div class="toc-label">Share</div>
+          <div class="share-row">
+            <button class="share-btn" data-share="x">Share on X</button>
+            <button class="share-btn" data-share="linkedin">LinkedIn</button>
+            <button class="share-btn" data-share="copy">Copy link</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-tag">More Assets</span><h2>Related case studies</h2></div>
+    <div class="related">
+      <a class="post-card" href="/case-studies/constellation-coo.html">
+        <div class="post-tag">FSA-001 · AI Agent Orchestration</div>
+        <h3>Constellation COO</h3>
+        <p>A constraint-optimized fitness-scoring algorithm that routes, spawns, and retires fleets of LLM agents against real cost, latency, and budget constraints.</p>
+      </a>
+      <a class="post-card" href="/case-studies/scanline.html">
+        <div class="post-tag">FSA-003 · AI Photo Digitization</div>
+        <h3>Scanline</h3>
+        <p>Phone-scan-to-searchable-library with face clustering, perceptual-hash dedup, and AI vision tagging.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="contact">
+  <div class="wrap">
+    <div class="sec-tag" style="margin-bottom:18px">Contact</div>
+    <h2>Interested in licensing or deploying TaskFlow?</h2>
+    <p>The full framework, orchestration graph, and deployment documentation are available for technical review.</p>
+    <div class="hero-ctas" style="justify-content:center">
+      <a class="btn btn-solid" href="mailto:hello@fullstackassets.com">hello@fullstackassets.com</a>
+      <a class="btn btn-ghost" href="/case-studies/">All case studies</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <a href="/" class="logo">FULL STACK <span>ASSETS</span></a>
+        <p style="color:var(--dim);font-size:.85rem;margin-top:14px;max-width:32ch">Nic Albertson builds and documents revenue-ready software assets, solo, from Fall River, Massachusetts.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Case Studies</h4>
+        <a href="/case-studies/constellation-coo.html">Constellation COO</a>
+        <a href="/case-studies/taskflow.html">TaskFlow</a>
+        <a href="/case-studies/storeforge.html">StoreForge</a>
+        <a href="/case-studies/">View all →</a>
+      </div>
+      <div class="foot-col">
+        <h4>Insights</h4>
+        <a href="/blog/constraint-optimized-orchestration.html">Orchestration Design</a>
+        <a href="/blog/patents-for-indie-engineers.html">Patent Strategy</a>
+        <a href="/blog/shipping-20-microsaas-solo.html">Micro-SaaS Playbook</a>
+        <a href="/blog/">View all →</a>
+      </div>
+      <div class="foot-col">
+        <h4>Connect</h4>
+        <a href="/#about">About</a>
+        <a href="mailto:hello@fullstackassets.com">hello@fullstackassets.com</a>
+        <a href="https://github.com/Full-Stack-Assets" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Full Stack Assets · Nic Albertson</span>
+      <span>Built solo · Fall River, MA</span>
+    </div>
+  </div>
+</footer>
+<button class="totop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<script src="/assets/site.js"></script>
+</body>
+</html>

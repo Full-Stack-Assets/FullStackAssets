@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+<channel>
+  <title>Full Stack Assets — Insights</title>
+  <link>https://fullstackassets.com/blog/</link>
+  <description>Notes from the build log: AI orchestration design, patent strategy for indie engineers, and what it takes to run a product catalog solo.</description>
+  <language>en-us</language>
+  <lastBuildDate>Fri, 03 Jul 2026 00:00:00 GMT</lastBuildDate>
+
+  <item>
+    <title>Documenting Software Like It's Already For Sale</title>
+    <link>https://fullstackassets.com/blog/documenting-for-acquisition.html</link>
+    <guid>https://fullstackassets.com/blog/documenting-for-acquisition.html</guid>
+    <pubDate>Fri, 03 Jul 2026 00:00:00 GMT</pubDate>
+    <description>The habits that turn a working prototype into something a buyer can actually diligence — architecture reasoning, honest benchmarks, and legible history.</description>
+  </item>
+  <item>
+    <title>Shipping 20+ Micro-SaaS Products Solo: A Playbook</title>
+    <link>https://fullstackassets.com/blog/shipping-20-microsaas-solo.html</link>
+    <guid>https://fullstackassets.com/blog/shipping-20-microsaas-solo.html</guid>
+    <pubDate>Wed, 01 Jul 2026 00:00:00 GMT</pubDate>
+    <description>The repeatable loop — scope, build, instrument, document, decide — that makes a one-person catalog possible without burning out.</description>
+  </item>
+  <item>
+    <title>Why I Patent My Own Algorithms as a Solo Engineer</title>
+    <link>https://fullstackassets.com/blog/patents-for-indie-engineers.html</link>
+    <guid>https://fullstackassets.com/blog/patents-for-indie-engineers.html</guid>
+    <pubDate>Sun, 28 Jun 2026 00:00:00 GMT</pubDate>
+    <description>Filing a provisional as an indie builder felt like overkill — until I understood what it actually protects, and what it costs to skip.</description>
+  </item>
+  <item>
+    <title>Constraint-Optimized Orchestration: Rethinking How Agent Fleets Get Scheduled</title>
+    <link>https://fullstackassets.com/blog/constraint-optimized-orchestration.html</link>
+    <guid>https://fullstackassets.com/blog/constraint-optimized-orchestration.html</guid>
+    <pubDate>Thu, 25 Jun 2026 00:00:00 GMT</pubDate>
+    <description>Why fitness-scoring beats round-robin and greedy-cheapest routing once an LLM agent fleet has to respect real cost, latency, and concurrency budgets.</description>
+  </item>
+</channel>
+</rss>

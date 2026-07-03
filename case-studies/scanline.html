@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scanline — AI Photo Digitization Pipeline | Full Stack Assets</title>
+<meta name="description" content="How perspective correction, face clustering, perceptual-hash dedup, and end-to-end Claude Vision tagging turn a shoebox of photos into a searchable library.">
+<meta name="author" content="Nic Albertson">
+<link rel="canonical" href="https://fullstackassets.com/case-studies/scanline.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Full Stack Assets">
+<meta property="og:title" content="Scanline — AI Photo Digitization Pipeline">
+<meta property="og:description" content="Perspective correction, face clustering, perceptual-hash duplicate detection, and Claude Vision tagging turn a shoebox of photos into a searchable library.">
+<meta property="og:url" content="https://fullstackassets.com/case-studies/scanline.html">
+<meta property="og:image" content="https://fullstackassets.com/assets/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Scanline — AI Photo Digitization Pipeline">
+<meta name="twitter:description" content="Perspective correction, face clustering, perceptual-hash duplicate detection, and Claude Vision tagging turn a shoebox of photos into a searchable library.">
+<meta name="twitter:image" content="https://fullstackassets.com/assets/og-card.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B1426'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23F2A93B'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,700;12..96,800&family=Public+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Scanline: AI Photo Digitization Pipeline",
+  "description": "How perspective correction, face clustering, perceptual-hash dedup, and end-to-end Claude Vision tagging turn a shoebox of photos into a searchable library.",
+  "author": {"@type": "Person", "name": "Nic Albertson", "url": "https://fullstackassets.com/"},
+  "publisher": {"@type": "Person", "name": "Nic Albertson"},
+  "mainEntityOfPage": "https://fullstackassets.com/case-studies/scanline.html",
+  "datePublished": "2026-06-10",
+  "dateModified": "2026-07-03"
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">FULL STACK <span>ASSETS</span></a>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <div class="nav-links">
+      <a href="/#assets" class="active">Case Studies</a>
+      <a href="/#capabilities">Capabilities</a>
+      <a href="/#process">Process</a>
+      <a href="/#about">About</a>
+      <a href="/blog/">Insights</a>
+      <a href="/#contact" class="nav-cta">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+<div class="page-hero">
+  <div class="wrap">
+    <div class="breadcrumbs">
+      <a href="/">Home</a><span class="sep">/</span><a href="/case-studies/">Case Studies</a><span class="sep">/</span><span>Scanline</span>
+    </div>
+    <div class="eyebrow">FSA-003 · AI Photo Digitization</div>
+    <h1>Scanline: turning a phone camera into a searchable photo scanner</h1>
+    <p class="lede">Phone-scan-to-searchable-library for physical photographs. Perspective correction, face clustering, duplicate detection by perceptual hash, full-text search, and AI vision tagging — a shoebox of prints in, a searchable library out.</p>
+    <dl class="meta-row">
+      <div class="meta-item"><dt>Stack</dt><dd>React · OpenCV.js · face-api.js</dd></div>
+      <div class="meta-item"><dt>Scale</dt><dd>2,300+ line build</dd></div>
+      <div class="meta-item"><dt>AI</dt><dd>Claude Vision, end-to-end</dd></div>
+      <div class="meta-item"><dt>Status</dt><dd class="hl">MVP complete</dd></div>
+    </dl>
+  </div>
+</div>
+
+<section style="padding-top:64px">
+  <div class="wrap">
+    <div class="article-layout">
+      <div class="prose">
+
+        <p>Scanline is FSA-003 in the Full Stack Assets catalog: a browser-based pipeline that turns an ordinary phone camera into a photo scanner, then goes further than any scanner does on its own — cleaning up what it captures, figuring out who's in it, catching the copies you didn't mean to take, and describing it well enough that it's actually searchable a decade later.</p>
+
+        <h2 id="problem">The problem</h2>
+        <p>Most family archives are still physical. Decades of prints sit in shoeboxes, albums, and drawers, and "digitizing" them tends to mean one of two things: pay a scanning service by the box and wait weeks for a hard drive back, or point a phone camera at each print and snap a photo of a photo. The second option is what most people actually do, and it's the worse of the two — the print is rarely dead flat, so the shot comes out keystoned and slightly warped; glare off the glossy surface blows out a corner; and the result lands in a camera roll as an untagged, unsearchable JPEG indistinguishable from a thousand other photos. Nothing about the process makes the archive easier to search later — it just moves the shoebox from a physical drawer to a digital one.</p>
+        <p>The real cost isn't the scanning itself, it's what happens after: nobody can find "the photo of Dad's boat" six months later, because nothing about the file says that's what it is.</p>
+
+        <h2 id="approach">The approach</h2>
+        <p>Scanline treats the phone camera as the front end of a real scanning pipeline, not a substitute for one. Everything that can happen client-side, happens client-side:</p>
+        <ul>
+          <li><strong>Perspective correction</strong> — <code>OpenCV.js</code> detects the edges of the photographed print and squares it off, correcting the keystone warp that comes from shooting a flat print at an angle, along with basic glare and quality cleanup, entirely in the browser.</li>
+          <li><strong>Face clustering</strong> — <code>face-api.js</code> groups faces across the whole library, so "who is this" becomes a filter you click instead of a memory test you fail.</li>
+          <li><strong>Duplicate detection</strong> — a perceptual hash fingerprints every scan, so the same print re-photographed from three slightly different angles gets caught and merged instead of cluttering the library as three separate photos.</li>
+          <li><strong>AI vision tagging</strong> — Claude Vision is wired in end-to-end to auto-tag scene content, estimate a rough era or context for the photo, and generate a searchable description, so full-text search works on a scan the same way it works on a modern digital photo.</li>
+        </ul>
+        <p>The result is that a scan isn't just a picture of a picture — it's a corrected, deduplicated, face-indexed, described record that a full-text search can actually find.</p>
+
+        <h2 id="architecture">Architecture</h2>
+        <p>Scanline is a deliberately single-file, client-heavy React build — over 2,300 lines. That's a conscious choice, not a shortcut: for a fundamentally personal-scale tool, having the entire pipeline auditable in one place beats scattering capture, correction, hashing, clustering, tagging, and indexing across a microservice mesh built for a scale this tool will never hit.</p>
+        <div class="callout"><strong>Pipeline order:</strong> capture → correct → dedup → cluster → tag. Each scan moves through all five stages before it's considered part of the searchable library — nothing gets indexed half-processed.</div>
+        <p>Correction, hashing, and clustering all run locally against the image data already in the browser, which keeps the pipeline fast and keeps raw photos off a server by default. The one stage that leaves the browser is tagging, where Claude Vision is called to describe and contextualize the corrected image — the single point in the pipeline where an outside model does the heavy lifting.</p>
+
+        <h2 id="results">Results</h2>
+        <p>Scanline is an MVP, not a benchmarked product — the numbers below describe what shipped, not a performance claim against a baseline.</p>
+        <div class="results">
+          <div><div class="n">2,300+</div><div class="l">Lines in the build</div></div>
+          <div><div class="n">5</div><div class="l">Pipeline stages, capture to tag</div></div>
+          <div><div class="n">3</div><div class="l">Client-side libraries wired together</div></div>
+          <div><div class="n">1</div><div class="l">Single-file build</div></div>
+        </div>
+
+        <figure class="chart-block">
+          <div class="chart-title">Scanline processing pipeline — capture to tag</div>
+          <svg viewBox="0 0 560 150" role="img" aria-label="Pipeline diagram showing five sequential stages a scanned photo moves through: Capture, the phone photo of the print; Correct, OpenCV.js perspective correction and glare cleanup; Dedup, perceptual-hash duplicate detection; Cluster, face-api.js face clustering; and Tag, Claude Vision auto-tagging and description generation, after which the photo is fully searchable.">
+            <text x="0" y="30" font-size="12">Capture</text>
+            <rect x="0" y="50" width="96" height="34" fill="#F2A93B"/>
+            <text x="38" y="72" font-size="13" fill="#0B1426" font-weight="600">1</text>
+            <text x="104" y="73" font-size="14" fill="#8C99B0">→</text>
+
+            <text x="116" y="30" font-size="12">Correct</text>
+            <rect x="116" y="50" width="96" height="34" fill="#62B6CB"/>
+            <text x="154" y="72" font-size="13" fill="#0B1426" font-weight="600">2</text>
+            <text x="220" y="73" font-size="14" fill="#8C99B0">→</text>
+
+            <text x="232" y="30" font-size="12">Dedup</text>
+            <rect x="232" y="50" width="96" height="34" fill="#F2A93B"/>
+            <text x="270" y="72" font-size="13" fill="#0B1426" font-weight="600">3</text>
+            <text x="336" y="73" font-size="14" fill="#8C99B0">→</text>
+
+            <text x="348" y="30" font-size="12">Cluster</text>
+            <rect x="348" y="50" width="96" height="34" fill="#62B6CB"/>
+            <text x="386" y="72" font-size="13" fill="#0B1426" font-weight="600">4</text>
+            <text x="452" y="73" font-size="14" fill="#8C99B0">→</text>
+
+            <text x="464" y="30" font-size="12">Tag</text>
+            <rect x="464" y="50" width="96" height="34" fill="#F2A93B"/>
+            <text x="502" y="72" font-size="13" fill="#0B1426" font-weight="600">5</text>
+
+            <text x="0" y="118" font-size="11" fill="#8C99B0">Correct, Dedup, and Cluster run client-side; Tag is the one call out to Claude Vision.</text>
+          </svg>
+          <figcaption>Every scan moves through all five stages before it's indexed into the searchable library.</figcaption>
+        </figure>
+
+        <h2 id="lessons">Lessons learned</h2>
+        <p>The stage I underrated going in was dedup. It seemed like a minor cleanup step compared to face clustering or AI tagging — until real use made it obvious that people don't scan a print once. They scan it, check the result, don't love the angle or the glare, and scan it again. Sometimes three or four times before they're satisfied. Without the perceptual-hash dedup step, the library doesn't just get bigger, it gets <strong>worse</strong> to search: a query for "the photo of Dad's boat" returns four near-identical crops of the same print instead of one clean result. Catching those duplicates before they hit the index turned out to matter more for search quality than any of the AI tagging on top of it — a reminder that the unglamorous cleanup stage is often the one holding the rest of the pipeline together.</p>
+
+        <div class="byline">
+          <div class="avatar">NA</div>
+          <div>
+            <div class="name">Nic Albertson</div>
+            <div class="role">Sole engineer · Fall River, MA</div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="toc">
+        <div class="toc-label">On this page</div>
+        <ol>
+          <li><a href="#problem">The problem</a></li>
+          <li><a href="#approach">The approach</a></li>
+          <li><a href="#architecture">Architecture</a></li>
+          <li><a href="#results">Results</a></li>
+          <li><a href="#lessons">Lessons learned</a></li>
+        </ol>
+        <div class="share-box">
+          <div class="toc-label">Share</div>
+          <div class="share-row">
+            <button class="share-btn" data-share="x">Share on X</button>
+            <button class="share-btn" data-share="linkedin">LinkedIn</button>
+            <button class="share-btn" data-share="copy">Copy link</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-tag">More Assets</span><h2>Related case studies</h2></div>
+    <div class="related">
+      <a class="post-card" href="/case-studies/taskflow.html">
+        <div class="post-tag">FSA-002 · AI &amp; Agents</div>
+        <h3>TaskFlow</h3>
+        <p>A three-phase Plan → Execute → Verify agent with persistent memory and a typed LangGraph orchestration graph.</p>
+      </a>
+      <a class="post-card" href="/case-studies/hostgraph.html">
+        <div class="post-tag">FSA-004 · Platforms</div>
+        <h3>HostGraph</h3>
+        <p>Margin-leak detection command center for restaurant groups across six dashboard views.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="contact">
+  <div class="wrap">
+    <div class="sec-tag" style="margin-bottom:18px">Contact</div>
+    <h2>Interested in licensing or acquiring Scanline?</h2>
+    <p>The full pipeline and build are available for technical review.</p>
+    <div class="hero-ctas" style="justify-content:center">
+      <a class="btn btn-solid" href="mailto:hello@fullstackassets.com">hello@fullstackassets.com</a>
+      <a class="btn btn-ghost" href="/case-studies/">All case studies</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <a href="/" class="logo">FULL STACK <span>ASSETS</span></a>
+        <p style="color:var(--dim);font-size:.85rem;margin-top:14px;max-width:32ch">Nic Albertson builds and documents revenue-ready software assets, solo, from Fall River, Massachusetts.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Case Studies</h4>
+        <a href="/case-studies/constellation-coo.html">Constellation COO</a>
+        <a href="/case-studies/taskflow.html">TaskFlow</a>
+        <a href="/case-studies/storeforge.html">StoreForge</a>
+        <a href="/case-studies/">View all →</a>
+      </div>
+      <div class="foot-col">
+        <h4>Insights</h4>
+        <a href="/blog/constraint-optimized-orchestration.html">Orchestration Design</a>
+        <a href="/blog/patents-for-indie-engineers.html">Patent Strategy</a>
+        <a href="/blog/shipping-20-microsaas-solo.html">Micro-SaaS Playbook</a>
+        <a href="/blog/">View all →</a>
+      </div>
+      <div class="foot-col">
+        <h4>Connect</h4>
+        <a href="/#about">About</a>
+        <a href="mailto:hello@fullstackassets.com">hello@fullstackassets.com</a>
+        <a href="https://github.com/Full-Stack-Assets" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Full Stack Assets · Nic Albertson</span>
+      <span>Built solo · Fall River, MA</span>
+    </div>
+  </div>
+</footer>
+<button class="totop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<script src="/assets/site.js"></script>
+</body>
+</html>

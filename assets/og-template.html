@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Public+Sans:wght@300;400&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1200px;height:630px;overflow:hidden}
+  body{
+    background:#0B1426;
+    background-image:radial-gradient(circle at 82% 22%, rgba(98,182,203,.14), transparent 46%),
+                      radial-gradient(circle at 18% 82%, rgba(242,169,59,.10), transparent 50%);
+    font-family:'Public Sans',Arial,sans-serif;
+    position:relative;
+  }
+  #stars{position:absolute;inset:0}
+  .content{position:absolute;inset:0;z-index:2;padding:76px 90px}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:19px;letter-spacing:.28em;text-transform:uppercase;color:#F2A93B}
+  h1{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:52px;line-height:1.14;color:#E9EDF5;letter-spacing:-.01em;margin-top:24px;max-width:15ch}
+  h1 em{font-style:normal;color:#F2A93B}
+  .sub{margin-top:22px;font-size:22px;color:#8C99B0;max-width:36ch;font-weight:300}
+  .foot{position:absolute;left:90px;right:90px;bottom:64px;display:flex;align-items:center;justify-content:space-between}
+  .logo{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:25px;color:#E9EDF5;letter-spacing:.02em}
+  .logo span{color:#F2A93B}
+  .coord{font-family:'IBM Plex Mono',monospace;font-size:16px;color:#8C99B0;letter-spacing:.14em}
+</style>
+</head>
+<body>
+<canvas id="stars" width="1200" height="630"></canvas>
+<div class="content">
+  <div class="eyebrow">Nic Albertson · Fall River, MA</div>
+  <h1>I build software <em>assets</em> — engineered to ship, earn, sell.</h1>
+  <p class="sub">Patent-pending AI orchestration · 20+ micro-SaaS products · full-stack systems built solo.</p>
+</div>
+<div class="foot">
+  <div class="logo">FULL STACK <span>ASSETS</span></div>
+  <div class="coord">N 41.70° · W 71.15°</div>
+</div>
+<script>
+  const c = document.getElementById('stars');
+  const ctx = c.getContext('2d');
+  for(let i=0;i<220;i++){
+    const x = Math.random()*1200, y = Math.random()*630;
+    const r = Math.random()*1.4+.3;
+    ctx.globalAlpha = Math.random()*.6+.15;
+    ctx.fillStyle = '#E9EDF5';
+    ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
+  }
+  ctx.globalAlpha = .8;
+  ctx.fillStyle = '#F2A93B';
+  [[860,120],[1010,180],[930,260],[1080,300],[970,90]].forEach(([x,y])=>{
+    ctx.beginPath(); ctx.arc(x,y,3,0,Math.PI*2); ctx.fill();
+  });
+</script>
+</body>
+</html>

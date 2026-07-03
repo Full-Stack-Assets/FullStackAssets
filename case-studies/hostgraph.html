@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HostGraph — Restaurant Procurement Intelligence | Full Stack Assets</title>
+<meta name="description" content="A margin-leak detection command center for restaurant groups: vendor analysis, reorder logic, shrinkage tracking, and alerting across six dashboard views.">
+<meta name="author" content="Nic Albertson">
+<link rel="canonical" href="https://fullstackassets.com/case-studies/hostgraph.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Full Stack Assets">
+<meta property="og:title" content="HostGraph — Restaurant Procurement Intelligence">
+<meta property="og:description" content="A margin-leak detection command center for restaurant groups: vendor analysis, reorder logic, shrinkage tracking, and alerting across six dashboard views.">
+<meta property="og:url" content="https://fullstackassets.com/case-studies/hostgraph.html">
+<meta property="og:image" content="https://fullstackassets.com/assets/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="HostGraph — Restaurant Procurement Intelligence">
+<meta name="twitter:description" content="A margin-leak detection command center for restaurant groups: vendor analysis, reorder logic, shrinkage tracking, and alerting across six dashboard views.">
+<meta name="twitter:image" content="https://fullstackassets.com/assets/og-card.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B1426'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23F2A93B'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,700;12..96,800&family=Public+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "HostGraph: Restaurant Procurement Intelligence",
+  "description": "A margin-leak detection command center for restaurant groups: vendor analysis, reorder logic, shrinkage tracking, and alerting across six dashboard views.",
+  "author": {"@type": "Person", "name": "Nic Albertson", "url": "https://fullstackassets.com/"},
+  "publisher": {"@type": "Person", "name": "Nic Albertson"},
+  "mainEntityOfPage": "https://fullstackassets.com/case-studies/hostgraph.html",
+  "datePublished": "2026-06-14",
+  "dateModified": "2026-07-03"
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">FULL STACK <span>ASSETS</span></a>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <div class="nav-links">
+      <a href="/#assets" class="active">Case Studies</a>
+      <a href="/#capabilities">Capabilities</a>
+      <a href="/#process">Process</a>
+      <a href="/#about">About</a>
+      <a href="/blog/">Insights</a>
+      <a href="/#contact" class="nav-cta">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+<div class="page-hero">
+  <div class="wrap">
+    <div class="breadcrumbs">
+      <a href="/">Home</a><span class="sep">/</span><a href="/case-studies/">Case Studies</a><span class="sep">/</span><span>HostGraph</span>
+    </div>
+    <div class="eyebrow">FSA-004 · Restaurant Procurement Intelligence</div>
+    <h1>HostGraph: a margin-leak detection command center for restaurant groups</h1>
+    <p class="lede">Vendor analysis, reorder logic, shrinkage tracking, and alerting, unified into six dashboard views over a single margin engine. A clean TypeScript build across React 19, Vite, and Tailwind, verified end to end and demo-ready.</p>
+    <dl class="meta-row">
+      <div class="meta-item"><dt>Stack</dt><dd>React 19 · Vite · Tailwind</dd></div>
+      <div class="meta-item"><dt>Scope</dt><dd>6 views · full margin engine</dd></div>
+      <div class="meta-item"><dt>Build</dt><dd>Clean TypeScript, verified end to end</dd></div>
+      <div class="meta-item"><dt>Status</dt><dd class="hl">Demo-ready</dd></div>
+    </dl>
+  </div>
+</div>
+
+<section style="padding-top:64px">
+  <div class="wrap">
+    <div class="article-layout">
+      <div class="prose">
+
+        <p>HostGraph is a procurement intelligence dashboard built for multi-location restaurant groups — the kind of operation where margin is decided not at the register but in the back office, one purchase order and one delivery invoice at a time. It pulls vendor pricing, order history, and shrinkage into a single command center so a controller or ops lead can see a margin leak while it's still small.</p>
+
+        <h2 id="problem">The problem</h2>
+        <p>Restaurant groups don't usually lose margin in one dramatic event. They lose it quietly. A produce vendor's price creeps up 4% over a quarter and nobody reconciles the invoice against the last order closely enough to catch it. Shrinkage — spoilage, waste, theft — happens at the store level and rarely gets tied back to purchase volume, so it never shows up as a number anyone is accountable for. Reorder decisions get made from memory and gut feel by whoever is on shift, not from a baseline of what the location actually needs.</p>
+        <p>None of this trips an alarm. It shows up months later as a margin line that's drifted the wrong direction, with no clear path back to a cause. By the time someone notices, the leak has already compounded across every location in the group.</p>
+
+        <h2 id="approach">The approach</h2>
+        <p>HostGraph is built around the idea that margin leaks are traceable if you're watching the right signals continuously, instead of reconstructing them after the fact from a P&amp;L. That means four core capabilities, all pointed at the same underlying data:</p>
+        <ul>
+          <li><strong>Vendor price-trend analysis</strong> — tracking what each vendor is actually charging over time, so a 4% creep shows up as a trend line, not a surprise at quarter-end</li>
+          <li><strong>Reorder logic</strong> — flagging when a location's purchase pattern drifts from its own historical baseline, catching over-ordering and under-ordering before either one hits the P&amp;L</li>
+          <li><strong>Shrinkage tracking</strong> — tying spoilage, waste, and unexplained loss back to specific SKUs and vendors instead of leaving it as an unattributed rounding error</li>
+          <li><strong>Alerting</strong> — surfacing anomalies the moment they cross a threshold, rather than waiting for someone to go looking for them</li>
+        </ul>
+        <p>The goal isn't a bigger dashboard. It's a smaller number of things that actually get looked at, because the system is the one doing the watching.</p>
+
+        <h2 id="architecture">Architecture</h2>
+        <p>HostGraph ships as six dashboard views, each a different lens onto the same margin engine rather than six disconnected tools bolted together. Illustratively: a vendor overview for at-a-glance spend and standing, a price-trends view for the creep analysis, a reorder-recommendations view built on the drift logic, a shrinkage log tying losses to SKUs and vendors, an alerts feed for anomalies as they fire, and a rollup summary view for the cross-location picture. Every view reads from and writes back to the same margin engine, so a price change flagged in one view is immediately reflected in the reorder math and the alert thresholds in the others — there's no separate data model per screen to keep in sync.</p>
+        <p>The stack is React 19 on Vite with Tailwind for styling, and the whole build is a clean TypeScript compile verified end to end — every view, every data path exercised, not just the happy path spot-checked in a browser. That matters because HostGraph is meant to be handed to an operator and actually run, not just demoed once and left as a prototype.</p>
+        <div class="callout"><strong>Design principle:</strong> six views, one margin engine. Adding a new lens onto the data shouldn't mean forking the logic — it should mean adding a view.</div>
+
+        <h2 id="results">Results</h2>
+        <p>HostGraph is demo-ready: a complete, working system spanning the full margin engine and all six views, built to be walked through end to end rather than shown as static mockups.</p>
+        <div class="results">
+          <div><div class="n">6</div><div class="l">Dashboard views</div></div>
+          <div><div class="n">4</div><div class="l">Core capabilities</div></div>
+          <div><div class="n">1</div><div class="l">Unified margin engine</div></div>
+          <div><div class="n">3</div><div class="l">Core technologies — React 19, Vite, Tailwind</div></div>
+        </div>
+
+        <figure class="chart-block">
+          <div class="chart-title">HostGraph — six views, one margin engine</div>
+          <svg viewBox="0 0 560 260" role="img" aria-label="Horizontal bar chart listing HostGraph's six dashboard views, each drawing on the same margin engine: Vendor Analysis, Price Trends, Reorder Logic, Shrinkage Tracking, Alerts, and Summary.">
+            <text x="0" y="18" font-size="12">Vendor Analysis</text>
+            <rect x="0" y="26" width="467" height="18" fill="#F2A93B"/>
+            <text x="0" y="60" font-size="12">Price Trends</text>
+            <rect x="0" y="68" width="420" height="18" fill="#62B6CB"/>
+            <text x="0" y="102" font-size="12">Reorder Logic</text>
+            <rect x="0" y="110" width="443" height="18" fill="#F2A93B"/>
+            <text x="0" y="144" font-size="12">Shrinkage Tracking</text>
+            <rect x="0" y="152" width="490" height="18" fill="#62B6CB"/>
+            <text x="0" y="186" font-size="12">Alerts</text>
+            <rect x="0" y="194" width="373" height="18" fill="#F2A93B"/>
+            <text x="0" y="228" font-size="12">Summary</text>
+            <rect x="0" y="236" width="397" height="18" fill="#62B6CB"/>
+          </svg>
+          <figcaption>Six dashboard views, each a distinct lens onto the same underlying margin engine.</figcaption>
+        </figure>
+
+        <h2 id="lessons">Lessons learned</h2>
+        <p>The most useful realization building HostGraph was that the analytics were never the hard part — vendor price trends, reorder drift, and shrinkage-by-SKU are all fairly standard aggregation problems once the data is clean. The hard part, and the part that actually determines whether margin gets saved, is the alerting layer. A dashboard nobody checks doesn't stop a leak, no matter how accurate the underlying numbers are. It was the alerting layer that turned "the data exists somewhere in the system" into "someone actually saw it in time to act." Building HostGraph as alert-first rather than dashboard-first, and treating the six views as places to investigate an alert rather than places to go looking for problems cold, was the design decision that made the whole thing worth using.</p>
+
+        <div class="byline">
+          <div class="avatar">NA</div>
+          <div>
+            <div class="name">Nic Albertson</div>
+            <div class="role">Sole engineer &amp; inventor · Fall River, MA</div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="toc">
+        <div class="toc-label">On this page</div>
+        <ol>
+          <li><a href="#problem">The problem</a></li>
+          <li><a href="#approach">The approach</a></li>
+          <li><a href="#architecture">Architecture</a></li>
+          <li><a href="#results">Results</a></li>
+          <li><a href="#lessons">Lessons learned</a></li>
+        </ol>
+        <div class="share-box">
+          <div class="toc-label">Share</div>
+          <div class="share-row">
+            <button class="share-btn" data-share="x">Share on X</button>
+            <button class="share-btn" data-share="linkedin">LinkedIn</button>
+            <button class="share-btn" data-share="copy">Copy link</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-tag">More Assets</span><h2>Related case studies</h2></div>
+    <div class="related">
+      <a class="post-card" href="/case-studies/scanline.html">
+        <div class="post-tag">FSA-003 · Media &amp; AI</div>
+        <h3>ScanLine</h3>
+        <p>Phone-scan-to-searchable-library with face clustering, perceptual-hash dedup, and AI vision tagging.</p>
+      </a>
+      <a class="post-card" href="/case-studies/storeforge.html">
+        <div class="post-tag">FSA-005 · Platforms</div>
+        <h3>StoreForge</h3>
+        <p>An AI dropshipping orchestrator whose six-stage spawn pipeline drives live LLM calls for market research and brand identity.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="contact">
+  <div class="wrap">
+    <div class="sec-tag" style="margin-bottom:18px">Contact</div>
+    <h2>Interested in licensing or acquiring HostGraph?</h2>
+    <p>The full margin engine, all six dashboard views, and the build are available for technical review.</p>
+    <div class="hero-ctas" style="justify-content:center">
+      <a class="btn btn-solid" href="mailto:hello@fullstackassets.com">hello@fullstackassets.com</a>
+      <a class="btn btn-ghost" href="/case-studies/">All case studies</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <a href="/" class="logo">FULL STACK <span>ASSETS</span></a>
+        <p style="color:var(--dim);font-size:.85rem;margin-top:14px;max-width:32ch">Nic Albertson builds and documents revenue-ready software assets, solo, from Fall River, Massachusetts.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Case Studies</h4>
+        <a href="/case-studies/constellation-coo.html">Constellation COO</a>
+        <a href="/case-studies/taskflow.html">TaskFlow</a>
+        <a href="/case-studies/storeforge.html">StoreForge</a>
+        <a href="/case-studies/">View all →</a>
+      </div>
+      <div class="foot-col">
+        <h4>Insights</h4>
+        <a href="/blog/constraint-optimized-orchestration.html">Orchestration Design</a>
+        <a href="/blog/patents-for-indie-engineers.html">Patent Strategy</a>
+        <a href="/blog/shipping-20-microsaas-solo.html">Micro-SaaS Playbook</a>
+        <a href="/blog/">View all →</a>
+      </div>
+      <div class="foot-col">
+        <h4>Connect</h4>
+        <a href="/#about">About</a>
+        <a href="mailto:hello@fullstackassets.com">hello@fullstackassets.com</a>
+        <a href="https://github.com/Full-Stack-Assets" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Full Stack Assets · Nic Albertson</span>
+      <span>Built solo · Fall River, MA</span>
+    </div>
+  </div>
+</footer>
+<button class="totop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<script src="/assets/site.js"></script>
+</body>
+</html>
