@@ -32,10 +32,12 @@
   /* case-study / blog filter tabs */
   const tabs = document.querySelectorAll('.tab');
   if(tabs.length){
+    tabs.forEach(t=>t.setAttribute('aria-pressed', t.classList.contains('active') ? 'true' : 'false'));
     tabs.forEach(tab=>{
       tab.addEventListener('click', ()=>{
-        tabs.forEach(t=>t.classList.remove('active'));
+        tabs.forEach(t=>{t.classList.remove('active');t.setAttribute('aria-pressed','false');});
         tab.classList.add('active');
+        tab.setAttribute('aria-pressed','true');
         const cat = tab.dataset.filter;
         document.querySelectorAll('[data-cat]').forEach(card=>{
           card.classList.toggle('hidden', cat !== 'all' && card.dataset.cat !== cat);
