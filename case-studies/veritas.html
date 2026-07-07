@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VERITAS — Frontier-Model Code Evaluation Harness | Full Stack Assets</title>
+<meta name="description" content="VERITAS ranks frontier AI models on hidden-test pass rate across a full coding suite — a leaderboard, coverage matrix, and per-task explorer that measures models on tests they never saw. Live.">
+<meta name="author" content="Nic Albertson">
+<link rel="canonical" href="https://fullstackassets.com/case-studies/veritas.html">
+<meta name="theme-color" content="#0B1426">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Full Stack Assets">
+<meta property="og:title" content="VERITAS — Frontier-Model Code Evaluation Harness">
+<meta property="og:description" content="Ranks frontier AI models on hidden-test pass rate across a full coding suite — leaderboard, coverage matrix, and per-task explorer.">
+<meta property="og:url" content="https://fullstackassets.com/case-studies/veritas.html">
+<meta property="og:image" content="https://fullstackassets.com/assets/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="VERITAS — Frontier-Model Code Evaluation Harness">
+<meta name="twitter:description" content="Ranks frontier AI models on hidden-test pass rate across a full coding suite — leaderboard, coverage matrix, and per-task explorer.">
+<meta name="twitter:image" content="https://fullstackassets.com/assets/og-card.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B1426'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23F2A93B'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,700;12..96,800&family=Public+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "VERITAS: A Frontier-Model Code Evaluation Harness",
+  "description": "VERITAS ranks frontier AI models on hidden-test pass rate across a full coding suite, with a leaderboard, coverage matrix, and per-task explorer.",
+  "author": {"@type": "Person", "name": "Nic Albertson", "url": "https://fullstackassets.com/"},
+  "publisher": {"@type": "Person", "name": "Nic Albertson"},
+  "mainEntityOfPage": "https://fullstackassets.com/case-studies/veritas.html",
+  "datePublished": "2026-06-15",
+  "dateModified": "2026-07-07"
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">FULL STACK <span>ASSETS</span></a>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <div class="nav-links">
+      <a href="/#assets" class="active">Case Studies</a>
+      <a href="/#capabilities">Capabilities</a>
+      <a href="/#process">Process</a>
+      <a href="/#about">About</a>
+      <a href="/blog/">Insights</a>
+      <a href="/services/">Services</a>
+      <a href="/#contact" class="nav-cta">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+<div class="page-hero">
+  <div class="wrap">
+    <div class="breadcrumbs">
+      <a href="/">Home</a><span class="sep">/</span><a href="/case-studies/">Case Studies</a><span class="sep">/</span><span>VERITAS</span>
+    </div>
+    <div class="eyebrow">FSA-007 · AI Evaluation</div>
+    <h1>VERITAS: measuring frontier models on tests they never saw</h1>
+    <p class="lede">A code-evaluation harness that ranks frontier AI models by <strong>hidden-test pass rate</strong> across a full task suite — with a live leaderboard, a coverage matrix, and a per-task explorer. Public coding benchmarks leak into training data; VERITAS is built to measure what a model can actually do, not what it has already seen.</p>
+    <dl class="meta-row">
+      <div class="meta-item"><dt>Type</dt><dd>Evaluation harness &amp; dashboard</dd></div>
+      <div class="meta-item"><dt>Metric</dt><dd>Hidden-test pass rate</dd></div>
+      <div class="meta-item"><dt>Views</dt><dd>Leaderboard · matrix · tasks</dd></div>
+      <div class="meta-item"><dt>Status</dt><dd class="live">● Live</dd></div>
+    </dl>
+    <div class="hero-ctas" style="margin-top:26px">
+      <a class="btn btn-solid" href="https://veritas-black.vercel.app" target="_blank" rel="noopener">Open the live harness ↗</a>
+      <a class="btn btn-ghost" href="/services/#engagements">Commission an eval build</a>
+    </div>
+  </div>
+</div>
+
+<section style="padding-top:64px">
+  <div class="wrap">
+    <div class="article-layout">
+      <div class="prose">
+
+        <p>VERITAS is a live evaluation harness that ranks frontier AI models on how well they write code — measured the only way that stays honest over time: against a suite of <strong>hidden tests the models never had a chance to memorize</strong>. It presents the results as a ranked leaderboard, a coverage matrix showing where each model is strong or weak, and a task explorer for drilling into individual problems.</p>
+
+        <h2 id="problem">The problem</h2>
+        <p>Every few weeks a new model claims a new high score on a public coding benchmark. The trouble is that public benchmarks are, by definition, public — their problems and expected solutions end up in scraped training corpora, and a model that has effectively seen the answer key posts a number that says more about contamination than capability. For anyone actually <em>choosing</em> a model to build on, the headline benchmark score is close to noise.</p>
+        <p>What a builder needs is a different question answered: given a task this model has never seen, and a test suite it can't inspect, does the code it writes actually pass? That is a much harder thing to game, and a much more useful thing to know.</p>
+
+        <h2 id="approach">The approach</h2>
+        <p>VERITAS scores models on <strong>hidden-test pass rate across the full suite</strong>. A model is handed a task, produces a solution, and that solution is run against tests it never saw — the pass rate on those hidden tests is the score. There is no partial credit for confident-sounding prose and no reward for having memorized a public answer; the code either passes the tests or it doesn't.</p>
+        <p>The harness surfaces that in three complementary views:</p>
+        <ul>
+          <li><strong>Leaderboard</strong> — models ranked by hidden-test pass rate across the whole suite, so the headline comparison is one number that's hard to fake.</li>
+          <li><strong>Coverage matrix</strong> — a per-category grid showing where each model actually holds up and where it falls apart, because an aggregate score hides that a model can be excellent at one class of task and useless at another.</li>
+          <li><strong>Task explorer</strong> — drill into individual tasks to see how models handled a specific problem, which turns a ranking into something you can actually inspect and trust.</li>
+        </ul>
+
+        <div class="callout"><strong>Design principle:</strong> a benchmark is only as trustworthy as its worst incentive. VERITAS is built so that the cheapest way to score well is to actually write passing code — memorization, verbosity, and confident hand-waving all earn exactly zero, because grading is done by execution against hidden tests, not by judgment of the output's tone.</div>
+
+        <h2 id="why">Why it matters</h2>
+        <p>Model selection is now a real engineering decision with real cost attached — the wrong choice means slower delivery, higher token spend, or code that quietly fails in ways a demo never surfaces. A harness that measures capability on unseen work, rather than reputation on seen work, is the difference between choosing a model on evidence and choosing it on a press release. VERITAS is the tool I reach for when that decision has to be defensible.</p>
+
+        <h2 id="status">Status</h2>
+        <p>VERITAS is <strong>live and explorable</strong> — the leaderboard, coverage matrix, and task explorer are all up and running. The same harness pattern is what I build for teams that need a private, contamination-resistant evaluation of models against <em>their own</em> tasks rather than a generic public suite.</p>
+
+        <div class="byline">
+          <div class="avatar">NA</div>
+          <div>
+            <div class="name">Nic Albertson</div>
+            <div class="role">Sole engineer &amp; inventor · Fall River, MA</div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="toc">
+        <div class="toc-label">On this page</div>
+        <ol>
+          <li><a href="#problem">The problem</a></li>
+          <li><a href="#approach">The approach</a></li>
+          <li><a href="#why">Why it matters</a></li>
+          <li><a href="#status">Status</a></li>
+        </ol>
+        <div class="share-box">
+          <div class="toc-label">Share</div>
+          <div class="share-row">
+            <button class="share-btn" data-share="x">Share on X</button>
+            <button class="share-btn" data-share="linkedin">LinkedIn</button>
+            <button class="share-btn" data-share="copy">Copy link</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-tag">More Assets</span><h2>Related case studies</h2></div>
+    <div class="related">
+      <a class="post-card" href="/case-studies/constellation-coo.html">
+        <div class="post-tag">FSA-001 · AI Agent Orchestration</div>
+        <h3>Constellation COO</h3>
+        <p>A patent-pending fitness-scoring algorithm for orchestrating fleets of LLM agents against cost and latency constraints.</p>
+      </a>
+      <a class="post-card" href="/case-studies/cipherhorizon.html">
+        <div class="post-tag">FSA-008 · Security Platform</div>
+        <h3>CipherHorizon</h3>
+        <p>A post-quantum readiness scanner that finds the cryptography in your stack that won't survive a quantum computer.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="contact">
+  <div class="wrap">
+    <div class="sec-tag" style="margin-bottom:18px">Contact</div>
+    <h2>Need a contamination-resistant eval of models against your own tasks?</h2>
+    <p>VERITAS is live to explore, and the same harness pattern is available as a private build for teams choosing a model to bet on.</p>
+    <div class="hero-ctas" style="justify-content:center">
+      <a class="btn btn-solid" href="https://veritas-black.vercel.app" target="_blank" rel="noopener">Open the live harness ↗</a>
+      <a class="btn btn-ghost" href="/services/#engagements">Commission an eval build</a>
+      <a class="btn btn-ghost" href="/case-studies/">All case studies</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <a href="/" class="logo">FULL STACK <span>ASSETS</span></a>
+        <p style="color:var(--dim);font-size:.85rem;margin-top:14px;max-width:32ch">Nic Albertson builds and documents revenue-ready software assets, solo, from Fall River, Massachusetts.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Case Studies</h4>
+        <a href="/case-studies/constellation-coo.html">Constellation COO</a>
+        <a href="/case-studies/veritas.html">VERITAS</a>
+        <a href="/case-studies/cipherhorizon.html">CipherHorizon</a>
+        <a href="/case-studies/">View all →</a>
+      </div>
+      <div class="foot-col">
+        <h4>Work with me</h4>
+        <a href="/services/#engagements">Audit &amp; build sprints</a>
+        <a href="/services/#engagements">Fractional engineering</a>
+        <a href="/services/#licensing">Licensing &amp; acquisition</a>
+        <a href="/services/">All services →</a>
+      </div>
+      <div class="foot-col">
+        <h4>Connect</h4>
+        <a href="/#about">About</a>
+        <a href="/blog/">Insights</a>
+        <a href="mailto:hello@fullstackassets.com">hello@fullstackassets.com</a>
+        <a href="https://github.com/Full-Stack-Assets" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Full Stack Assets · Nic Albertson</span>
+      <span>Built solo · Fall River, MA</span>
+    </div>
+  </div>
+</footer>
+<button class="totop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<script src="/assets/site.js"></script>
+</body>
+</html>
