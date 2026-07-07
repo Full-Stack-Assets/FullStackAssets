@@ -175,6 +175,13 @@ a.asset{color:inherit}
 .asset:hover .asset-more{gap:10px}
 .asset-more svg{width:13px;height:13px;transition:transform .2s}
 
+/* ---------- STAGED-DRAFT BANNER (internal, on noindexed drafts) ---------- */
+.draft-banner{
+  background:rgba(242,169,59,.1);border:1px dashed var(--amber);
+  color:var(--amber);font-family:'IBM Plex Mono';font-size:.72rem;letter-spacing:.03em;
+  padding:10px 14px;margin-bottom:26px;border-radius:3px;line-height:1.5;
+}
+
 /* ---------- LIVE BADGE + LIVE LINK ---------- */
 .live-badge{
   display:inline-flex;align-items:center;gap:6px;
