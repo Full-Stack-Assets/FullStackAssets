@@ -275,6 +275,69 @@ a.asset{color:inherit}
 /* next-article / related */
 .related{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:20px}
 
+/* ---------- SERVICE TIERS ---------- */
+.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.tier{
+  background:var(--panel);border:1px solid var(--line);padding:30px 28px;
+  display:flex;flex-direction:column;position:relative;
+  transition:border-color .25s, transform .25s;
+}
+.tier:hover{border-color:var(--amber);transform:translateY(-3px)}
+.tier.flag{border-color:var(--amber)}
+.tier-badge{
+  position:absolute;top:0;right:0;
+  font-family:'IBM Plex Mono';font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--space);background:var(--amber);padding:5px 12px;font-weight:500;
+}
+.tier-kind{font-family:'IBM Plex Mono';font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);margin-bottom:12px}
+.tier h3{font-size:1.35rem;margin-bottom:6px;padding-right:70px}
+.tier-price{font-family:'Bricolage Grotesque';font-weight:800;font-size:1.7rem;color:var(--amber);margin:14px 0 4px}
+.tier-price span{font-family:'IBM Plex Mono';font-weight:400;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.tier-desc{color:var(--dim);font-size:.92rem;margin-bottom:18px}
+.tier ul{list-style:none;border-top:1px solid var(--line);margin-bottom:22px;flex-grow:1}
+.tier li{padding:9px 0 9px 24px;border-bottom:1px solid var(--line);font-size:.88rem;color:var(--dim);position:relative}
+.tier li::before{content:"→";color:var(--amber);font-family:'IBM Plex Mono';font-size:.8rem;position:absolute;left:0;top:10px}
+.tier li strong{color:var(--star);font-weight:500}
+.tier .btn{text-align:center;margin-top:auto}
+
+/* ---------- LICENSING / ACQUISITION STEPS ---------- */
+.deal-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.deal-step{background:var(--panel-2);padding:26px 24px}
+.deal-step .idx{font-family:'Bricolage Grotesque';font-weight:800;font-size:1.4rem;color:var(--amber);margin-bottom:10px}
+.deal-step h3{font-size:1rem;margin-bottom:8px}
+.deal-step p{color:var(--dim);font-size:.86rem}
+
+/* ---------- FAQ ---------- */
+.faq{max-width:var(--maxw-prose)}
+.faq details{border:1px solid var(--line);background:var(--panel);margin-bottom:10px}
+.faq summary{
+  cursor:pointer;padding:18px 22px;font-family:'Bricolage Grotesque';font-weight:700;font-size:1rem;
+  list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:'IBM Plex Mono';color:var(--amber);font-size:1.1rem;flex:none}
+.faq details[open] summary::after{content:"−"}
+.faq summary:focus-visible{outline:2px solid var(--amber);outline-offset:-2px}
+.faq details p{padding:0 22px 20px;color:var(--dim);font-size:.92rem;max-width:64ch}
+
+/* ---------- CONSULT CALLOUT (blog posts) ---------- */
+.consult-box{
+  background:var(--panel-2);border:1px solid var(--amber);padding:26px 28px;margin-top:40px;
+}
+.consult-box .tag{font-family:'IBM Plex Mono';font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:10px}
+.consult-box h3{font-size:1.15rem;margin-bottom:8px}
+.consult-box p{color:var(--dim);font-size:.9rem;margin-bottom:18px;max-width:56ch}
+.consult-box .row{display:flex;gap:12px;flex-wrap:wrap}
+
+/* ---------- SEGMENTED CONTACT ---------- */
+.contact-paths{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;max-width:900px;margin:0 auto 36px;text-align:left}
+.contact-path{background:var(--panel);border:1px solid var(--line);padding:24px;transition:border-color .25s,transform .25s;display:flex;flex-direction:column}
+.contact-path:hover{border-color:var(--amber);transform:translateY(-3px)}
+.contact-path .tag{font-family:'IBM Plex Mono';font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:10px}
+.contact-path h3{font-size:1.05rem;margin-bottom:8px}
+.contact-path p{color:var(--dim);font-size:.85rem;margin-bottom:16px;flex-grow:1;max-width:none}
+.contact-path .go{font-family:'IBM Plex Mono';font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--amber)}
+
 /* ---------- CONTACT ---------- */
 .contact{text-align:center;padding:110px 0}
 .contact h2{font-size:clamp(2rem,5vw,3.4rem);max-width:20ch;margin:0 auto 22px}
