@@ -46,6 +46,16 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://fullstackassets.com/case-studies/veritas.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://fullstackassets.com/case-studies/cipherhorizon.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://fullstackassets.com/blog/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

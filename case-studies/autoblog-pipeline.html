@@ -128,6 +128,42 @@
 
         <p>The composite scoring and dedup stage is doing more work than its single box suggests: it's the reason the pipeline can pull from six noisy, differently-biased sources and still land on candidates worth writing about, rather than drowning in duplicate or low-signal topics.</p>
 
+        <h2 id="live">The pipeline, live</h2>
+        <p>The clearest proof that the pipeline works is that it's been running — quietly filling a network of live sites across completely different verticals from the same engine. These are all public and current; each is the same fetch → score → generate → validate → deploy loop pointed at a different topic:</p>
+        <div class="network">
+          <a class="net-site" href="https://astrokobi.com" target="_blank" rel="noopener">
+            <span class="dom">astrokobi.com <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>
+            <span class="topic">Space &amp; astronomy news</span>
+            <span class="count">100+ articles</span>
+          </a>
+          <a class="net-site" href="https://wireandlogic.com" target="_blank" rel="noopener">
+            <span class="dom">wireandlogic.com <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>
+            <span class="topic">Tech &amp; AI digest</span>
+            <span class="count">250+ articles</span>
+          </a>
+          <a class="net-site" href="https://nextgengear.cc" target="_blank" rel="noopener">
+            <span class="dom">nextgengear.cc <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>
+            <span class="topic">Consumer tech news</span>
+            <span class="count">200+ articles</span>
+          </a>
+          <a class="net-site" href="https://moviesrule.com" target="_blank" rel="noopener">
+            <span class="dom">moviesrule.com <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>
+            <span class="topic">Film, streaming &amp; box office</span>
+            <span class="count">Hundreds of articles</span>
+          </a>
+          <a class="net-site" href="https://the-tuner-depot-com.vercel.app" target="_blank" rel="noopener">
+            <span class="dom">thetunerdepot.com <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>
+            <span class="topic">Automotive &amp; tuning</span>
+            <span class="count">50+ articles</span>
+          </a>
+          <a class="net-site" href="https://astrokobi-space.vercel.app" target="_blank" rel="noopener">
+            <span class="dom">astrokobi.space <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span>
+            <span class="topic">Cosmos &amp; futurism essays</span>
+            <span class="count">60+ articles</span>
+          </a>
+        </div>
+        <p>One engine, six verticals, no per-post cost and no per-post human — the same pipeline retargeted by changing its sources and topic configuration. That's the real deliverable: not any single site, but a repeatable content operation that keeps running on its own.</p>
+
         <h2 id="lessons">Lessons learned</h2>
         <p>The most important lesson had nothing to do with prompting the LLM better. It was that <strong>LLM output that's 95% correct MDX still breaks a static site build</strong>. A stray unclosed tag, a malformed frontmatter field, an escaped character in the wrong place — any of it fails silently at generation time and loudly at build time, usually well after anyone would think to check. Validating the output against a schema and rejecting anything that doesn't pass, before it ever reaches the commit step, was the single change that made "fully automated" actually mean <em>unattended</em> — instead of "automated until it silently breaks the site," which is a much worse thing to discover than a normal bug, because by the time you notice, the site has already been down.</p>
 
@@ -147,6 +183,7 @@
           <li><a href="#approach">The approach</a></li>
           <li><a href="#architecture">Architecture</a></li>
           <li><a href="#results">Results</a></li>
+          <li><a href="#live">The pipeline, live</a></li>
           <li><a href="#lessons">Lessons learned</a></li>
         </ol>
         <div class="share-box">

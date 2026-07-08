@@ -175,6 +175,34 @@ a.asset{color:inherit}
 .asset:hover .asset-more{gap:10px}
 .asset-more svg{width:13px;height:13px;transition:transform .2s}
 
+/* ---------- STAGED-DRAFT BANNER (internal, on noindexed drafts) ---------- */
+.draft-banner{
+  background:rgba(242,169,59,.1);border:1px dashed var(--amber);
+  color:var(--amber);font-family:'IBM Plex Mono';font-size:.72rem;letter-spacing:.03em;
+  padding:10px 14px;margin-bottom:26px;border-radius:3px;line-height:1.5;
+}
+
+/* ---------- LIVE BADGE + LIVE LINK ---------- */
+.live-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'IBM Plex Mono';font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;
+  color:#7CD992;border:1px solid rgba(124,217,146,.4);border-radius:2px;padding:3px 8px;
+}
+.live-badge::before{content:"";width:6px;height:6px;border-radius:50%;background:#7CD992;box-shadow:0 0 0 0 rgba(124,217,146,.6);animation:livepulse 2.2s infinite}
+@keyframes livepulse{0%{box-shadow:0 0 0 0 rgba(124,217,146,.5)}70%{box-shadow:0 0 0 6px rgba(124,217,146,0)}100%{box-shadow:0 0 0 0 rgba(124,217,146,0)}}
+@media(prefers-reduced-motion:reduce){.live-badge::before{animation:none}}
+.asset-more.live{color:#7CD992}
+.spec dd.live{color:#7CD992}
+
+/* ---------- CONTENT NETWORK STRIP ---------- */
+.network{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin:14px 0}
+.net-site{background:var(--panel-2);padding:20px 22px;display:flex;flex-direction:column;gap:6px;transition:background .2s}
+a.net-site:hover{background:var(--panel)}
+.net-site .dom{font-family:'IBM Plex Mono';font-size:.82rem;color:var(--amber);display:flex;align-items:center;gap:6px;word-break:break-word}
+.net-site .dom svg{width:12px;height:12px;flex:none}
+.net-site .topic{font-size:.8rem;color:var(--dim)}
+.net-site .count{font-family:'IBM Plex Mono';font-size:.66rem;letter-spacing:.06em;color:var(--star);margin-top:2px}
+
 /* ---------- PROOF STRIP ---------- */
 .proof{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
 .proof div{background:var(--panel-2);padding:30px 24px}

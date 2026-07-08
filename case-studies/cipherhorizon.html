@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CipherHorizon — Post-Quantum Cryptography Readiness Scanner | Full Stack Assets</title>
+<meta name="description" content="CipherHorizon finds the cryptography in your stack that won't survive a quantum computer — scanning certificates, dependency manifests, and live domains, with a scoring dashboard and continuous monitoring. Live.">
+<meta name="author" content="Nic Albertson">
+<link rel="canonical" href="https://fullstackassets.com/case-studies/cipherhorizon.html">
+<meta name="theme-color" content="#0B1426">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Full Stack Assets">
+<meta property="og:title" content="CipherHorizon — Post-Quantum Cryptography Readiness Scanner">
+<meta property="og:description" content="Finds the cryptography that won't survive a quantum computer — scanning certificates, dependency manifests, and live domains, with a scoring dashboard.">
+<meta property="og:url" content="https://fullstackassets.com/case-studies/cipherhorizon.html">
+<meta property="og:image" content="https://fullstackassets.com/assets/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CipherHorizon — Post-Quantum Readiness Scanner">
+<meta name="twitter:description" content="Finds the cryptography that won't survive a quantum computer — certificates, dependency manifests, and live domains.">
+<meta name="twitter:image" content="https://fullstackassets.com/assets/og-card.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B1426'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23F2A93B'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,700;12..96,800&family=Public+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "CipherHorizon: A Post-Quantum Cryptography Readiness Scanner",
+  "description": "CipherHorizon scans certificates, dependency manifests, and live domains for cryptography that won't survive a quantum computer, with a scoring dashboard and continuous monitoring.",
+  "author": {"@type": "Person", "name": "Nic Albertson", "url": "https://fullstackassets.com/"},
+  "publisher": {"@type": "Person", "name": "Nic Albertson"},
+  "mainEntityOfPage": "https://fullstackassets.com/case-studies/cipherhorizon.html",
+  "datePublished": "2026-06-09",
+  "dateModified": "2026-07-07"
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">FULL STACK <span>ASSETS</span></a>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <div class="nav-links">
+      <a href="/#assets" class="active">Case Studies</a>
+      <a href="/#capabilities">Capabilities</a>
+      <a href="/#process">Process</a>
+      <a href="/#about">About</a>
+      <a href="/blog/">Insights</a>
+      <a href="/services/">Services</a>
+      <a href="/#contact" class="nav-cta">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+<div class="page-hero">
+  <div class="wrap">
+    <div class="breadcrumbs">
+      <a href="/">Home</a><span class="sep">/</span><a href="/case-studies/">Case Studies</a><span class="sep">/</span><span>CipherHorizon</span>
+    </div>
+    <div class="eyebrow">FSA-008 · Security Platform</div>
+    <h1>CipherHorizon: find the cryptography that won't survive a quantum computer</h1>
+    <p class="lede">A post-quantum readiness scanner that inspects <strong>certificates, dependency manifests, and live domains</strong> for algorithms a large quantum computer would break — then scores the exposure and monitors it over time. The migration deadline is set by physics and standards bodies, not by your roadmap; this tells you where you stand.</p>
+    <dl class="meta-row">
+      <div class="meta-item"><dt>Type</dt><dd>Security scanner &amp; dashboard</dd></div>
+      <div class="meta-item"><dt>Inputs</dt><dd>Certs · dependencies · domains</dd></div>
+      <div class="meta-item"><dt>Model</dt><dd>$149 report · $99/mo monitor</dd></div>
+      <div class="meta-item"><dt>Status</dt><dd class="live">● Live</dd></div>
+    </dl>
+    <div class="hero-ctas" style="margin-top:26px">
+      <a class="btn btn-solid" href="https://cipherhorizon.vercel.app" target="_blank" rel="noopener">Open the live scanner ↗</a>
+      <a class="btn btn-ghost" href="/services/#licensing">Licensing &amp; acquisition</a>
+    </div>
+  </div>
+</div>
+
+<section style="padding-top:64px">
+  <div class="wrap">
+    <div class="article-layout">
+      <div class="prose">
+
+        <p>CipherHorizon is a live tool that answers one uncomfortable question: <strong>how much of your cryptography is on borrowed time?</strong> It takes certificates, dependency manifests, or a domain, identifies the algorithms in use that a sufficiently large quantum computer would break, and turns that into a readiness score you can act on — with continuous monitoring for teams that need to track the exposure as it changes.</p>
+
+        <h2 id="problem">The problem</h2>
+        <p>Most of the encryption protecting data in transit and at rest today — RSA, elliptic-curve — rests on math that a large quantum computer is expected to break. That machine may still be years out, but the threat is already here in a form security teams call <strong>"harvest now, decrypt later":</strong> an adversary can capture encrypted traffic today and simply wait until the hardware exists to open it. Anything that must stay confidential for a decade is effectively at risk right now.</p>
+        <p>Standards bodies have responded — NIST has finalized post-quantum algorithms and migration is officially on the clock — but the first practical problem for any organization is simply <em>knowing what it has</em>. Which certificates, which libraries, which endpoints are relying on cryptography with an expiration date? Most teams can't answer that, and you can't migrate what you can't see.</p>
+
+        <h2 id="approach">The approach</h2>
+        <p>CipherHorizon meets that gap with three ways to feed it what you actually have, because exposure hides in different places:</p>
+        <ul>
+          <li><strong>Certificate upload</strong> — drop in <code>.pem</code>, <code>.crt</code>, or <code>.cer</code> files and it parses them in the browser to identify the signing and key-exchange algorithms at risk.</li>
+          <li><strong>Dependency manifest</strong> — paste a manifest and it flags crypto libraries and versions whose primitives won't survive the transition.</li>
+          <li><strong>Domain scan</strong> — point it at a live domain and it inspects the TLS configuration actually being served.</li>
+        </ul>
+        <p>Each path feeds a <strong>scoring dashboard</strong> that turns raw findings into a readiness posture — a single picture of where an organization stands and what to prioritize — rather than a wall of undifferentiated certificate details.</p>
+
+        <div class="callout"><strong>Design principle:</strong> a security tool earns trust by keeping sensitive material out of its own reach. CipherHorizon parses uploaded certificates in the browser, so the fastest path to a finding doesn't require handing raw key material to a server first.</div>
+
+        <h2 id="model">The revenue model</h2>
+        <p>CipherHorizon is packaged as a product, not just a demo: a <strong>$149 single report</strong> for a one-time readiness assessment, and <strong>$99/month continuous monitoring</strong> for teams that need to watch the exposure as certificates rotate and dependencies change. The two tiers map to how the need actually shows up — a one-off audit for a point-in-time answer, and an ongoing subscription for organizations that have to prove they're tracking it.</p>
+
+        <h2 id="status">Status</h2>
+        <p>CipherHorizon is <strong>live</strong> — certificate upload, dependency scanning, domain inspection, and the scoring dashboard are all running, with the pricing tiers in place. It's available to explore directly, and available for licensing or acquisition as a productized security asset.</p>
+
+        <div class="byline">
+          <div class="avatar">NA</div>
+          <div>
+            <div class="name">Nic Albertson</div>
+            <div class="role">Sole engineer &amp; inventor · Fall River, MA</div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="toc">
+        <div class="toc-label">On this page</div>
+        <ol>
+          <li><a href="#problem">The problem</a></li>
+          <li><a href="#approach">The approach</a></li>
+          <li><a href="#model">The revenue model</a></li>
+          <li><a href="#status">Status</a></li>
+        </ol>
+        <div class="share-box">
+          <div class="toc-label">Share</div>
+          <div class="share-row">
+            <button class="share-btn" data-share="x">Share on X</button>
+            <button class="share-btn" data-share="linkedin">LinkedIn</button>
+            <button class="share-btn" data-share="copy">Copy link</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-tag">More Assets</span><h2>Related case studies</h2></div>
+    <div class="related">
+      <a class="post-card" href="/case-studies/hostgraph.html">
+        <div class="post-tag">FSA-004 · Platforms</div>
+        <h3>HostGraph</h3>
+        <p>A procurement-intelligence command center that surfaces margin leaks in vendor invoices, with an explorable live demo.</p>
+      </a>
+      <a class="post-card" href="/case-studies/veritas.html">
+        <div class="post-tag">FSA-007 · AI Evaluation</div>
+        <h3>VERITAS</h3>
+        <p>A code-evaluation harness that ranks frontier AI models on hidden-test pass rate across a full task suite.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="contact">
+  <div class="wrap">
+    <div class="sec-tag" style="margin-bottom:18px">Contact</div>
+    <h2>Interested in licensing or acquiring CipherHorizon?</h2>
+    <p>The scanner is live to try, and available as a productized security asset for license or acquisition.</p>
+    <div class="hero-ctas" style="justify-content:center">
+      <a class="btn btn-solid" href="https://cipherhorizon.vercel.app" target="_blank" rel="noopener">Open the live scanner ↗</a>
+      <a class="btn btn-ghost" href="/services/#licensing">Licensing &amp; acquisition terms</a>
+      <a class="btn btn-ghost" href="/case-studies/">All case studies</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <a href="/" class="logo">FULL STACK <span>ASSETS</span></a>
+        <p style="color:var(--dim);font-size:.85rem;margin-top:14px;max-width:32ch">Nic Albertson builds and documents revenue-ready software assets, solo, from Fall River, Massachusetts.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Case Studies</h4>
+        <a href="/case-studies/constellation-coo.html">Constellation COO</a>
+        <a href="/case-studies/veritas.html">VERITAS</a>
+        <a href="/case-studies/cipherhorizon.html">CipherHorizon</a>
+        <a href="/case-studies/">View all →</a>
+      </div>
+      <div class="foot-col">
+        <h4>Work with me</h4>
+        <a href="/services/#engagements">Audit &amp; build sprints</a>
+        <a href="/services/#engagements">Fractional engineering</a>
+        <a href="/services/#licensing">Licensing &amp; acquisition</a>
+        <a href="/services/">All services →</a>
+      </div>
+      <div class="foot-col">
+        <h4>Connect</h4>
+        <a href="/#about">About</a>
+        <a href="/blog/">Insights</a>
+        <a href="mailto:hello@fullstackassets.com">hello@fullstackassets.com</a>
+        <a href="https://github.com/Full-Stack-Assets" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Full Stack Assets · Nic Albertson</span>
+      <span>Built solo · Fall River, MA</span>
+    </div>
+  </div>
+</footer>
+<button class="totop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<script src="/assets/site.js"></script>
+</body>
+</html>
