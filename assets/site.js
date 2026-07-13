@@ -29,6 +29,29 @@
     totop.addEventListener('click', ()=>window.scrollTo({top:0,behavior:'smooth'}));
   }
 
+  /* Google Ads conversion tracking for lead-intent email clicks */
+  document.querySelectorAll('a[href^="mailto:hello@fullstackassets.com"]').forEach(link=>{
+    link.addEventListener('click', event=>{
+      if(typeof window.gtag !== 'function') return;
+
+      event.preventDefault();
+      const href = link.href;
+      let navigated = false;
+      const navigate = ()=>{
+        if(navigated) return;
+        navigated = true;
+        window.location.href = href;
+      };
+
+      window.gtag('event', 'conversion', {
+        send_to: 'AW-18251288079/kzn7CM69488cEI-c8v5D',
+        event_callback: navigate,
+        event_timeout: 1000,
+      });
+      setTimeout(navigate, 1200);
+    });
+  });
+
   /* case-study / blog filter tabs */
   const tabs = document.querySelectorAll('.tab');
   if(tabs.length){
