@@ -11,6 +11,11 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://fullstackassets.com/purchase/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://fullstackassets.com/case-studies/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
