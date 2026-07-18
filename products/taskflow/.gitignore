@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.taskflow-runs/
+.benchmark-runs/
+.env
+.env.*
+!.env.example
+.DS_Store

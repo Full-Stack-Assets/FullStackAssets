@@ -1,0 +1,210 @@
+{
+  "schemaVersion": 1,
+  "runId": "demo-client-intake-2026-07-18",
+  "workflowId": "consulting-client-intake",
+  "status": "succeeded",
+  "startedAt": "2026-07-18T16:00:00.000Z",
+  "input": {
+    "businessName": "Harbor Electric",
+    "contactName": "Alex Rivera",
+    "email": "alex@harbor-electric.example",
+    "requestedService": "AI lead follow-up automation",
+    "budgetUsd": 12000,
+    "timeline": "Launch within 8 weeks",
+    "goals": [
+      "Respond to leads in under five minutes",
+      "Reduce manual CRM updates"
+    ]
+  },
+  "events": [
+    {
+      "sequence": 1,
+      "at": "2026-07-18T16:00:00.015Z",
+      "phase": "plan",
+      "type": "plan_succeeded",
+      "message": "Planned 3 step(s).",
+      "durationMs": 5
+    },
+    {
+      "sequence": 2,
+      "at": "2026-07-18T16:00:00.025Z",
+      "phase": "execute",
+      "type": "step_started",
+      "message": "Normalize client intake",
+      "stepId": "normalize-intake"
+    },
+    {
+      "sequence": 3,
+      "at": "2026-07-18T16:00:00.035Z",
+      "phase": "execute",
+      "type": "step_succeeded",
+      "message": "Normalize client intake completed.",
+      "stepId": "normalize-intake",
+      "attempt": 1,
+      "durationMs": 10
+    },
+    {
+      "sequence": 4,
+      "at": "2026-07-18T16:00:00.045Z",
+      "phase": "execute",
+      "type": "step_started",
+      "message": "Qualify opportunity",
+      "stepId": "qualify-opportunity"
+    },
+    {
+      "sequence": 5,
+      "at": "2026-07-18T16:00:00.050Z",
+      "phase": "execute",
+      "type": "step_attempt_failed",
+      "message": "Attempt 1 failed for Qualify opportunity.",
+      "stepId": "qualify-opportunity",
+      "attempt": 1,
+      "error": "Injected transient failure for qualify-opportunity"
+    },
+    {
+      "sequence": 6,
+      "at": "2026-07-18T16:00:00.060Z",
+      "phase": "execute",
+      "type": "step_succeeded",
+      "message": "Qualify opportunity completed.",
+      "stepId": "qualify-opportunity",
+      "attempt": 2,
+      "durationMs": 15
+    },
+    {
+      "sequence": 7,
+      "at": "2026-07-18T16:00:00.070Z",
+      "phase": "execute",
+      "type": "step_started",
+      "message": "Draft consulting brief",
+      "stepId": "draft-consulting-brief"
+    },
+    {
+      "sequence": 8,
+      "at": "2026-07-18T16:00:00.080Z",
+      "phase": "execute",
+      "type": "step_succeeded",
+      "message": "Draft consulting brief completed.",
+      "stepId": "draft-consulting-brief",
+      "attempt": 1,
+      "durationMs": 10
+    },
+    {
+      "sequence": 9,
+      "at": "2026-07-18T16:00:00.095Z",
+      "phase": "verify",
+      "type": "verification_succeeded",
+      "message": "All required intake fields were normalized. The qualification tier matches the submitted budget. The consulting brief preserves the requested service, goals, and timeline.",
+      "durationMs": 5
+    }
+  ],
+  "usage": [
+    {
+      "provider": "taskflow-local",
+      "model": "deterministic",
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "costUsd": 0
+    },
+    {
+      "provider": "taskflow-local",
+      "model": "deterministic",
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "costUsd": 0
+    },
+    {
+      "provider": "taskflow-local",
+      "model": "deterministic",
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "costUsd": 0
+    }
+  ],
+  "totalCostUsd": 0,
+  "plan": {
+    "steps": [
+      {
+        "id": "normalize-intake",
+        "label": "Normalize client intake",
+        "maxAttempts": 1
+      },
+      {
+        "id": "qualify-opportunity",
+        "label": "Qualify opportunity",
+        "maxAttempts": 2
+      },
+      {
+        "id": "draft-consulting-brief",
+        "label": "Draft consulting brief",
+        "maxAttempts": 1
+      }
+    ]
+  },
+  "verification": {
+    "verified": true,
+    "evidence": [
+      "All required intake fields were normalized.",
+      "The qualification tier matches the submitted budget.",
+      "The consulting brief preserves the requested service, goals, and timeline."
+    ],
+    "output": {
+      "normalized": {
+        "businessName": "Harbor Electric",
+        "contactName": "Alex Rivera",
+        "email": "alex@harbor-electric.example",
+        "requestedService": "AI lead follow-up automation",
+        "budgetUsd": 12000,
+        "timeline": "Launch within 8 weeks",
+        "goals": [
+          "Respond to leads in under five minutes",
+          "Reduce manual CRM updates"
+        ]
+      },
+      "qualification": {
+        "tier": "transformation",
+        "rationale": "The budget supports discovery, implementation, integration, and measured rollout."
+      },
+      "brief": {
+        "summary": "Harbor Electric is seeking AI lead follow-up automation to achieve Respond to leads in under five minutes; Reduce manual CRM updates.",
+        "goals": [
+          "Respond to leads in under five minutes",
+          "Reduce manual CRM updates"
+        ],
+        "timeline": "Launch within 8 weeks",
+        "recommendedScope": "transformation engagement: The budget supports discovery, implementation, integration, and measured rollout.",
+        "nextAction": "Schedule a 45-minute discovery session with the decision maker and process owner."
+      }
+    }
+  },
+  "output": {
+    "normalized": {
+      "businessName": "Harbor Electric",
+      "contactName": "Alex Rivera",
+      "email": "alex@harbor-electric.example",
+      "requestedService": "AI lead follow-up automation",
+      "budgetUsd": 12000,
+      "timeline": "Launch within 8 weeks",
+      "goals": [
+        "Respond to leads in under five minutes",
+        "Reduce manual CRM updates"
+      ]
+    },
+    "qualification": {
+      "tier": "transformation",
+      "rationale": "The budget supports discovery, implementation, integration, and measured rollout."
+    },
+    "brief": {
+      "summary": "Harbor Electric is seeking AI lead follow-up automation to achieve Respond to leads in under five minutes; Reduce manual CRM updates.",
+      "goals": [
+        "Respond to leads in under five minutes",
+        "Reduce manual CRM updates"
+      ],
+      "timeline": "Launch within 8 weeks",
+      "recommendedScope": "transformation engagement: The budget supports discovery, implementation, integration, and measured rollout.",
+      "nextAction": "Schedule a 45-minute discovery session with the decision maker and process owner."
+    }
+  },
+  "completedAt": "2026-07-18T16:00:00.100Z",
+  "durationMs": 100
+}

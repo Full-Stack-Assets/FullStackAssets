@@ -1,0 +1,12 @@
+{
+  "businessName": "Harbor Electric",
+  "contactName": "Alex Rivera",
+  "email": "alex@harbor-electric.example",
+  "requestedService": "AI lead follow-up automation",
+  "budgetUsd": 12000,
+  "timeline": "Launch within 8 weeks",
+  "goals": [
+    "Respond to leads in under five minutes",
+    "Reduce manual CRM updates"
+  ]
+}
