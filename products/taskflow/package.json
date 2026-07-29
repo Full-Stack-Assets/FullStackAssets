@@ -1,0 +1,28 @@
+{
+  "name": "@full-stack-assets/taskflow",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Evidence-backed Plan → Execute → Verify workflow runtime.",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "clean": "rm -rf dist .taskflow-runs .benchmark-runs",
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test dist/tests/**/*.test.js",
+    "test:compiled": "node --test dist/tests/**/*.test.js",
+    "demo": "npm run build && node dist/scripts/run-demo.js",
+    "demo:verify": "npm run build && node dist/scripts/verify-demo.js",
+    "benchmark": "npm run build && node dist/scripts/run-benchmark.js",
+    "benchmark:verify": "npm run build && node dist/scripts/verify-benchmark.js",
+    "start": "npm run build && node dist/src/server.js",
+    "docs:verify": "node scripts/verify-docs.mjs",
+    "benchmark:fresh": "npm run build && rm -rf .benchmark-runs && mkdir -p .benchmark-runs && node dist/scripts/run-benchmark.js .benchmark-runs/ci.json 5 && node dist/scripts/verify-benchmark.js .benchmark-runs/ci.json",
+    "check": "npm run clean && npm run build && npm run test:compiled && node dist/scripts/verify-demo.js && npm run benchmark:fresh && npm run docs:verify"
+  },
+  "devDependencies": {
+    "@types/node": "22.8.7",
+    "typescript": "5.9.3"
+  }
+}

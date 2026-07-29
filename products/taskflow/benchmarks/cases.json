@@ -1,0 +1,106 @@
+[
+  {
+    "id": "starter-valid",
+    "expectedVerified": true,
+    "input": {
+      "businessName": "South Shore Plumbing",
+      "contactName": "Jordan Lee",
+      "email": "jordan@southshore.example",
+      "requestedService": "AI appointment follow-up",
+      "budgetUsd": 2400,
+      "timeline": "4 weeks",
+      "goals": ["Reduce missed estimates", "Confirm appointments automatically"]
+    }
+  },
+  {
+    "id": "growth-valid",
+    "expectedVerified": true,
+    "input": {
+      "businessName": "Bristol Marine Services",
+      "contactName": "Casey Morgan",
+      "email": "casey@bristolmarine.example",
+      "requestedService": "Customer intake automation",
+      "budgetUsd": 7500,
+      "timeline": "6 weeks",
+      "goals": ["Standardize intake", "Route urgent requests"]
+    }
+  },
+  {
+    "id": "transformation-valid",
+    "expectedVerified": true,
+    "input": {
+      "businessName": "Harbor Electric",
+      "contactName": "Alex Rivera",
+      "email": "alex@harbor-electric.example",
+      "requestedService": "AI lead follow-up automation",
+      "budgetUsd": 12000,
+      "timeline": "8 weeks",
+      "goals": ["Respond to leads in under five minutes", "Reduce manual CRM updates"]
+    }
+  },
+  {
+    "id": "whitespace-normalization",
+    "expectedVerified": true,
+    "input": {
+      "businessName": "  Bay State Roofing  ",
+      "contactName": "  Morgan Ellis ",
+      "email": " MORGAN@BAYSTATE.EXAMPLE ",
+      "requestedService": "  Estimate follow-up system ",
+      "budgetUsd": 5000,
+      "timeline": "  5 weeks ",
+      "goals": ["  Shorten quote response time ", " Improve follow-up consistency  "]
+    }
+  },
+  {
+    "id": "invalid-email",
+    "expectedVerified": false,
+    "input": {
+      "businessName": "Invalid Email Co",
+      "contactName": "Taylor Quinn",
+      "email": "not-an-email",
+      "requestedService": "Workflow review",
+      "budgetUsd": 3000,
+      "timeline": "3 weeks",
+      "goals": ["Document operations"]
+    }
+  },
+  {
+    "id": "negative-budget",
+    "expectedVerified": false,
+    "input": {
+      "businessName": "Negative Budget Co",
+      "contactName": "Riley Chen",
+      "email": "riley@negative.example",
+      "requestedService": "Automation strategy",
+      "budgetUsd": -1,
+      "timeline": "3 weeks",
+      "goals": ["Prioritize opportunities"]
+    }
+  },
+  {
+    "id": "missing-goals",
+    "expectedVerified": false,
+    "input": {
+      "businessName": "No Goals Co",
+      "contactName": "Avery James",
+      "email": "avery@nogoals.example",
+      "requestedService": "Automation strategy",
+      "budgetUsd": 6000,
+      "timeline": "3 weeks",
+      "goals": []
+    }
+  },
+  {
+    "id": "missing-service",
+    "expectedVerified": false,
+    "input": {
+      "businessName": "No Service Co",
+      "contactName": "Jamie Brooks",
+      "email": "jamie@noservice.example",
+      "requestedService": "   ",
+      "budgetUsd": 6000,
+      "timeline": "3 weeks",
+      "goals": ["Improve operations"]
+    }
+  }
+]

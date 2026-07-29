@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "benchmark": "taskflow-client-intake-local",
+  "generatedAt": "2026-07-18T21:22:33.152Z",
+  "environment": {
+    "node": "v22.16.0",
+    "platform": "linux",
+    "architecture": "x64"
+  },
+  "datasetCases": 8,
+  "iterations": 25,
+  "metrics": {
+    "sampleSize": 200,
+    "verificationAccuracy": 1,
+    "taskCompletionRate": 1,
+    "p50LatencyMs": 0.04,
+    "p95LatencyMs": 0.136,
+    "totalCostUsd": 0
+  },
+  "caseSummaries": [
+    {
+      "caseId": "starter-valid",
+      "expectedVerified": true,
+      "runs": 25,
+      "matchedOutcomes": 25,
+      "averageLatencyMs": 0.133
+    },
+    {
+      "caseId": "growth-valid",
+      "expectedVerified": true,
+      "runs": 25,
+      "matchedOutcomes": 25,
+      "averageLatencyMs": 0.073
+    },
+    {
+      "caseId": "transformation-valid",
+      "expectedVerified": true,
+      "runs": 25,
+      "matchedOutcomes": 25,
+      "averageLatencyMs": 0.06
+    },
+    {
+      "caseId": "whitespace-normalization",
+      "expectedVerified": true,
+      "runs": 25,
+      "matchedOutcomes": 25,
+      "averageLatencyMs": 0.105
+    },
+    {
+      "caseId": "invalid-email",
+      "expectedVerified": false,
+      "runs": 25,
+      "matchedOutcomes": 25,
+      "averageLatencyMs": 0.038
+    },
+    {
+      "caseId": "negative-budget",
+      "expectedVerified": false,
+      "runs": 25,
+      "matchedOutcomes": 25,
+      "averageLatencyMs": 0.024
+    },
+    {
+      "caseId": "missing-goals",
+      "expectedVerified": false,
+      "runs": 25,
+      "matchedOutcomes": 25,
+      "averageLatencyMs": 0.019
+    },
+    {
+      "caseId": "missing-service",
+      "expectedVerified": false,
+      "runs": 25,
+      "matchedOutcomes": 25,
+      "averageLatencyMs": 0.019
+    }
+  ],
+  "limitations": [
+    "Synthetic deterministic client-intake cases; no production customer traffic.",
+    "Local wall-clock latency includes only in-process workflow execution.",
+    "Recorded cost is zero because the included workflow uses no paid model or connector.",
+    "Verification accuracy measures expected outcome classification on this checked-in dataset only."
+  ]
+}
