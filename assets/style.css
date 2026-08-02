@@ -416,7 +416,8 @@ footer{border-top:1px solid var(--line);padding:40px 0 26px}
 .form-note,.form-status{color:var(--dim);font-size:.82rem}
 .resume-header{display:flex;justify-content:space-between;gap:24px;align-items:flex-start}
 .resume-list{display:grid;gap:12px;list-style:none}
-@media(max-width:900px){.featured-work{grid-template-columns:1fr}}
+.resume-systems{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+@media(max-width:900px){.featured-work,.resume-systems{grid-template-columns:1fr}}
 @media(max-width:700px){
   .audience-paths,.contact-paths,.inquiry-grid{grid-template-columns:1fr}
   .inquiry-grid .field-wide{grid-column:auto}
@@ -433,5 +434,6 @@ footer{border-top:1px solid var(--line);padding:40px 0 26px}
   body{background:#fff;color:#111;font-weight:400}
   .page-hero,section{padding:24px 0;border-color:#ddd}
   .resume-block{background:#fff;border-color:#ddd;break-inside:avoid}
+  .resume-systems{grid-template-columns:repeat(3,minmax(0,1fr))}
   a{color:#111;text-decoration:none}
 }

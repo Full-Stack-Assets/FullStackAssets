@@ -107,3 +107,15 @@ test("purchase route is a transparent project inquiry", () => {
   assert.match(inquiry, /opens your email app/i);
   assert.doesNotMatch(inquiry, /checkout|payment|invoice|purchase audit/i);
 });
+
+test("resume is factual, printable, and linked", () => {
+  const resume = read("resume/index.html");
+  assert.match(resume, /Nic Albertson/);
+  assert.match(resume, /Full-Stack \/ Product Engineer/);
+  assert.match(resume, /Fall River, Massachusetts/);
+  assert.match(resume, /BeyondMythos/);
+  assert.match(resume, /Tradewind DealFlow/);
+  assert.match(resume, /TaskFlow/);
+  assert.match(resume, /data-print-resume/);
+  assert.doesNotMatch(resume, /work authorization|Bachelor|revenue|customers/i);
+});
