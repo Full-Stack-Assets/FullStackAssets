@@ -11,14 +11,14 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Purchase Consulting Services | Full Stack Assets</title>
-<meta name="description" content="Purchase a fixed-price Full Stack Assets engagement, reserve a build, or request an invoice for AI orchestration and full-stack engineering services.">
+<title>Project Inquiry | Nic Albertson</title>
+<meta name="description" content="Describe the system, workflow, or product constraint that needs focused engineering help.">
 <meta name="author" content="Nic Albertson">
 <link rel="canonical" href="https://fullstackassets.com/purchase/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Full Stack Assets">
-<meta property="og:title" content="Purchase Consulting Services | Full Stack Assets">
-<meta property="og:description" content="Choose a fixed-price engagement, reserve a scoped build, or request invoice and ACH terms.">
+<meta property="og:title" content="Project Inquiry | Nic Albertson">
+<meta property="og:description" content="Describe the system or workflow that is slowing the team down.">
 <meta property="og:url" content="https://fullstackassets.com/purchase/">
 <meta property="og:image" content="https://fullstackassets.com/assets/og-card.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -27,73 +27,15 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,700;12..96,800&family=Public+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
-<script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-</script>
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
 <script defer src="/_vercel/insights/script.js"></script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "OfferCatalog",
-  "name": "Full Stack Assets consulting purchase options",
-  "url": "https://fullstackassets.com/purchase/",
-  "itemListElement": [
-    {"@type":"Offer","name":"Systems & AI-Spend Audit","price":"1500","priceCurrency":"USD","availability":"https://schema.org/InStock"},
-    {"@type":"Offer","name":"Micro-SaaS Launch Kit","price":"1200","priceCurrency":"USD","availability":"https://schema.org/InStock"},
-    {"@type":"Offer","name":"Build Sprint","priceSpecification":{"@type":"PriceSpecification","minPrice":"6500","priceCurrency":"USD"}},
-    {"@type":"Offer","name":"Fractional Founding Engineer","price":"3900","priceCurrency":"USD"},
-    {"@type":"Offer","name":"Automated Content Engine","priceSpecification":{"@type":"PriceSpecification","minPrice":"2500","priceCurrency":"USD"}},
-    {"@type":"Offer","name":"AI Model Eval Harness","priceSpecification":{"@type":"PriceSpecification","minPrice":"4000","priceCurrency":"USD"}},
-    {"@type":"Offer","name":"Source License","priceSpecification":{"@type":"PriceSpecification","minPrice":"490","priceCurrency":"USD","unitText":"year"}}
-  ]
-}
-</script>
-<style>
-  .purchase-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
-  .purchase-card{background:var(--panel);border:1px solid var(--line);padding:28px;display:flex;flex-direction:column;position:relative;transition:border-color .25s,transform .25s}
-  .purchase-card:hover{border-color:var(--amber);transform:translateY(-3px)}
-  .purchase-card.featured{border-color:var(--amber)}
-  .purchase-card .tag{font-family:'IBM Plex Mono';font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:12px}
-  .purchase-card h3{font-size:1.3rem;margin-bottom:8px}
-  .purchase-card .price{font-family:'Bricolage Grotesque';font-size:1.7rem;font-weight:800;color:var(--amber);margin:10px 0}
-  .purchase-card .price span{font-family:'IBM Plex Mono';font-size:.66rem;font-weight:400;text-transform:uppercase;letter-spacing:.08em;color:var(--dim)}
-  .purchase-card p{color:var(--dim);font-size:.9rem;margin-bottom:18px}
-  .purchase-card ul{list-style:none;border-top:1px solid var(--line);margin-bottom:22px;flex-grow:1}
-  .purchase-card li{padding:9px 0 9px 22px;border-bottom:1px solid var(--line);font-size:.86rem;color:var(--dim);position:relative}
-  .purchase-card li::before{content:"→";color:var(--amber);position:absolute;left:0;font-family:'IBM Plex Mono'}
-  .purchase-card .btn{text-align:center}
-  .purchase-card .fine{font-family:'IBM Plex Mono';font-size:.64rem;color:var(--dim);margin-top:12px;line-height:1.5}
-  .checkout-layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr);gap:28px;align-items:start}
-  .checkout-panel{background:var(--panel);border:1px solid var(--line);padding:28px}
-  .checkout-panel h3{font-size:1.25rem;margin-bottom:8px}
-  .checkout-panel>p{color:var(--dim);font-size:.9rem;margin-bottom:22px}
-  .field{margin-bottom:16px}
-  .field label,.payment-label{display:block;font-family:'IBM Plex Mono';font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:7px}
-  .field input,.field select,.field textarea{width:100%;background:var(--panel-3);border:1px solid var(--line);color:var(--star);font:inherit;padding:12px 13px;border-radius:0}
-  .field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--amber);outline-offset:1px}
-  .field textarea{min-height:120px;resize:vertical}
-  .payment-options{display:grid;gap:10px;margin-bottom:20px}
-  .payment-option{display:flex;gap:11px;align-items:flex-start;border:1px solid var(--line);background:var(--panel-3);padding:13px;cursor:pointer}
-  .payment-option:has(input:checked){border-color:var(--amber);background:rgba(242,169,59,.06)}
-  .payment-option input{margin-top:4px;accent-color:var(--amber)}
-  .payment-option strong{display:block;font-size:.9rem;font-weight:500}
-  .payment-option span{display:block;color:var(--dim);font-size:.78rem;margin-top:2px}
-  .summary-row{display:flex;justify-content:space-between;gap:20px;padding:11px 0;border-bottom:1px solid var(--line);font-size:.86rem}
-  .summary-row span:first-child{color:var(--dim)}
-  .summary-row strong{font-weight:500;text-align:right}
-  .notice{border:1px solid var(--line);border-left:2px solid var(--cyan);background:var(--panel-2);padding:16px 18px;color:var(--dim);font-size:.82rem;margin-top:18px}
-  .status{min-height:24px;margin-top:12px;font-family:'IBM Plex Mono';font-size:.7rem;color:var(--amber)}
-  @media(max-width:840px){.checkout-layout{grid-template-columns:1fr}}
-</style>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <nav>
   <div class="nav-inner">
     <a href="/" class="logo">FULL STACK <span>ASSETS</span></a>
-    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-    </button>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
     <div class="nav-links">
       <a href="/#assets">Case Studies</a>
       <a href="/#capabilities">Capabilities</a>
@@ -101,8 +43,7 @@
       <a href="/#about">About</a>
       <a href="/blog/">Insights</a>
       <a href="/services/">Services</a>
-      <a href="/purchase/" class="active">Purchase</a>
-      <a href="/#contact" class="nav-cta">Contact</a>
+      <a href="#inquiry" class="nav-cta">Start an inquiry</a>
     </div>
   </div>
 </nav>
@@ -110,246 +51,47 @@
 <main id="main">
   <div class="page-hero">
     <div class="wrap">
-      <div class="breadcrumbs"><a href="/">Home</a><span class="sep">/</span><span>Purchase services</span></div>
-      <h1>Choose the engagement. Then choose how to pay.</h1>
-      <p class="lede">Fixed-price services can move directly into secure checkout or an invoice request. Scoped builds and retainers start with the same purchase form, then payment is collected only after the final scope and terms are approved.</p>
+      <div class="breadcrumbs"><a href="/">Home</a><span class="sep">/</span><span>Project inquiry</span></div>
+      <h1>Tell me what is slowing the team down.</h1>
+      <p class="lede">This page remains available for anyone following an older link. It is a project inquiry, not an automated transaction: share the current system and the constraint, then open an email with the details ready to send.</p>
       <div class="meta-row">
-        <div class="meta-item"><dt>Payments</dt><dd class="hl">Card checkout · invoice · ACH</dd></div>
-        <div class="meta-item"><dt>Pricing</dt><dd>Fixed where listed</dd></div>
-        <div class="meta-item"><dt>Delivery</dt><dd>Remote · direct with Nic</dd></div>
+        <div class="meta-item"><dt>Best for</dt><dd class="hl">One bounded problem</dd></div>
+        <div class="meta-item"><dt>How it works</dt><dd>Your email app opens</dd></div>
+        <div class="meta-item"><dt>Data handling</dt><dd>Nothing stored here</dd></div>
       </div>
     </div>
   </div>
 
-  <section style="border-top:none">
+  <section id="inquiry" style="border-top:none">
     <div class="wrap">
-      <div class="sec-head"><span class="sec-tag">01 — Select</span><h2>Purchase or reserve an offer</h2></div>
-      <p class="sec-intro">The two fixed-price offers can be purchased as listed. Everything marked “scope first” becomes a purchase request so the final invoice matches the approved work.</p>
-
-      <div class="purchase-grid rv">
-        <article class="purchase-card featured" data-offer="audit">
-          <div class="tag">Fixed price · 1 week</div>
-          <h3>Systems &amp; AI-Spend Audit</h3>
-          <div class="price">$1,500 <span>pay in full</span></div>
-          <p>A focused audit of an AI pipeline or full-stack system, built around the constraint that is costing you money or slowing delivery.</p>
-          <ul>
-            <li>Written findings and prioritized fixes</li>
-            <li>LLM/API cost model and reduction targets</li>
-            <li>Architecture review and benchmark evidence</li>
-            <li>Recorded 60-minute walkthrough</li>
-          </ul>
-          <a class="btn btn-solid choose-offer" href="#checkout" data-select="audit">Purchase audit</a>
-          <div class="fine">Work begins after intake, access requirements, and written scope are confirmed.</div>
-        </article>
-
-        <article class="purchase-card" data-offer="launch-kit">
-          <div class="tag">Fixed price · launch-ready</div>
-          <h3>Micro-SaaS Launch Kit</h3>
-          <div class="price">$1,200 <span>pay in full</span></div>
-          <p>A proven catalog template configured, branded, and deployed to your domain with operational handoff documentation.</p>
-          <ul>
-            <li>Storefront, dashboard, or scanner-style template</li>
-            <li>Brand and content configuration</li>
-            <li>Production deployment with HTTPS</li>
-            <li>Handover documentation</li>
-          </ul>
-          <a class="btn btn-solid choose-offer" href="#checkout" data-select="launch-kit">Purchase launch kit</a>
-          <div class="fine">Template selection and launch requirements are confirmed before implementation begins.</div>
-        </article>
-
-        <article class="purchase-card" data-offer="build-sprint">
-          <div class="tag">From $6,500 · scope first</div>
-          <h3>Build Sprint</h3>
-          <div class="price">Fixed quote <span>2–4 weeks</span></div>
-          <p>A scoped agent pipeline, internal tool, automation, or MVP shipped to your infrastructure with tests and documentation.</p>
-          <ul>
-            <li>Working software, not demo-ware</li>
-            <li>Typed interfaces and test coverage</li>
-            <li>Deployment and operator documentation</li>
-            <li>Two weeks of post-ship fixes</li>
-          </ul>
-          <a class="btn btn-ghost choose-offer" href="#checkout" data-select="build-sprint">Reserve / request quote</a>
-          <div class="fine">No payment is requested until the fixed scope, price, and timeline are approved.</div>
-        </article>
-
-        <article class="purchase-card" data-offer="fractional-engineer">
-          <div class="tag">$3,900/mo · scope first</div>
-          <h3>Fractional Founding Engineer</h3>
-          <div class="price">$3,900 <span>month-to-month</span></div>
-          <p>Ongoing architecture, hands-on shipping, and technical direction for an early-stage product.</p>
-          <ul>
-            <li>Weekly shipping cadence</li>
-            <li>Architecture and technical roadmap ownership</li>
-            <li>Direct async access</li>
-            <li>Month-to-month engagement</li>
-          </ul>
-          <a class="btn btn-ghost choose-offer" href="#checkout" data-select="fractional-engineer">Start onboarding</a>
-          <div class="fine">Fit, capacity, priorities, and the first-month scope are confirmed before invoicing.</div>
-        </article>
-
-        <article class="purchase-card" data-offer="content-engine">
-          <div class="tag">From $2,500 · optional managed plan</div>
-          <h3>Automated Content Engine</h3>
-          <div class="price">From $2,500 <span>+ from $300/mo</span></div>
-          <p>A self-running content site and multi-source publishing pipeline retargeted to your domain and niche.</p>
-          <ul>
-            <li>Six-source topic pipeline</li>
-            <li>Scoring, deduplication, and schema validation</li>
-            <li>Editorial review layer</li>
-            <li>Managed or self-run handoff</li>
-          </ul>
-          <a class="btn btn-ghost choose-offer" href="#checkout" data-select="content-engine">Purchase / scope</a>
-          <div class="fine">Final pricing depends on source integrations, volume, hosting, and managed-operation needs.</div>
-        </article>
-
-        <article class="purchase-card" data-offer="eval-harness">
-          <div class="tag">From $4,000 · private build</div>
-          <h3>AI Model Eval Harness</h3>
-          <div class="price">From $4,000 <span>fixed quote</span></div>
-          <p>A private benchmark of frontier models against your real tasks, hidden tests, and decision criteria.</p>
-          <ul>
-            <li>Your task suite and hidden-test scoring</li>
-            <li>Leaderboard and coverage matrix</li>
-            <li>Reproducible harness you keep</li>
-            <li>Written model recommendation</li>
-          </ul>
-          <a class="btn btn-ghost choose-offer" href="#checkout" data-select="eval-harness">Purchase / scope</a>
-          <div class="fine">The final quote reflects task count, model count, evaluation depth, and data-handling requirements.</div>
-        </article>
-
-        <article class="purchase-card" data-offer="source-license">
-          <div class="tag">From $490/year · per asset</div>
-          <h3>Source License</h3>
-          <div class="price">From $490 <span>per year</span></div>
-          <p>Run and modify a catalog asset internally with source, deployment documentation, and initial deployment support.</p>
-          <ul>
-            <li>Full source and deployment documentation</li>
-            <li>Internal-use and modification rights</li>
-            <li>30 days of deployment support</li>
-            <li>Asset-specific license terms</li>
-          </ul>
-          <a class="btn btn-ghost choose-offer" href="#checkout" data-select="source-license">Choose an asset</a>
-          <div class="fine">Resale and redistribution remain reserved unless separately negotiated.</div>
-        </article>
-      </div>
+      <div class="sec-head"><span class="sec-tag">Project inquiry</span><h2>Give the constraint a little context.</h2></div>
+      <p class="sec-intro">Enough detail to understand what exists, who it affects, and what a better outcome looks like is enough to start.</p>
+      <form data-inquiry-form class="rv">
+        <div class="inquiry-grid">
+          <div class="field"><label for="name">Name</label><input id="name" name="name" autocomplete="name" required></div>
+          <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+          <div class="field"><label for="company">Company</label><input id="company" name="company" autocomplete="organization"></div>
+          <div class="field"><label for="users">Who uses it?</label><input id="users" name="users" placeholder="Team, customers, operators"></div>
+          <div class="field field-wide"><label for="current-system">What is the current system?</label><textarea id="current-system" name="current-system" required placeholder="The workflow, tools, and what happens today."></textarea></div>
+          <div class="field field-wide"><label for="problem">What is going wrong?</label><textarea id="problem" name="problem" required placeholder="The failure, delay, cost, or manual work that is causing pain."></textarea></div>
+          <div class="field"><label for="outcome">What outcome do you need?</label><input id="outcome" name="outcome" required></div>
+          <div class="field"><label for="timeline">Timeline or constraint</label><input id="timeline" name="timeline" required></div>
+        </div>
+        <p class="form-note">Submitting opens your email app with these details. Nothing is sent or stored by this website. Prefer email? Write directly to <a href="mailto:hello@fullstackassets.com">hello@fullstackassets.com</a>.</p>
+        <button class="btn btn-solid" type="submit">Open project inquiry</button>
+        <p class="form-status" aria-live="polite"></p>
+      </form>
     </div>
   </section>
 
-  <section id="checkout">
+  <section>
     <div class="wrap">
-      <div class="sec-head"><span class="sec-tag">02 — Checkout</span><h2>Complete the purchase request</h2></div>
-      <p class="sec-intro">Choose card checkout or invoice/ACH. When a service requires scoping, this submits the purchase intent first and the approved invoice follows.</p>
-
-      <div class="checkout-layout rv">
-        <form class="checkout-panel" id="purchase-form">
-          <h3>Buyer and project details</h3>
-          <p>This information is used to confirm fit, prepare access requirements, and match payment to the correct engagement.</p>
-
-          <div class="field">
-            <label for="service">Service</label>
-            <select id="service" name="service" required>
-              <option value="audit">Systems &amp; AI-Spend Audit — $1,500</option>
-              <option value="launch-kit">Micro-SaaS Launch Kit — $1,200</option>
-              <option value="build-sprint">Build Sprint — from $6,500</option>
-              <option value="fractional-engineer">Fractional Founding Engineer — $3,900/month</option>
-              <option value="content-engine">Automated Content Engine — from $2,500</option>
-              <option value="eval-harness">AI Model Eval Harness — from $4,000</option>
-              <option value="source-license">Source License — from $490/year</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="buyer-name">Name</label>
-            <input id="buyer-name" name="name" autocomplete="name" required>
-          </div>
-
-          <div class="field">
-            <label for="buyer-email">Email</label>
-            <input id="buyer-email" name="email" type="email" autocomplete="email" required>
-          </div>
-
-          <div class="field">
-            <label for="company">Company / organization</label>
-            <input id="company" name="company" autocomplete="organization">
-          </div>
-
-          <div class="field">
-            <label for="website">Website or product URL</label>
-            <input id="website" name="website" type="url" inputmode="url" placeholder="https://">
-          </div>
-
-          <div class="field">
-            <label for="notes">System, constraint, or asset requested</label>
-            <textarea id="notes" name="notes" required placeholder="What exists today, what needs to change, and any deadline or access constraints."></textarea>
-          </div>
-
-          <span class="payment-label">Payment preference</span>
-          <div class="payment-options">
-            <label class="payment-option">
-              <input type="radio" name="payment" value="card" checked>
-              <span><strong>Secure card checkout</strong><span>Hosted checkout when available; otherwise a secure payment link is sent after review.</span></span>
-            </label>
-            <label class="payment-option">
-              <input type="radio" name="payment" value="invoice">
-              <span><strong>Invoice / ACH</strong><span>Receive an itemized invoice and bank-payment instructions after the scope is confirmed.</span></span>
-            </label>
-          </div>
-
-          <button class="btn btn-solid" type="submit" id="submit-purchase" style="width:100%;text-align:center">Continue purchase</button>
-          <div class="status" id="form-status" aria-live="polite"></div>
-        </form>
-
-        <aside class="checkout-panel" aria-label="Purchase summary">
-          <h3>Purchase summary</h3>
-          <p>The summary updates when you choose an offer. Custom and “from” pricing is not charged until a fixed quote is accepted.</p>
-          <div class="summary-row"><span>Service</span><strong id="summary-service">Systems &amp; AI-Spend Audit</strong></div>
-          <div class="summary-row"><span>Listed price</span><strong id="summary-price">$1,500 flat</strong></div>
-          <div class="summary-row"><span>Checkout type</span><strong id="summary-type">Fixed-price purchase</strong></div>
-          <div class="summary-row"><span>Provider</span><strong>Nic Albertson · Full Stack Assets</strong></div>
-          <div class="notice">
-            Submitting this form does not start work by itself. Work begins after written scope or intake confirmation and successful payment, deposit, or invoice settlement under the agreed terms.
-          </div>
-          <div class="hero-ctas">
-            <a class="btn btn-ghost" href="/services/">Review service details</a>
-            <a class="btn btn-ghost" href="mailto:hello@fullstackassets.com?subject=Purchase%20question">Ask a purchase question</a>
-          </div>
-        </aside>
-      </div>
-    </div>
-  </section>
-
-  <section id="faq">
-    <div class="wrap">
-      <div class="sec-head"><span class="sec-tag">03 — FAQ</span><h2>Payment and engagement terms</h2></div>
-      <div class="faq rv">
-        <details>
-          <summary>Can I pay by card?</summary>
-          <p>Yes. Fixed-price offers can use a hosted secure checkout link. For scoped work, the secure payment link is issued after the final scope and price are approved.</p>
-        </details>
-        <details>
-          <summary>Can my company pay by invoice or ACH?</summary>
-          <p>Yes. Select invoice / ACH in the purchase form. The invoice will identify the service, scope, payment timing, and any recurring terms.</p>
-        </details>
-        <details>
-          <summary>Why can’t every service be charged immediately?</summary>
-          <p>Build sprints, retainers, content engines, evaluation harnesses, and asset licenses can vary by scope. Charging before the deliverables and terms are agreed would create the wrong incentives and a worse buying experience.</p>
-        </details>
-        <details>
-          <summary>When does work begin?</summary>
-          <p>After the required intake and access details are confirmed, the written scope or offer is accepted, and the applicable payment or deposit has cleared.</p>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <section class="contact">
-    <div class="wrap rv">
-      <div class="sec-tag" style="margin-bottom:18px">Need a custom route?</div>
-      <h2>Describe the constraint before you purchase.</h2>
-      <p>Use the existing service inquiry path when you need procurement paperwork, an NDA, a custom license, or a quote outside the listed packages.</p>
-      <div class="hero-ctas" style="justify-content:center">
-        <a class="btn btn-solid" href="mailto:hello@fullstackassets.com?subject=Custom%20purchase%20inquiry">Request custom terms</a>
-        <a class="btn btn-ghost" href="/#assets">Browse the catalog</a>
+      <div class="sec-head"><span class="sec-tag">What happens next</span><h2>A clear reply, not a funnel.</h2></div>
+      <div class="deal-steps rv">
+        <article class="deal-step"><div class="idx">01</div><h3>Read the constraint</h3><p>I review the context and identify any essential open questions.</p></article>
+        <article class="deal-step"><div class="idx">02</div><h3>Check fit</h3><p>We confirm whether an audit or a build sprint is the useful next move.</p></article>
+        <article class="deal-step"><div class="idx">03</div><h3>Define the work</h3><p>If it is a fit, the outcome, boundary, and working plan are made explicit.</p></article>
+        <article class="deal-step"><div class="idx">04</div><h3>Start clearly</h3><p>Work begins only after the scope and expectations are agreed in writing.</p></article>
       </div>
     </div>
   </section>
@@ -358,164 +100,15 @@
 <footer>
   <div class="foot-inner">
     <div class="foot-grid">
-      <div class="foot-col">
-        <a href="/" class="logo">FULL STACK <span>ASSETS</span></a>
-        <p style="color:var(--dim);font-size:.85rem;margin-top:14px;max-width:32ch">Nic Albertson builds and documents revenue-ready software assets, solo, from Fall River, Massachusetts.</p>
-      </div>
-      <div class="foot-col">
-        <h4>Case Studies</h4>
-        <a href="/case-studies/constellation-coo.html">Constellation COO</a>
-        <a href="/case-studies/taskflow.html">TaskFlow</a>
-        <a href="/case-studies/storeforge.html">StoreForge</a>
-        <a href="/case-studies/">View all →</a>
-      </div>
-      <div class="foot-col">
-        <h4>Work with me</h4>
-        <a href="/services/#engagements">Audit &amp; build sprints</a>
-        <a href="/services/#engagements">Fractional engineering</a>
-        <a href="/purchase/">Purchase services</a>
-        <a href="/services/#licensing">Licensing &amp; acquisition</a>
-      </div>
-      <div class="foot-col">
-        <h4>Connect</h4>
-        <a href="/#about">About</a>
-        <a href="/blog/">Insights</a>
-        <a href="mailto:hello@fullstackassets.com">hello@fullstackassets.com</a>
-        <a href="https://github.com/Full-Stack-Assets" target="_blank" rel="noopener">GitHub</a>
-      </div>
+      <div class="foot-col"><a href="/" class="logo">FULL STACK <span>ASSETS</span></a><p style="color:var(--dim);font-size:.85rem;margin-top:14px;max-width:32ch">Nic Albertson builds reliable workflow software from Fall River, Massachusetts.</p></div>
+      <div class="foot-col"><h4>Case Studies</h4><a href="/case-studies/beyondmythos.html">BeyondMythos</a><a href="/case-studies/tradewind-dealflow.html">Tradewind DealFlow</a><a href="/case-studies/taskflow.html">TaskFlow</a><a href="/case-studies/">View all →</a></div>
+      <div class="foot-col"><h4>Work with me</h4><a href="/services/">Services</a><a href="/services/#fit">Fit</a><a href="/services/#inquiry">Start an inquiry</a></div>
+      <div class="foot-col"><h4>Connect</h4><a href="/#about">About</a><a href="/blog/">Insights</a><a href="mailto:hello@fullstackassets.com">hello@fullstackassets.com</a><a href="https://github.com/Full-Stack-Assets" target="_blank" rel="noopener">GitHub</a></div>
     </div>
-    <div class="foot-bottom">
-      <span>© 2026 Full Stack Assets · Nic Albertson</span>
-      <span>Built solo · Fall River, MA</span>
-    </div>
+    <div class="foot-bottom"><span>© 2026 Full Stack Assets · Nic Albertson</span><span>Built solo · Fall River, MA</span></div>
   </div>
 </footer>
-
 <button class="totop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
-<script src="/assets/commerce-config.js"></script>
-<script>
-(function(){
-  const offers = {
-    audit: {name:'Systems & AI-Spend Audit', price:'$1,500 flat', type:'Fixed-price purchase'},
-    'launch-kit': {name:'Micro-SaaS Launch Kit', price:'$1,200 fixed', type:'Fixed-price purchase'},
-    'build-sprint': {name:'Build Sprint', price:'From $6,500', type:'Scope and fixed quote first'},
-    'fractional-engineer': {name:'Fractional Founding Engineer', price:'$3,900 / month', type:'Fit and onboarding first'},
-    'content-engine': {name:'Automated Content Engine', price:'From $2,500 + optional managed plan', type:'Scope and fixed quote first'},
-    'eval-harness': {name:'AI Model Eval Harness', price:'From $4,000', type:'Scope and fixed quote first'},
-    'source-license': {name:'Source License', price:'From $490 / year', type:'Asset-specific license'}
-  };
-
-  const form = document.getElementById('purchase-form');
-  const service = document.getElementById('service');
-  const summaryService = document.getElementById('summary-service');
-  const summaryPrice = document.getElementById('summary-price');
-  const summaryType = document.getElementById('summary-type');
-  const status = document.getElementById('form-status');
-  const submitButton = document.getElementById('submit-purchase');
-
-  function selectOffer(slug, scroll){
-    if(!offers[slug]) slug = 'audit';
-    service.value = slug;
-    const offer = offers[slug];
-    summaryService.textContent = offer.name;
-    summaryPrice.textContent = offer.price;
-    summaryType.textContent = offer.type;
-    document.querySelectorAll('.purchase-card').forEach(card=>{
-      card.classList.toggle('featured', card.dataset.offer === slug);
-    });
-    const checkoutUrl = window.FSA_COMMERCE?.checkoutLinks?.[slug] || '';
-    const payment = form.querySelector('input[name="payment"]:checked')?.value;
-    submitButton.textContent = payment === 'card' && checkoutUrl ? 'Continue to secure checkout' : 'Submit purchase request';
-    if(scroll) document.getElementById('checkout').scrollIntoView({behavior:'smooth'});
-  }
-
-  document.querySelectorAll('.choose-offer').forEach(button=>{
-    button.addEventListener('click', event=>{
-      event.preventDefault();
-      selectOffer(button.dataset.select, true);
-    });
-  });
-
-  service.addEventListener('change', ()=>selectOffer(service.value, false));
-  form.querySelectorAll('input[name="payment"]').forEach(input=>{
-    input.addEventListener('change', ()=>selectOffer(service.value, false));
-  });
-
-  const requested = new URLSearchParams(window.location.search).get('service');
-  selectOffer(requested || 'audit', false);
-
-  form.addEventListener('submit', event=>{
-    event.preventDefault();
-    status.textContent = '';
-
-    if(!form.reportValidity()) return;
-
-    const data = new FormData(form);
-    const slug = data.get('service');
-    const offer = offers[slug];
-    const payment = data.get('payment');
-    const checkoutUrl = window.FSA_COMMERCE?.checkoutLinks?.[slug] || '';
-    const salesEmail = window.FSA_COMMERCE?.salesEmail || 'hello@fullstackassets.com';
-
-    const intake = {
-      service: offer.name,
-      listedPrice: offer.price,
-      paymentPreference: payment === 'card' ? 'Secure card checkout' : 'Invoice / ACH',
-      name: data.get('name'),
-      email: data.get('email'),
-      company: data.get('company') || 'Not provided',
-      website: data.get('website') || 'Not provided',
-      notes: data.get('notes')
-    };
-
-    try{
-      localStorage.setItem('fsa_purchase_intake', JSON.stringify({...intake, savedAt:new Date().toISOString()}));
-    }catch(error){
-      // The flow still works when storage is unavailable.
-    }
-
-    if(typeof window.gtag === 'function'){
-      window.gtag('event', 'generate_lead', {
-        currency: 'USD',
-        value: slug === 'audit' ? 1500 : slug === 'launch-kit' ? 1200 : undefined,
-        service: offer.name,
-        payment_preference: intake.paymentPreference
-      });
-    }
-
-    if(payment === 'card' && checkoutUrl){
-      status.textContent = 'Opening secure checkout…';
-      window.location.href = checkoutUrl;
-      return;
-    }
-
-    const subject = `Purchase request — ${offer.name}`;
-    const body = [
-      'PURCHASE REQUEST',
-      '',
-      `Service: ${intake.service}`,
-      `Listed price: ${intake.listedPrice}`,
-      `Payment preference: ${intake.paymentPreference}`,
-      '',
-      `Name: ${intake.name}`,
-      `Email: ${intake.email}`,
-      `Company: ${intake.company}`,
-      `Website / product: ${intake.website}`,
-      '',
-      'System, constraint, or asset requested:',
-      intake.notes,
-      '',
-      'Please reply with the secure checkout link or itemized invoice and any remaining scope/access questions.'
-    ].join('\n');
-
-    status.textContent = payment === 'card'
-      ? 'Opening your email app to request a secure checkout link…'
-      : 'Opening your email app to request an invoice / ACH instructions…';
-
-    window.location.href = `mailto:${encodeURIComponent(salesEmail)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  });
-})();
-</script>
 <script src="/assets/site.js"></script>
 </body>
 </html>

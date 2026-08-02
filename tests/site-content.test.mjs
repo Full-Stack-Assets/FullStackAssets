@@ -96,3 +96,14 @@ test("selected case studies use evidence-backed framing", () => {
   assert.match(experiment, /Experimental agent-scheduling engine/);
   assert.match(experiment, /synthetic benchmark/i);
 });
+
+test("purchase route is a transparent project inquiry", () => {
+  const inquiry = read("purchase/index.html");
+  assert.match(inquiry, /Tell me what is slowing the team down/);
+  assert.match(inquiry, /data-inquiry-form/);
+  for (const name of ["current-system", "users", "problem", "outcome", "timeline"]) {
+    assert.match(inquiry, new RegExp(`name="${name}"`));
+  }
+  assert.match(inquiry, /opens your email app/i);
+  assert.doesNotMatch(inquiry, /checkout|payment|invoice|purchase audit/i);
+});
