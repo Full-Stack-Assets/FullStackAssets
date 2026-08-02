@@ -81,3 +81,18 @@ test("shared behavior has no checkout enhancer and supports inquiry and print", 
   assert.match(script, /data-print-resume/);
   assert.match(script, /Escape/);
 });
+
+test("selected case studies use evidence-backed framing", () => {
+  const index = read("case-studies/index.html");
+  const positions = ["BeyondMythos", "Tradewind DealFlow", "TaskFlow"].map((name) => index.indexOf(name));
+  assert.ok(positions.every((position) => position >= 0));
+  assert.deepEqual([...positions].sort((a, b) => a - b), positions);
+  const taskflow = read("case-studies/taskflow.html");
+  assert.match(taskflow, /retries/i);
+  assert.match(taskflow, /persistence/i);
+  assert.match(taskflow, /tests/i);
+  assert.doesNotMatch(taskflow, /36K|30 files/i);
+  const experiment = read("case-studies/constellation-coo.html");
+  assert.match(experiment, /Experimental agent-scheduling engine/);
+  assert.match(experiment, /synthetic benchmark/i);
+});

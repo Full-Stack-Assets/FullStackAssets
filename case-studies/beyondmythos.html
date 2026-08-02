@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18251288079"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18251288079');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BeyondMythos Autonomous Deployment Engine | Full Stack Assets</title>
+<meta name="description" content="A production system that generates, validates, deploys, and operates independently branded web properties.">
+<meta name="author" content="Nic Albertson">
+<link rel="canonical" href="https://fullstackassets.com/case-studies/beyondmythos.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Full Stack Assets">
+<meta property="og:title" content="BeyondMythos Autonomous Deployment Engine">
+<meta property="og:description" content="A production system that generates, validates, deploys, and operates independently branded web properties.">
+<meta property="og:url" content="https://fullstackassets.com/case-studies/beyondmythos.html">
+<meta property="og:image" content="https://fullstackassets.com/assets/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BeyondMythos Autonomous Deployment Engine">
+<meta name="twitter:description" content="A production multi-site generation, validation, deployment, and operations system.">
+<meta name="twitter:image" content="https://fullstackassets.com/assets/og-card.png">
+<meta name="theme-color" content="#0B1426">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B1426'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23F2A93B'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,700;12..96,800&family=Public+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "BeyondMythos Autonomous Deployment Engine",
+  "description": "A production system that generates, validates, deploys, and operates independently branded web properties.",
+  "author": {"@type": "Person", "name": "Nic Albertson", "url": "https://fullstackassets.com/"},
+  "mainEntityOfPage": "https://fullstackassets.com/case-studies/beyondmythos.html",
+  "datePublished": "2026-08-02",
+  "dateModified": "2026-08-02"
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">FULL STACK <span>ASSETS</span></a>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+    <div class="nav-links">
+      <a href="/#work" class="active">Selected Work</a>
+      <a href="/#capabilities">Capabilities</a>
+      <a href="/#process">Process</a>
+      <a href="/#about">About</a>
+      <a href="/resume/">Résumé</a>
+      <a href="/services/">Services</a>
+      <a href="/services/#inquiry" class="nav-cta">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+<div class="page-hero">
+  <div class="wrap">
+    <div class="breadcrumbs"><a href="/">Home</a><span class="sep">/</span><a href="/case-studies/">Selected Work</a><span class="sep">/</span><span>BeyondMythos</span></div>
+    <div class="eyebrow">Production system · Deployment operations</div>
+    <h1>BeyondMythos Autonomous Deployment Engine</h1>
+    <p class="lede">A production system that generates, validates, deploys, and operates independently branded web properties.</p>
+    <dl class="meta-row">
+      <div class="meta-item"><dt>Operations</dt><dd>41 deployed sites · 14 mapped domains</dd></div>
+      <div class="meta-item"><dt>Cadence</dt><dd>Hourly workflows</dd></div>
+      <div class="meta-item"><dt>Status</dt><dd class="hl">Production system</dd></div>
+      <div class="meta-item"><dt>Role</dt><dd>Product and engineering</dd></div>
+    </dl>
+  </div>
+</div>
+
+<section style="padding-top:64px">
+  <div class="wrap">
+    <div class="article-layout">
+      <div class="prose">
+        <p>BeyondMythos turns one repeatable operating model into many independent web properties without erasing the identity, configuration, deployment, and domain boundaries that make each property distinct. The repository is private because it contains the production orchestration and operating details; the public evidence is the live deployment stream.</p>
+
+        <h2 id="problem">The problem</h2>
+        <p>Managing independent sites reliably creates the same operational work again and again: normalize configuration, generate a property, verify its output, commit a traceable change, deploy to the correct target, map the domain, and keep the live site operating. Repeating those steps manually makes drift and partial completion more likely as the network grows.</p>
+        <p>The product problem was therefore larger than page generation. The system needed to preserve per-site identity while making the full lifecycle repeatable, observable, and recoverable.</p>
+
+        <h2 id="lifecycle">Lifecycle from configuration to operation</h2>
+        <p>Each property moves through an explicit lifecycle: <strong>configuration → generation → validation → Git commit → per-site deployment → domain operation</strong>. Configuration carries the brand and operating inputs. Generation produces the site artifact. Validation blocks incomplete output. A Git commit preserves the change boundary before the correct property is deployed and operated on its own mapped domain.</p>
+        <figure class="chart-block">
+          <div class="chart-title">Per-site delivery lifecycle</div>
+          <svg viewBox="0 0 560 170" role="img" aria-label="Configuration flows to generation, validation, Git commit, per-site deployment, and domain operation.">
+            <rect x="0" y="55" width="82" height="54" fill="#F2A93B"/><text x="41" y="78" font-size="11" font-weight="700" fill="#0B1426" text-anchor="middle">CONFIG</text><text x="41" y="94" font-size="11" font-weight="700" fill="#0B1426" text-anchor="middle">URATION</text>
+            <text x="91" y="86" font-size="16">›</text><rect x="104" y="55" width="82" height="54" fill="#62B6CB"/><text x="145" y="86" font-size="11" font-weight="700" fill="#0B1426" text-anchor="middle">GENERATE</text>
+            <text x="195" y="86" font-size="16">›</text><rect x="208" y="55" width="82" height="54" fill="#8C99B0"/><text x="249" y="86" font-size="11" font-weight="700" fill="#0B1426" text-anchor="middle">VALIDATE</text>
+            <text x="299" y="86" font-size="16">›</text><rect x="312" y="55" width="70" height="54" fill="#D5DEE8"/><text x="347" y="78" font-size="11" font-weight="700" fill="#0B1426" text-anchor="middle">GIT</text><text x="347" y="94" font-size="11" font-weight="700" fill="#0B1426" text-anchor="middle">COMMIT</text>
+            <text x="391" y="86" font-size="16">›</text><rect x="404" y="55" width="70" height="54" fill="#62B6CB"/><text x="439" y="78" font-size="10" font-weight="700" fill="#0B1426" text-anchor="middle">PER-SITE</text><text x="439" y="94" font-size="10" font-weight="700" fill="#0B1426" text-anchor="middle">DEPLOY</text>
+            <text x="483" y="86" font-size="16">›</text><rect x="496" y="55" width="64" height="54" fill="#F2A93B"/><text x="528" y="78" font-size="10" font-weight="700" fill="#0B1426" text-anchor="middle">DOMAIN</text><text x="528" y="94" font-size="10" font-weight="700" fill="#0B1426" text-anchor="middle">OPERATE</text>
+          </svg>
+          <figcaption>Validation and a versioned commit sit between generated output and the deployment target, so each site has an inspectable delivery boundary.</figcaption>
+        </figure>
+
+        <h2 id="reliability">Reliability across a site network</h2>
+        <ul>
+          <li><strong>Provider abstraction</strong> keeps the workflow from depending on one generation provider.</li>
+          <li><strong>Template fallback</strong> gives a site a known recovery path when generated output cannot pass validation.</li>
+          <li><strong>Bounded concurrency</strong> limits simultaneous work instead of allowing a scheduled run to fan out without control.</li>
+          <li><strong>Failure isolation</strong> keeps one property’s error from turning into a network-wide partial deployment.</li>
+        </ul>
+        <p>Those controls make recovery part of the normal operating path. A failed provider call, invalid artifact, or property-specific deployment issue can be contained, recorded, and retried without treating every site as one indivisible release.</p>
+
+        <h2 id="operations">Current operations</h2>
+        <div class="results">
+          <div><div class="n">41</div><div class="l">Deployed sites</div></div>
+          <div><div class="n">14</div><div class="l">Mapped domains</div></div>
+          <div><div class="n">Hourly</div><div class="l">Automated workflows</div></div>
+          <div><div class="n">Per site</div><div class="l">Isolated agents and deployment</div></div>
+        </div>
+        <p>The operated system covers hourly workflows, commerce and fulfillment paths, subscriber persistence, and per-site agents in addition to property generation and deployment. These capabilities live behind independent configurations and deployment targets so an operational change can be scoped to the property that needs it.</p>
+
+        <h2 id="testing">Testing and recovery behavior</h2>
+        <p>Critical-path tests cover the lifecycle boundaries where silent failure would create the most operational risk: configuration handling, generated-output validation, provider fallback, template recovery, concurrency bounds, persistence, and failure isolation. Recovery behavior is designed to leave an inspectable result rather than imply that a failed step completed.</p>
+
+        <h2 id="limits">What the evidence does and does not show</h2>
+        <div class="callout"><strong>Evidence boundary:</strong> 41 deployed sites, 14 mapped domains, and hourly workflows are operational evidence. Site count is not customer traction; it is operational evidence, not customer or market traction, and this case study makes no revenue claim.</div>
+        <p>The system demonstrates multi-property operations and the engineering needed to keep that lifecycle reliable. It does not, by itself, establish demand, conversion, customer adoption, or commercial performance.</p>
+
+        <div class="byline"><div class="avatar">NA</div><div><div class="name">Nic Albertson</div><div class="role">Product and engineering · Fall River, MA</div></div></div>
+      </div>
+
+      <aside class="toc">
+        <div class="toc-label">On this page</div>
+        <ol>
+          <li><a href="#problem">The problem</a></li>
+          <li><a href="#lifecycle">Lifecycle</a></li>
+          <li><a href="#reliability">Reliability</a></li>
+          <li><a href="#operations">Operations</a></li>
+          <li><a href="#testing">Testing</a></li>
+          <li><a href="#limits">Evidence limits</a></li>
+        </ol>
+        <div class="share-box"><div class="toc-label">Public evidence</div><div class="share-row"><a class="btn btn-solid" href="https://beyondmythos.com/" target="_blank" rel="noopener">Open the live deployment stream</a></div><p style="margin-top:12px;color:var(--dim);font-size:.8rem">Source repository: private.</p></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-tag">Related work</span><h2>More selected systems</h2></div>
+    <div class="related">
+      <a class="post-card" href="/case-studies/tradewind-dealflow.html"><div class="post-tag">Private system · Sanitized case study</div><h3>Tradewind DealFlow</h3><p>Authorized intake, source provenance, conflict handling, and controlled follow-up.</p></a>
+      <a class="post-card" href="/case-studies/taskflow.html"><div class="post-tag">Reference implementation</div><h3>TaskFlow</h3><p>A tested workflow runtime with bounded retries, persistence, metrics, and documented deployment paths.</p></a>
+    </div>
+  </div>
+</section>
+
+<section class="contact"><div class="wrap"><div class="sec-tag" style="margin-bottom:18px">Live system</div><h2>Follow the operated network.</h2><p>The production repository is private. The deployment stream is public.</p><div class="hero-ctas" style="justify-content:center"><a class="btn btn-solid" href="https://beyondmythos.com/" target="_blank" rel="noopener">Open the live deployment stream</a><a class="btn btn-ghost" href="/case-studies/">All selected work</a></div></div></section>
+</main>
+
+<footer>
+  <div class="foot-inner"><div class="foot-grid">
+    <div class="foot-col"><a href="/" class="logo">FULL STACK <span>ASSETS</span></a><p style="color:var(--dim);font-size:.85rem;margin-top:14px;max-width:32ch">Product-minded full-stack engineer building reliable workflow, data, and deployment systems.</p></div>
+    <div class="foot-col"><h4>Selected work</h4><a href="/case-studies/beyondmythos.html">BeyondMythos</a><a href="/case-studies/tradewind-dealflow.html">Tradewind DealFlow</a><a href="/case-studies/taskflow.html">TaskFlow</a></div>
+    <div class="foot-col"><h4>Work together</h4><a href="/resume/">Résumé</a><a href="/services/">Services</a><a href="/services/#inquiry">Project inquiry</a></div>
+    <div class="foot-col"><h4>Connect</h4><a href="/#about">About</a><a href="mailto:hello@fullstackassets.com">hello@fullstackassets.com</a><a href="https://github.com/Full-Stack-Assets" target="_blank" rel="noopener">GitHub</a></div>
+  </div><div class="foot-bottom"><span>© 2026 Full Stack Assets · Nic Albertson</span><span>Fall River, MA</span></div></div>
+</footer>
+<button class="totop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<script src="/assets/site.js"></script>
+</body>
+</html>
