@@ -65,3 +65,11 @@ test("BeyondMythos copy distinguishes operations from traction", () => {
   assert.match(page, /operational evidence/i);
   assert.match(page, /not (customer|market) traction/i);
 });
+
+test("shared behavior has no checkout enhancer and supports inquiry and print", () => {
+  const script = read("assets/site.js");
+  assert.doesNotMatch(script, /purchase route|begin_checkout|commerceEnhanced/);
+  assert.match(script, /data-inquiry-form/);
+  assert.match(script, /data-print-resume/);
+  assert.match(script, /Escape/);
+});
