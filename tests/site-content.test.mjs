@@ -35,7 +35,7 @@ test("deployed copy contains no prohibited positioning", () => {
 test("homepage is person-first and has exactly three featured projects", () => {
   const home = read("index.html");
   assert.match(home, /Nic Albertson · Full-stack \/ product engineer/);
-  assert.match(home, /I turn messy workflows into reliable software/);
+  assert.match(home, /I turn messy workflows into <em>reliable software\.<\/em>/);
   assert.match(home, /Hiring a product engineer/);
   assert.match(home, /Need a system built/);
   const featured = [...home.matchAll(/class="asset featured-project/g)];
@@ -44,6 +44,14 @@ test("homepage is person-first and has exactly three featured projects", () => {
   assert.ok(positions.every((position) => position >= 0));
   assert.deepEqual([...positions].sort((a, b) => a - b), positions);
   assert.doesNotMatch(home, /href="\/purchase\//);
+});
+
+test("homepage metadata is role-first", () => {
+  const home = read("index.html");
+  assert.match(home, /<title>Nic Albertson — Full-Stack \/ Product Engineer<\/title>/);
+  assert.match(home, /Product-minded full-stack engineer building reliable workflow automation/);
+  assert.match(home, /"jobTitle": "Full-Stack \/ Product Engineer"/);
+  assert.doesNotMatch(home, /revenue-ready|20\+|acquisition/i);
 });
 
 test("required routes and focused services exist", () => {
