@@ -97,6 +97,24 @@ test("selected case studies use evidence-backed framing", () => {
   assert.match(experiment, /synthetic benchmark/i);
 });
 
+test("StoreForge uses an implementation status rather than sale positioning", () => {
+  const storeforge = read("case-studies/storeforge.html");
+  const status = storeforge.match(/<dt>Status<\/dt><dd class="hl">([^<]+)<\/dd>/)?.[1];
+  assert.equal(status, "Platform implemented");
+  assert.doesNotMatch(storeforge, /Acquisition asset/i);
+});
+
+test("secondary navigation uses the homepage Contact destination", () => {
+  const failures = [];
+  for (const file of deployedFiles().filter((path) => path.endsWith(".html") && path !== "index.html")) {
+    const source = read(file);
+    const navigation = source.match(/<nav(?:\s[^>]*)?>[\s\S]*?<\/nav>/)?.[0];
+    if (!navigation) continue;
+    if (!/href="\/#contact" class="nav-cta">Contact<\/a>/.test(navigation)) failures.push(file);
+  }
+  assert.deepEqual(failures, []);
+});
+
 test("purchase route is a transparent project inquiry", () => {
   const inquiry = read("purchase/index.html");
   assert.match(inquiry, /Tell me what is slowing the team down/);
