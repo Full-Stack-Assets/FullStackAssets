@@ -119,3 +119,16 @@ test("resume is factual, printable, and linked", () => {
   assert.match(resume, /data-print-resume/);
   assert.doesNotMatch(resume, /work authorization|Bachelor|revenue|customers/i);
 });
+
+test("discovery files expose the new portfolio hierarchy", () => {
+  const sitemap = read("sitemap.xml");
+  for (const route of [
+    "/case-studies/beyondmythos.html",
+    "/case-studies/tradewind-dealflow.html",
+    "/resume/",
+  ]) assert.match(sitemap, new RegExp(route.replaceAll("/", "\\/")));
+  assert.doesNotMatch(sitemap, /patents-for-indie-engineers|\/purchase\//i);
+  const feed = read("blog/feed.xml");
+  assert.doesNotMatch(feed, /patent|20\+|already for sale/i);
+  assert.equal(existsSync(join(root, "blog/patents-for-indie-engineers.html")), false);
+});
