@@ -468,7 +468,9 @@
       ctx.beginPath(); ctx.arc(n.x,n.y,n.r*glow,0,Math.PI*2); ctx.fill();
       ctx.globalAlpha = .55;
       ctx.fillStyle = '#8C99B0';
-      ctx.fillText(n.name, n.x + 10*devicePixelRatio, n.y + 4*devicePixelRatio);
+      if(canvas.offsetWidth > 640){
+        ctx.fillText(n.name, n.x + 10*devicePixelRatio, n.y + 4*devicePixelRatio);
+      }
     }
     ctx.globalAlpha = 1;
     if(!reduced) requestAnimationFrame(draw);
