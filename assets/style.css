@@ -73,10 +73,11 @@ nav::before{
     position:fixed;top:53px;left:0;right:0;bottom:0;
     background:var(--space);flex-direction:column;align-items:flex-start;
     padding:32px 24px;gap:22px;font-size:.95rem;
-    transform:translateX(100%);transition:transform .3s ease;overflow-y:auto;
+    transform:translateX(100%);visibility:hidden;
+    transition:transform .3s ease,visibility 0s linear .3s;overflow-y:auto;
   }
-  .nav-links.open{transform:translateX(0)}
-  .nav-toggle{display:block}
+  .nav-links.open{transform:translateX(0);visibility:visible;transition-delay:0s}
+  .nav-toggle{width:44px;height:44px;display:grid;place-items:center;padding:0}
 }
 
 /* ---------- HERO ---------- */
@@ -174,6 +175,9 @@ a.asset{color:inherit}
 .asset-more{margin-top:18px;font-family:'IBM Plex Mono';font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);display:flex;align-items:center;gap:6px}
 .asset:hover .asset-more{gap:10px}
 .asset-more svg{width:13px;height:13px;transition:transform .2s}
+.project-links{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:18px}
+.project-links .asset-more{margin-top:0}
+.project-availability{font-family:'IBM Plex Mono';font-size:.66rem;letter-spacing:.06em;color:var(--dim)}
 
 /* ---------- STAGED-DRAFT BANNER (internal, on noindexed drafts) ---------- */
 .draft-banner{
@@ -422,7 +426,6 @@ footer{border-top:1px solid var(--line);padding:40px 0 26px}
   .audience-paths,.contact-paths,.inquiry-grid{grid-template-columns:1fr}
   .inquiry-grid .field-wide{grid-column:auto}
   .hero-content{padding:118px 24px 72px}
-  .nav-toggle{width:44px;height:44px;display:grid;place-items:center;padding:0}
 }
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}

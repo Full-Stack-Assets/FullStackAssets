@@ -4,14 +4,21 @@
   const toggle = document.querySelector('.nav-toggle');
   const links = document.querySelector('.nav-links');
   if(toggle && links){
-    const closeNav = (returnFocus = false) => {
-      links.classList.remove('open');
-      toggle.setAttribute('aria-expanded', 'false');
+    const mobileMenu = window.matchMedia('(max-width: 760px)');
+    const setNavState = (open, returnFocus = false) => {
+      const isOpen = mobileMenu.matches && open;
+      links.classList.toggle('open', isOpen);
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      links.inert = mobileMenu.matches && !isOpen;
+      if(links.inert) links.setAttribute('aria-hidden', 'true');
+      else links.removeAttribute('aria-hidden');
       if(returnFocus) toggle.focus();
     };
+    const closeNav = (returnFocus = false) => {
+      setNavState(false, returnFocus);
+    };
     toggle.addEventListener('click', ()=>{
-      const open = links.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      setNavState(!links.classList.contains('open'));
     });
     links.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>{
       closeNav();
@@ -19,6 +26,10 @@
     document.addEventListener('keydown', event=>{
       if(event.key === 'Escape' && links.classList.contains('open')) closeNav(true);
     });
+    const handleMenuBreakpoint = () => closeNav();
+    if(typeof mobileMenu.addEventListener === 'function') mobileMenu.addEventListener('change', handleMenuBreakpoint);
+    else if(typeof mobileMenu.addListener === 'function') mobileMenu.addListener(handleMenuBreakpoint);
+    closeNav();
   }
 
   /* scroll reveal */
