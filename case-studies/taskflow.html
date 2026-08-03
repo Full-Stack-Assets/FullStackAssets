@@ -55,12 +55,10 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
     </button>
     <div class="nav-links">
-      <a href="/#assets" class="active">Case Studies</a>
-      <a href="/#capabilities">Capabilities</a>
-      <a href="/#process">Process</a>
-      <a href="/#about">About</a>
-      <a href="/blog/">Insights</a>
+      <a href="/#work" class="active">Work</a>
       <a href="/services/">Services</a>
+      <a href="/#about">About</a>
+      <a href="/resume/">Résumé</a>
       <a href="/#contact" class="nav-cta">Contact</a>
     </div>
   </div>
@@ -86,10 +84,10 @@
   <div class="wrap">
     <div class="article-layout">
       <div class="prose">
-        <p>TaskFlow Runtime separates orchestration into explicit <strong>Plan → Execute → Verify</strong> phases. The engine owns sequencing, retries, event logging, cost aggregation, terminal status, and persistence. Individual workflows own only their domain logic.</p>
+        <p>TaskFlow Runtime separates orchestration into explicit <strong>Plan → Execute → Verify</strong> phases. Typed workflow definitions declare steps, inputs, retry limits, and verification behavior. The engine owns sequencing, retries, event logging, cost aggregation, terminal status, metrics, and persistence; individual workflows own only their domain logic.</p>
 
         <h2 id="product-boundary">One product boundary, two names</h2>
-        <p><strong>TaskFlow Runtime</strong> is the code that exists today. It exposes typed workflow contracts, a Node HTTP adapter, a Web Request/Response handler, a Vercel-compatible endpoint, atomic JSON run storage, and evidence-focused metrics. <strong>TaskFlow Studio</strong> is reserved for a future visual authoring and observability interface. The Studio is a product target—not a current capability.</p>
+        <p><strong>TaskFlow Runtime</strong> is the code that exists today. It exposes typed workflow contracts, contract-tested HTTP behavior through a Node adapter, a Web Request/Response handler, a Vercel-compatible endpoint, atomic JSON run storage, and evidence-focused metrics. <strong>TaskFlow Studio</strong> is reserved for a future visual authoring and observability interface. The Studio is a product target—not a current capability.</p>
 
         <h2 id="workflow">The customer-oriented workflow</h2>
         <p>The included workflow processes consulting intake for a service business. It validates and normalizes submitted details, classifies the opportunity by budget, generates a consulting brief, and verifies that the brief preserves the requested service, goals, timeline, and qualification logic.</p>
@@ -125,11 +123,13 @@
 
         <h2 id="engineering">Engineering and operations</h2>
         <ul>
+          <li>Typed workflow definitions for steps, inputs, retry limits, and verification</li>
           <li>Atomic file persistence with safe run identifiers</li>
           <li>Structured retry exhaustion and verification failure behavior</li>
+          <li>Contract and HTTP behavior covered across Node and Web Request/Response boundaries</li>
           <li>Node, Web API, Vercel, Docker, and bare-VPS deployment guidance</li>
-          <li>Architecture, threat model, dependency inventory, metrics methodology, and security policy</li>
-          <li>GitHub Actions that performs a clean install, dependency audit, build, 23-test suite, demo reproduction, fresh benchmark, and documentation checks</li>
+          <li>Architecture, threat model, dependency inventory, metrics methodology, security policy, and deployment documentation</li>
+          <li>Automated tests for workflow execution, retries, persistence, metrics, contract behavior, and failure paths</li>
         </ul>
         <p>The runtime has no direct production package dependencies. Authentication, tenant isolation, managed durable storage, secrets, rate limiting, connector controls, observability, and compliance work remain production gates for any hosted Studio.</p>
 
@@ -161,8 +161,8 @@
   <div class="wrap">
     <div class="sec-head"><span class="sec-tag">More Assets</span><h2>Related case studies</h2></div>
     <div class="related">
-      <a class="post-card" href="/case-studies/constellation-coo.html"><div class="post-tag">FSA-001 · AI Agent Orchestration</div><h3>Constellation COO</h3><p>A constraint-optimized system for routing and governing fleets of LLM agents.</p></a>
-      <a class="post-card" href="/case-studies/scanline.html"><div class="post-tag">FSA-003 · AI Photo Digitization</div><h3>Scanline</h3><p>Phone-scan-to-searchable-library with face clustering, deduplication, and vision tagging.</p></a>
+      <a class="post-card" href="/case-studies/beyondmythos.html"><div class="post-tag">Production system</div><h3>BeyondMythos</h3><p>A multi-site generation, validation, deployment, and operations engine.</p></a>
+      <a class="post-card" href="/case-studies/tradewind-dealflow.html"><div class="post-tag">Private system · Sanitized case study</div><h3>Tradewind DealFlow</h3><p>Authorized intake, source provenance, conflict handling, and controlled follow-up.</p></a>
     </div>
   </div>
 </section>
@@ -170,11 +170,10 @@
 <section class="contact">
   <div class="wrap">
     <div class="sec-tag" style="margin-bottom:18px">Contact</div>
-    <h2>Interested in reviewing or adapting TaskFlow Runtime?</h2>
+    <h2>Ask about this build</h2>
     <p>The private source package, tests, checked run evidence, benchmark methodology, and deployment documentation are available for technical review.</p>
     <div class="hero-ctas" style="justify-content:center">
-      <a class="btn btn-solid" href="mailto:hello@fullstackassets.com?subject=Inquiry%20%E2%80%94%20FSA-002%20TaskFlow&amp;body=Asset%3A%20FSA-002%20TaskFlow%0A%0AInterested%20in%20%28technical%20review%20/%20license%20/%20implementation%29%3A%0A%0AWho%27s%20asking%3A%0A">Request technical review</a>
-      <a class="btn btn-ghost" href="/services/#licensing">Licensing &amp; implementation terms</a>
+      <a class="btn btn-solid" href="/services/#inquiry">Ask about this build</a>
       <a class="btn btn-ghost" href="/case-studies/">All case studies</a>
     </div>
   </div>
@@ -184,12 +183,12 @@
 <footer>
   <div class="foot-inner">
     <div class="foot-grid">
-      <div class="foot-col"><a href="/" class="logo">FULL STACK <span>ASSETS</span></a><p style="color:var(--dim);font-size:.85rem;margin-top:14px;max-width:32ch">Nic Albertson builds and documents revenue-ready software assets, solo, from Fall River, Massachusetts.</p></div>
-      <div class="foot-col"><h4>Case Studies</h4><a href="/case-studies/constellation-coo.html">Constellation COO</a><a href="/case-studies/taskflow.html">TaskFlow</a><a href="/case-studies/storeforge.html">StoreForge</a><a href="/case-studies/">View all →</a></div>
-      <div class="foot-col"><h4>Work with me</h4><a href="/services/#engagements">Audit &amp; build sprints</a><a href="/services/#engagements">Fractional engineering</a><a href="/services/#licensing">Licensing &amp; acquisition</a><a href="/services/">All services →</a></div>
-      <div class="foot-col"><h4>Connect</h4><a href="/#about">About</a><a href="/blog/">Insights</a><a href="mailto:hello@fullstackassets.com">hello@fullstackassets.com</a><a href="https://github.com/Full-Stack-Assets" target="_blank" rel="noopener">GitHub</a></div>
+      <div class="foot-col"><a href="/" class="logo">FULL STACK <span>ASSETS</span></a><p style="color:var(--dim);font-size:.85rem;margin-top:14px;max-width:32ch">Product-minded full-stack engineer building reliable workflow, data, and deployment systems.</p></div>
+      <div class="foot-col"><h4>Selected work</h4><a href="/case-studies/beyondmythos.html">BeyondMythos</a><a href="/case-studies/tradewind-dealflow.html">Tradewind DealFlow</a><a href="/case-studies/taskflow.html">TaskFlow</a></div>
+      <div class="foot-col"><h4>Work together</h4><a href="/resume/">Résumé</a><a href="/services/">Services</a><a href="/services/#inquiry">Project inquiry</a></div>
+      <div class="foot-col"><h4>Connect</h4><a href="/#about">About</a><a href="mailto:hello@fullstackassets.com">hello@fullstackassets.com</a><a href="https://github.com/Full-Stack-Assets" target="_blank" rel="noopener">GitHub</a></div>
     </div>
-    <div class="foot-bottom"><span>© 2026 Full Stack Assets · Nic Albertson</span><span>Built solo · Fall River, MA</span></div>
+    <div class="foot-bottom"><span>© 2026 Full Stack Assets · Nic Albertson</span><span>Fall River, MA</span></div>
   </div>
 </footer>
 <button class="totop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>

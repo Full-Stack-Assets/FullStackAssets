@@ -4,31 +4,42 @@
   const toggle = document.querySelector('.nav-toggle');
   const links = document.querySelector('.nav-links');
   if(toggle && links){
+    const mobileMenu = window.matchMedia('(max-width: 760px)');
+    const setNavState = (open, returnFocus = false) => {
+      const isOpen = mobileMenu.matches && open;
+      links.classList.toggle('open', isOpen);
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      links.inert = mobileMenu.matches && !isOpen;
+      if(links.inert) links.setAttribute('aria-hidden', 'true');
+      else links.removeAttribute('aria-hidden');
+      if(returnFocus) toggle.focus();
+    };
+    const closeNav = (returnFocus = false) => {
+      setNavState(false, returnFocus);
+    };
     toggle.addEventListener('click', ()=>{
-      const open = links.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      setNavState(!links.classList.contains('open'));
     });
     links.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>{
-      links.classList.remove('open');
-      toggle.setAttribute('aria-expanded','false');
+      closeNav();
     }));
-  }
-
-  /* add a purchase route to the shared navigation */
-  if(links && !links.querySelector('a[href^="/purchase/"]')){
-    const purchaseLink = document.createElement('a');
-    purchaseLink.href = '/purchase/';
-    purchaseLink.textContent = 'Purchase';
-    if(window.location.pathname.startsWith('/purchase')) purchaseLink.classList.add('active');
-    const contactLink = links.querySelector('.nav-cta');
-    links.insertBefore(purchaseLink, contactLink || null);
+    document.addEventListener('keydown', event=>{
+      if(event.key === 'Escape' && links.classList.contains('open')) closeNav(true);
+    });
+    const handleMenuBreakpoint = () => closeNav();
+    if(typeof mobileMenu.addEventListener === 'function') mobileMenu.addEventListener('change', handleMenuBreakpoint);
+    else if(typeof mobileMenu.addListener === 'function') mobileMenu.addListener(handleMenuBreakpoint);
+    closeNav();
   }
 
   /* scroll reveal */
-  const io = new IntersectionObserver(es=>{
-    es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
-  },{threshold:.12});
-  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reducedMotion){
+    const io = new IntersectionObserver(es=>{
+      es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+    },{threshold:.12});
+    document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+  }
 
   /* back to top */
   const totop = document.querySelector('.totop');
@@ -38,48 +49,6 @@
     }, {passive:true});
     totop.addEventListener('click', ()=>window.scrollTo({top:0,behavior:'smooth'}));
   }
-
-  /* purchase / reserve actions for existing service cards */
-  const offers = {
-    'Systems & AI-Spend Audit': {slug:'audit', label:'Purchase audit'},
-    'Build Sprint': {slug:'build-sprint', label:'Reserve a sprint'},
-    'Fractional Founding Engineer': {slug:'fractional-engineer', label:'Start onboarding'},
-    'Automated Content Engine': {slug:'content-engine', label:'Purchase / scope'},
-    'AI Model Eval Harness': {slug:'eval-harness', label:'Purchase / scope'},
-    'Micro-SaaS Launch Kit': {slug:'launch-kit', label:'Purchase launch kit'},
-    'Source License': {slug:'source-license', label:'Choose a license'},
-    'Take an asset home': {slug:'source-license', label:'Choose a license'}
-  };
-
-  document.querySelectorAll('.tier').forEach(card=>{
-    if(card.dataset.commerceEnhanced === 'true') return;
-    const title = card.querySelector('h3')?.textContent.trim();
-    const offer = offers[title];
-    if(!offer) return;
-
-    const existing = card.querySelector('a.btn');
-    if(!existing) return;
-
-    const actions = document.createElement('div');
-    actions.className = 'commerce-actions';
-    actions.style.cssText = 'display:flex;gap:10px;flex-wrap:wrap;margin-top:auto';
-
-    const purchase = document.createElement('a');
-    purchase.className = 'btn btn-solid';
-    purchase.href = `/purchase/?service=${encodeURIComponent(offer.slug)}`;
-    purchase.textContent = offer.label;
-    purchase.style.cssText = 'flex:1 1 170px;text-align:center;margin-top:0';
-
-    existing.classList.remove('btn-solid');
-    existing.classList.add('btn-ghost');
-    existing.style.cssText = 'flex:1 1 150px;text-align:center;margin-top:0';
-    if(existing.href.startsWith('mailto:')) existing.textContent = 'Ask a question';
-
-    existing.parentNode.insertBefore(actions, existing);
-    actions.appendChild(purchase);
-    actions.appendChild(existing);
-    card.dataset.commerceEnhanced = 'true';
-  });
 
   /* Google Ads conversion tracking for lead-intent email clicks */
   document.querySelectorAll('a[href^="mailto:hello@fullstackassets.com"]').forEach(link=>{
@@ -104,16 +73,37 @@
     });
   });
 
-  /* purchase-intent analytics */
-  document.querySelectorAll('a[href^="/purchase/"]').forEach(link=>{
-    link.addEventListener('click', ()=>{
-      if(typeof window.gtag === 'function'){
-        window.gtag('event', 'begin_checkout', {
-          currency: 'USD',
-          items: [{item_name: link.closest('.tier')?.querySelector('h3')?.textContent.trim() || 'Consulting services'}]
-        });
-      }
+  function composeInquiry(form) {
+    const data = new FormData(form);
+    const lines = [
+      "PROJECT INQUIRY",
+      "",
+      `Name: ${data.get("name") || ""}`,
+      `Email: ${data.get("email") || ""}`,
+      `Company: ${data.get("company") || ""}`,
+      `Current system: ${data.get("current-system") || ""}`,
+      `Users: ${data.get("users") || ""}`,
+      `What is failing: ${data.get("problem") || ""}`,
+      `Needed outcome: ${data.get("outcome") || ""}`,
+      `Timeline or constraint: ${data.get("timeline") || ""}`,
+    ];
+    return lines.join("\n");
+  }
+
+  document.querySelectorAll("[data-inquiry-form]").forEach((form) => {
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const status = form.querySelector("[aria-live]");
+      if (!form.reportValidity()) return;
+      const subject = encodeURIComponent("Project inquiry — Full Stack Assets");
+      const body = encodeURIComponent(composeInquiry(form));
+      if (status) status.textContent = "Opening your email app with the project details.";
+      window.location.href = `mailto:hello@fullstackassets.com?subject=${subject}&body=${body}`;
     });
+  });
+
+  document.querySelectorAll("[data-print-resume]").forEach((button) => {
+    button.addEventListener("click", () => window.print());
   });
 
   /* case-study / blog filter tabs */

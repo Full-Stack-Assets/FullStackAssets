@@ -73,10 +73,11 @@ nav::before{
     position:fixed;top:53px;left:0;right:0;bottom:0;
     background:var(--space);flex-direction:column;align-items:flex-start;
     padding:32px 24px;gap:22px;font-size:.95rem;
-    transform:translateX(100%);transition:transform .3s ease;overflow-y:auto;
+    transform:translateX(100%);visibility:hidden;
+    transition:transform .3s ease,visibility 0s linear .3s;overflow-y:auto;
   }
-  .nav-links.open{transform:translateX(0)}
-  .nav-toggle{display:block}
+  .nav-links.open{transform:translateX(0);visibility:visible;transition-delay:0s}
+  .nav-toggle{width:44px;height:44px;display:grid;place-items:center;padding:0}
 }
 
 /* ---------- HERO ---------- */
@@ -174,6 +175,9 @@ a.asset{color:inherit}
 .asset-more{margin-top:18px;font-family:'IBM Plex Mono';font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);display:flex;align-items:center;gap:6px}
 .asset:hover .asset-more{gap:10px}
 .asset-more svg{width:13px;height:13px;transition:transform .2s}
+.project-links{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:18px}
+.project-links .asset-more{margin-top:0}
+.project-availability{font-family:'IBM Plex Mono';font-size:.66rem;letter-spacing:.06em;color:var(--dim)}
 
 /* ---------- STAGED-DRAFT BANNER (internal, on noindexed drafts) ---------- */
 .draft-banner{
@@ -396,4 +400,43 @@ footer{border-top:1px solid var(--line);padding:40px 0 26px}
 @media(prefers-reduced-motion:reduce){
   .rv{opacity:1;transform:none;transition:none}
   html{scroll-behavior:auto}
+}
+
+:focus-visible{outline:2px solid var(--amber);outline-offset:4px}
+.audience-paths,.contact-paths{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.audience-path,.evidence-card,.resume-block{background:var(--panel);border:1px solid var(--line);padding:28px}
+.audience-path{transition:border-color .2s,transform .2s}
+.audience-path:hover{border-color:var(--amber);transform:translateY(-3px)}
+.audience-path .tag{font-family:'IBM Plex Mono';font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan)}
+.featured-work{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.featured-project{min-width:0}
+.status-label{font-family:'IBM Plex Mono';font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:#7CD992}
+.inquiry-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.inquiry-grid .field-wide{grid-column:1/-1}
+.field label{display:block;margin-bottom:7px;font-size:.78rem;color:var(--star)}
+.field input,.field textarea{width:100%;border:1px solid var(--line);background:var(--panel-3);color:var(--star);padding:13px 14px;font:inherit}
+.field textarea{min-height:140px;resize:vertical}
+.field input:focus,.field textarea:focus{border-color:var(--amber);outline:2px solid rgba(242,169,59,.25)}
+.form-note,.form-status{color:var(--dim);font-size:.82rem}
+.resume-header{display:flex;justify-content:space-between;gap:24px;align-items:flex-start}
+.resume-list{display:grid;gap:12px;list-style:none}
+.resume-systems{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+@media(max-width:900px){.featured-work,.resume-systems{grid-template-columns:1fr}}
+@media(max-width:700px){
+  .audience-paths,.contact-paths,.inquiry-grid{grid-template-columns:1fr}
+  .inquiry-grid .field-wide{grid-column:auto}
+  .hero-content{padding:118px 24px 72px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .rv{opacity:1;transform:none}
+}
+@media print{
+  nav,footer,.totop,.no-print{display:none!important}
+  body{background:#fff;color:#111;font-weight:400}
+  .page-hero,section{padding:24px 0;border-color:#ddd}
+  .resume-block{background:#fff;border-color:#ddd;break-inside:avoid}
+  .resume-systems{grid-template-columns:repeat(3,minmax(0,1fr))}
+  a{color:#111;text-decoration:none}
 }

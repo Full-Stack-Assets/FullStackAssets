@@ -58,12 +58,10 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
     </button>
     <div class="nav-links">
-      <a href="/#assets">Case Studies</a>
-      <a href="/#capabilities">Capabilities</a>
-      <a href="/#process">Process</a>
-      <a href="/#about">About</a>
-      <a href="/blog/" class="active">Insights</a>
+      <a href="/#work">Work</a>
       <a href="/services/">Services</a>
+      <a href="/#about">About</a>
+      <a href="/resume/">Résumé</a>
       <a href="/#contact" class="nav-cta">Contact</a>
     </div>
   </div>
@@ -122,6 +120,7 @@
         <h2 id="benchmark">What it actually moved</h2>
         <p>Benchmarked against a round-robin baseline under identical synthetic load — same task mix, same pool size, same budget ceiling, repeated trials with bootstrap confidence intervals to separate signal from noise — the fitness-scored scheduler held <strong>16.5% better SLA compliance</strong> and cut <strong>load variance across the fleet by 41%</strong>. The full benchmark methodology and results are in the <a href="/case-studies/constellation-coo.html">Constellation COO case study</a>.</p>
         <p>The gain wasn't uniform, though — and this is the generalizable part. The advantage over a naive scheduler scaled with how <em>heterogeneous</em> the agent pool was. If every agent has near-identical cost and latency profiles, round-robin and fitness-scoring converge — there's nothing for the extra dimensions to exploit. The more your fleet mixes fast/expensive and slow/cheap agents, the more a constraint-aware scheduler earns its complexity.</p>
+        <div class="callout"><strong>Benchmark boundary:</strong> these results come from a synthetic workload, not production traffic. They support comparing scheduler behavior under controlled conditions; they do not establish real-world latency, cost savings, or reliability for every agent fleet.</div>
 
         <h2 id="takeaways">If you're building this yourself</h2>
         <ul>
@@ -131,13 +130,11 @@
           <li><strong>Check whether your pool is even heterogeneous enough to need this.</strong> If every agent is functionally identical, a simpler scheduler may be the right call — constraint-optimization earns its keep on mixed fleets, not uniform ones.</li>
         </ul>
 
-        <p>This is also, not incidentally, why the approach ended up in a patent filing rather than just a blog post — the specifics are covered in <a href="/blog/patents-for-indie-engineers.html">why I patent my own algorithms as a solo engineer</a>.</p>
-
         <div class="byline">
           <div class="avatar">NA</div>
           <div>
             <div class="name">Nic Albertson</div>
-            <div class="role">Sole engineer &amp; inventor · Fall River, MA</div>
+            <div class="role">Full-stack / product engineer · Fall River, MA</div>
           </div>
         </div>
       </div>
@@ -178,15 +175,15 @@
   <div class="wrap">
     <div class="sec-head"><span class="sec-tag">More Insights</span><h2>Keep reading</h2></div>
     <div class="related">
-      <a class="post-card" href="/blog/patents-for-indie-engineers.html">
-        <div class="post-tag">IP Strategy</div>
-        <h3>Why I Patent My Own Algorithms as a Solo Engineer</h3>
-        <p>Filing a provisional as an indie builder felt like overkill — until I understood what it actually protects.</p>
+      <a class="post-card" href="/blog/documenting-for-acquisition.html">
+        <div class="post-tag">Engineering Practice</div>
+        <h3>Documenting Software So Another Engineer Can Run It</h3>
+        <p>Architecture reasoning, deployment instructions, tests, and handoff practices for maintainable systems.</p>
       </a>
       <a class="post-card" href="/blog/shipping-20-microsaas-solo.html">
         <div class="post-tag">Product</div>
-        <h3>Shipping 20+ Micro-SaaS Products Solo: A Playbook</h3>
-        <p>The repeatable loop that makes a one-person product catalog possible without burning out.</p>
+        <h3>A Repeatable System for Shipping Small Products</h3>
+        <p>A practical loop for keeping small product work focused and evidence-backed.</p>
       </a>
     </div>
   </div>
@@ -206,39 +203,12 @@
 </main>
 
 <footer>
-  <div class="foot-inner">
-    <div class="foot-grid">
-      <div class="foot-col">
-        <a href="/" class="logo">FULL STACK <span>ASSETS</span></a>
-        <p style="color:var(--dim);font-size:.85rem;margin-top:14px;max-width:32ch">Nic Albertson builds and documents revenue-ready software assets, solo, from Fall River, Massachusetts.</p>
-      </div>
-      <div class="foot-col">
-        <h4>Case Studies</h4>
-        <a href="/case-studies/constellation-coo.html">Constellation COO</a>
-        <a href="/case-studies/taskflow.html">TaskFlow</a>
-        <a href="/case-studies/storeforge.html">StoreForge</a>
-        <a href="/case-studies/">View all →</a>
-      </div>
-      <div class="foot-col">
-        <h4>Work with me</h4>
-        <a href="/services/#engagements">Audit &amp; build sprints</a>
-        <a href="/services/#engagements">Fractional engineering</a>
-        <a href="/services/#licensing">Licensing &amp; acquisition</a>
-        <a href="/services/">All services →</a>
-      </div>
-      <div class="foot-col">
-        <h4>Connect</h4>
-        <a href="/#about">About</a>
-        <a href="/blog/">Insights</a>
-        <a href="mailto:hello@fullstackassets.com">hello@fullstackassets.com</a>
-        <a href="https://github.com/Full-Stack-Assets" target="_blank" rel="noopener">GitHub</a>
-      </div>
-    </div>
-    <div class="foot-bottom">
-      <span>© 2026 Full Stack Assets · Nic Albertson</span>
-      <span>Built solo · Fall River, MA</span>
-    </div>
-  </div>
+  <div class="foot-inner"><div class="foot-grid">
+    <div class="foot-col"><a href="/" class="logo">FULL STACK <span>ASSETS</span></a><p style="color:var(--dim);font-size:.85rem;margin-top:14px;max-width:32ch">Product-minded full-stack engineer building reliable workflow, data, and deployment systems.</p></div>
+    <div class="foot-col"><h4>Selected work</h4><a href="/case-studies/beyondmythos.html">BeyondMythos</a><a href="/case-studies/tradewind-dealflow.html">Tradewind DealFlow</a><a href="/case-studies/taskflow.html">TaskFlow</a></div>
+    <div class="foot-col"><h4>Work together</h4><a href="/resume/">Résumé</a><a href="/services/">Services</a><a href="/services/#inquiry">Project inquiry</a></div>
+    <div class="foot-col"><h4>Connect</h4><a href="/#about">About</a><a href="mailto:hello@fullstackassets.com">hello@fullstackassets.com</a><a href="https://github.com/Full-Stack-Assets" target="_blank" rel="noopener">GitHub</a></div>
+  </div><div class="foot-bottom"><span>© 2026 Full Stack Assets · Nic Albertson</span><span>Fall River, MA</span></div></div>
 </footer>
 <button class="totop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <script src="/assets/site.js"></script>

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18251288079"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -11,41 +10,37 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Constellation COO — Patent-Pending AI Agent Orchestration | Full Stack Assets</title>
-<meta name="description" content="How a constraint-optimized fitness-scoring algorithm cut SLA misses 16.5% and load variance 41% for fleets of LLM agents — and why it's now a 7-claim patent filing.">
+<title>Experimental agent-scheduling engine | Full Stack Assets</title>
+<meta name="description" content="An experimental constraint-aware scheduler evaluated against a round-robin baseline in a synthetic benchmark, with results and limitations presented together.">
 <meta name="author" content="Nic Albertson">
 <link rel="canonical" href="https://fullstackassets.com/case-studies/constellation-coo.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Full Stack Assets">
-<meta property="og:title" content="Constellation COO — Patent-Pending AI Agent Orchestration">
-<meta property="og:description" content="A constraint-optimized fitness-scoring algorithm that cut SLA misses 16.5% and load variance 41% across fleets of LLM agents.">
+<meta property="og:title" content="Experimental agent-scheduling engine">
+<meta property="og:description" content="A constrained scheduling experiment with explicitly limited synthetic benchmark results.">
 <meta property="og:url" content="https://fullstackassets.com/case-studies/constellation-coo.html">
 <meta property="og:image" content="https://fullstackassets.com/assets/og-card.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Constellation COO — Patent-Pending AI Agent Orchestration">
-<meta name="twitter:description" content="A constraint-optimized fitness-scoring algorithm that cut SLA misses 16.5% and load variance 41% across fleets of LLM agents.">
+<meta name="twitter:title" content="Experimental agent-scheduling engine">
+<meta name="twitter:description" content="A constrained scheduling experiment with explicitly limited synthetic benchmark results.">
 <meta name="twitter:image" content="https://fullstackassets.com/assets/og-card.png">
 <meta name="theme-color" content="#0B1426">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B1426'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23F2A93B'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,700;12..96,800&family=Public+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
-<script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-</script>
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
 <script defer src="/_vercel/insights/script.js"></script>
-
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "TechArticle",
-  "headline": "Constellation COO: Patent-Pending AI Agent Orchestration",
-  "description": "How a constraint-optimized fitness-scoring algorithm cut SLA misses 16.5% and load variance 41% for fleets of LLM agents.",
+  "headline": "Experimental agent-scheduling engine",
+  "description": "An experimental constraint-aware scheduler evaluated in a synthetic benchmark.",
   "author": {"@type": "Person", "name": "Nic Albertson", "url": "https://fullstackassets.com/"},
-  "publisher": {"@type": "Person", "name": "Nic Albertson"},
   "mainEntityOfPage": "https://fullstackassets.com/case-studies/constellation-coo.html",
   "datePublished": "2026-06-01",
-  "dateModified": "2026-07-03"
+  "dateModified": "2026-08-02"
 }
 </script>
 </head>
@@ -54,17 +49,9 @@
 <nav>
   <div class="nav-inner">
     <a href="/" class="logo">FULL STACK <span>ASSETS</span></a>
-    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-    </button>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
     <div class="nav-links">
-      <a href="/#assets" class="active">Case Studies</a>
-      <a href="/#capabilities">Capabilities</a>
-      <a href="/#process">Process</a>
-      <a href="/#about">About</a>
-      <a href="/blog/">Insights</a>
-      <a href="/services/">Services</a>
-      <a href="/#contact" class="nav-cta">Contact</a>
+      <a href="/#work" class="active">Work</a><a href="/services/">Services</a><a href="/#about">About</a><a href="/resume/">Résumé</a><a href="/#contact" class="nav-cta">Contact</a>
     </div>
   </div>
 </nav>
@@ -72,176 +59,83 @@
 <main id="main">
 <div class="page-hero">
   <div class="wrap">
-    <div class="breadcrumbs">
-      <a href="/">Home</a><span class="sep">/</span><a href="/case-studies/">Case Studies</a><span class="sep">/</span><span>Constellation COO</span>
-    </div>
-    <div class="eyebrow">FSA-001 · AI Agent Orchestration</div>
-    <h1>Constellation COO: scheduling AI agent fleets like a constrained optimization problem</h1>
-    <p class="lede">A patent-pending fitness-scoring algorithm that routes, spawns, and retires LLM agents against real cost, latency, and budget constraints — cutting SLA misses 16.5% and load variance 41% against a baseline round-robin scheduler.</p>
+    <div class="breadcrumbs"><a href="/">Home</a><span class="sep">/</span><a href="/case-studies/">Selected Work</a><span class="sep">/</span><span>Scheduling experiment</span></div>
+    <div class="eyebrow">Experiment · Synthetic evaluation</div>
+    <h1>Experimental agent-scheduling engine</h1>
+    <p class="lede">A constraint-aware scheduling reference for exploring how cost, latency, and load signals might improve task assignment against a simple round-robin baseline.</p>
     <dl class="meta-row">
       <div class="meta-item"><dt>Stack</dt><dd>Python · pytest</dd></div>
-      <div class="meta-item"><dt>Scale</dt><dd>13 modules · 39 tests</dd></div>
-      <div class="meta-item"><dt>Status</dt><dd class="hl">Patent pending — 7 claims</dd></div>
-      <div class="meta-item"><dt>Role</dt><dd>Sole engineer &amp; inventor</dd></div>
+      <div class="meta-item"><dt>Evaluation</dt><dd>Synthetic benchmark</dd></div>
+      <div class="meta-item"><dt>Status</dt><dd class="hl">Experiment</dd></div>
+      <div class="meta-item"><dt>Role</dt><dd>Product and engineering</dd></div>
     </dl>
   </div>
 </div>
 
 <section style="padding-top:64px">
-  <div class="wrap">
-    <div class="article-layout">
-      <div class="prose">
+  <div class="wrap"><div class="article-layout">
+    <div class="prose">
+      <div class="callout"><strong>Evidence boundary:</strong> this is an experimental agent-scheduling engine evaluated with a synthetic benchmark. The results are not evidence from production agents, customer workloads, live model traffic, or an operated fleet.</div>
 
-        <p>Constellation COO (Constraint-Optimized Orchestration) is the flagship asset in the Full Stack Assets catalog: an algorithm and reference implementation for managing fleets of LLM agents under hard operating constraints — cost per task, latency SLA, and concurrency budget — instead of the ad-hoc heuristics most agent frameworks ship with by default.</p>
+      <h2 id="question">The experimental question</h2>
+      <p>Round-robin scheduling treats available workers uniformly even when their cost, response time, and current load differ. This experiment asks whether an explicit fitness score can use those signals to make a better assignment under a controlled workload.</p>
 
-        <h2 id="problem">The problem</h2>
-        <p>Most multi-agent systems route work with something close to round-robin or greedy-cheapest selection: send the next task to whichever agent is free, or whichever model is cheapest per call. That works until the fleet is under real load. Cheap agents get overloaded and blow their latency SLA; fast agents sit idle while their more expensive siblings drown; and nobody is tracking the aggregate budget until the invoice arrives.</p>
-        <p>The failure mode isn't a crash — it's <strong>silent SLA erosion</strong>. Tasks still complete, just slower and less predictably, and the scheduler has no signal that tells it why.</p>
+      <h2 id="approach">The scheduling approach</h2>
+      <p>Each candidate receives separate cost, latency, load, and affinity scores. A weighted objective selects the highest-scoring available candidate, while thresholds govern deferral and lifecycle decisions. Keeping the signals independent makes it possible to test constraint boundaries and vary weights without replacing the scheduler.</p>
+      <ul>
+        <li>Cost fitness represents remaining budget headroom.</li>
+        <li>Latency fitness compares observed response time with the synthetic task target.</li>
+        <li>Load fitness penalizes candidates as simulated concurrency approaches a ceiling.</li>
+        <li>Affinity fitness represents a synthetic warm-context advantage for similar task shapes.</li>
+      </ul>
 
-        <h2 id="approach">The approach</h2>
-        <p>Constellation treats agent routing as a <strong>multi-dimensional constrained optimization problem</strong> rather than a queueing heuristic. Every candidate agent is scored on a fitness function that blends:</p>
-        <ul>
-          <li><strong>Cost fitness</strong> — remaining budget headroom against the task's expected cost</li>
-          <li><strong>Latency fitness</strong> — the agent's live p95 response time against the task's SLA window</li>
-          <li><strong>Load fitness</strong> — current concurrency against a soft ceiling, penalized non-linearly as it approaches saturation</li>
-          <li><strong>Affinity fitness</strong> — whether this agent has handled similar task shapes recently (cache and context warm-start effects)</li>
-        </ul>
-        <p>The four fitness scores are combined into a single weighted objective, and the scheduler routes to the highest-scoring available agent. When no agent clears a minimum fitness threshold, Constellation spawns a new one — or, if the fleet is at its budget ceiling, gracefully defers or degrades the task rather than force-fitting it onto an overloaded agent.</p>
-
-        <h2 id="architecture">Architecture</h2>
-        <p>The reference implementation is a 13-module Python engine, covered by a 39-test pytest suite that exercises the fitness function, the spawn/retire lifecycle, and constraint-boundary edge cases (what happens exactly at budget zero, exactly at the concurrency ceiling, exactly at SLA expiry).</p>
-        <div class="callout"><strong>Design principle:</strong> every constraint is a first-class, independently testable unit — cost, latency, and load are never hard-coded into a single monolithic scoring function. That's what let the benchmark sweep below tune weights without rewriting the scheduler.</div>
-        <p>Lifecycle management follows three phases: <strong>route</strong> (score and assign incoming tasks), <strong>rebalance</strong> (periodically re-evaluate live agents against drifting load), and <strong>retire</strong> (shut down agents whose fitness has decayed below a hysteresis floor, avoiding flapping). This mirrors how a human on-call engineer would manage a fleet — not a single decision, but a continuous loop.</p>
-
-        <h2 id="results">Results</h2>
-        <p>Constellation was benchmarked against a round-robin baseline scheduler under identical synthetic load — same task mix, same agent pool size, same budget ceiling — across repeated trials with bootstrap confidence intervals to separate real effect from noise.</p>
-        <div class="results">
-          <div><div class="n">+16.5%</div><div class="l">SLA compliance vs. baseline</div></div>
-          <div><div class="n">−41%</div><div class="l">Load variance across fleet</div></div>
-          <div><div class="n">39/39</div><div class="l">Tests passing</div></div>
-          <div><div class="n">7</div><div class="l">Patent claims drafted</div></div>
-        </div>
-
-        <figure class="chart-block">
-          <div class="chart-title">SLA compliance — baseline vs. Constellation COO</div>
-          <svg viewBox="0 0 560 150" role="img" aria-label="Bar chart: SLA compliance rate. Baseline round-robin scheduler 78.3 percent. Constellation COO 91.2 percent, a 16.5 percent relative improvement.">
-            <text x="0" y="30" font-size="12">Baseline (round-robin)</text>
-            <rect x="0" y="38" width="401" height="20" fill="#62B6CB"/>
-            <text x="411" y="53" font-size="13" fill="#E9EDF5" font-weight="500">78.3%</text>
-            <text x="0" y="98" font-size="12">Constellation COO</text>
-            <rect x="0" y="106" width="467" height="20" fill="#F2A93B"/>
-            <text x="477" y="121" font-size="13" fill="#E9EDF5" font-weight="500">91.2%</text>
-          </svg>
-          <figcaption>Synthetic load test, identical task mix and agent pool, mean of repeated trials.</figcaption>
-        </figure>
-
-        <p>The SLA gain compounds with scale: the more heterogeneous the agent pool (mixed cost/latency profiles), the larger Constellation's advantage over uniform-treatment schedulers, because there's more signal for the fitness function to exploit.</p>
-
-        <h2 id="ip">Protecting the IP</h2>
-        <p>Because the fitness-scoring approach to agent-fleet scheduling was genuinely novel against the prior art I reviewed, I drafted it into a <strong>provisional patent application with seven claims</strong> — covering the multi-dimensional fitness function, the spawn/retire hysteresis mechanism, and the constraint-aware deferral behavior specifically. That process is documented in more depth in <a href="/blog/patents-for-indie-engineers.html">Why I Patent My Own Algorithms as a Solo Engineer</a>.</p>
-
-        <h2 id="lessons">Lessons learned</h2>
-        <p>The biggest surprise was how much of the win came from the <strong>retire</strong> phase, not the routing phase. Most orchestration discussions focus on where to send the next task; in practice, a scheduler that's slow to retire a degraded agent bleeds SLA quietly for minutes before anyone notices. Hysteresis on the retire threshold — waiting for sustained low fitness, not a single bad sample — turned out to matter more than the precision of the fitness weights themselves.</p>
-
-        <div class="byline">
-          <div class="avatar">NA</div>
-          <div>
-            <div class="name">Nic Albertson</div>
-            <div class="role">Sole engineer &amp; inventor · Fall River, MA</div>
-          </div>
-        </div>
+      <h2 id="benchmark">Synthetic benchmark results</h2>
+      <p>In the recorded <strong>synthetic benchmark</strong>, the experimental scheduler reported 91.2% SLA compliance versus 78.3% for the round-robin baseline: a 16.5% relative improvement. It also reported 41% lower load variance across the simulated fleet.</p>
+      <div class="results">
+        <div><div class="n">+16.5%</div><div class="l">Synthetic SLA compliance vs. baseline</div></div>
+        <div><div class="n">−41%</div><div class="l">Synthetic load variance</div></div>
+        <div><div class="n">39/39</div><div class="l">Reference tests passing</div></div>
+        <div><div class="n">0</div><div class="l">Production workloads measured</div></div>
       </div>
+      <div class="callout"><strong>Limitations beside the result:</strong> the task mix, worker profiles, latency behavior, budget ceiling, and load changes were simulated. A round-robin comparator is intentionally simple. The benchmark does not establish performance with real models, variable network conditions, queue backpressure, provider failures, customer traffic, or production economics.</div>
+      <figure class="chart-block">
+        <div class="chart-title">Synthetic SLA compliance — baseline vs. experiment</div>
+        <svg viewBox="0 0 560 150" role="img" aria-label="Synthetic benchmark bar chart: round-robin baseline 78.3 percent and experimental scheduler 91.2 percent.">
+          <text x="0" y="30" font-size="12">Round-robin baseline</text><rect x="0" y="38" width="401" height="20" fill="#62B6CB"/><text x="411" y="53" font-size="13" fill="#E9EDF5" font-weight="500">78.3%</text>
+          <text x="0" y="98" font-size="12">Experimental scheduler</text><rect x="0" y="106" width="467" height="20" fill="#F2A93B"/><text x="477" y="121" font-size="13" fill="#E9EDF5" font-weight="500">91.2%</text>
+        </svg>
+        <figcaption>Synthetic benchmark only. The chart does not represent production traffic or customer outcomes.</figcaption>
+      </figure>
 
-      <aside class="toc">
-        <div class="toc-label">On this page</div>
-        <ol>
-          <li><a href="#problem">The problem</a></li>
-          <li><a href="#approach">The approach</a></li>
-          <li><a href="#architecture">Architecture</a></li>
-          <li><a href="#results">Results</a></li>
-          <li><a href="#ip">Protecting the IP</a></li>
-          <li><a href="#lessons">Lessons learned</a></li>
-        </ol>
-        <div class="share-box">
-          <div class="toc-label">Share</div>
-          <div class="share-row">
-            <button class="share-btn" data-share="x">Share on X</button>
-            <button class="share-btn" data-share="linkedin">LinkedIn</button>
-            <button class="share-btn" data-share="copy">Copy link</button>
-          </div>
-        </div>
-      </aside>
+      <h2 id="engineering">Reference implementation</h2>
+      <p>The Python reference implementation separates scoring dimensions from routing and lifecycle behavior. Its pytest suite exercises score calculation, spawn and retire decisions, and exact constraint boundaries such as a zero budget, a concurrency ceiling, and an expired synthetic SLA target.</p>
+
+      <h2 id="next">What production validation would require</h2>
+      <p>A production claim would require representative task traces, real model and provider behavior, controlled comparisons against stronger scheduling policies, cost and latency instrumentation, failure injection, queue-pressure tests, and observation over time. Until that evidence exists, the correct status is <strong>experiment</strong>.</p>
+
+      <div class="byline"><div class="avatar">NA</div><div><div class="name">Nic Albertson</div><div class="role">Product and engineering · Fall River, MA</div></div></div>
     </div>
-  </div>
+    <aside class="toc">
+      <div class="toc-label">On this page</div><ol><li><a href="#question">Question</a></li><li><a href="#approach">Approach</a></li><li><a href="#benchmark">Synthetic benchmark</a></li><li><a href="#engineering">Implementation</a></li><li><a href="#next">Validation needed</a></li></ol>
+      <div class="share-box"><div class="toc-label">Status</div><p style="color:var(--dim);font-size:.8rem">Experiment. Synthetic benchmark only.</p></div>
+    </aside>
+  </div></div>
 </section>
 
-<section>
-  <div class="wrap">
-    <div class="sec-head"><span class="sec-tag">More Assets</span><h2>Related case studies</h2></div>
-    <div class="related">
-      <a class="post-card" href="/case-studies/taskflow.html">
-        <div class="post-tag">FSA-002 · AI &amp; Agents</div>
-        <h3>TaskFlow</h3>
-        <p>A three-phase Plan → Execute → Verify agent framework with persistent memory and a typed LangGraph orchestration graph.</p>
-      </a>
-      <a class="post-card" href="/case-studies/storeforge.html">
-        <div class="post-tag">FSA-005 · Platforms</div>
-        <h3>StoreForge</h3>
-        <p>A multi-tenant commerce platform whose spawn pipeline drives live LLM calls for market research and brand identity.</p>
-      </a>
-    </div>
-  </div>
-</section>
+<section><div class="wrap"><div class="sec-head"><span class="sec-tag">Selected work</span><h2>Evidence from implemented systems</h2></div><div class="related">
+  <a class="post-card" href="/case-studies/beyondmythos.html"><div class="post-tag">Production system</div><h3>BeyondMythos</h3><p>A multi-site generation, validation, deployment, and operations engine.</p></a>
+  <a class="post-card" href="/case-studies/taskflow.html"><div class="post-tag">Reference implementation</div><h3>TaskFlow</h3><p>A tested workflow runtime with retries, persistence, metrics, and deployment documentation.</p></a>
+</div></div></section>
 
-<section class="contact">
-  <div class="wrap">
-    <div class="sec-tag" style="margin-bottom:18px">Contact</div>
-    <h2>Interested in licensing or acquiring Constellation COO?</h2>
-    <p>The full engine, test suite, and patent documentation are available for technical review.</p>
-    <div class="hero-ctas" style="justify-content:center">
-      <a class="btn btn-solid" href="mailto:hello@fullstackassets.com?subject=Inquiry%20%E2%80%94%20FSA-001%20Constellation%20COO&amp;body=Asset%3A%20FSA-001%20Constellation%20COO%0A%0AInterested%20in%20%28license%20/%20acquisition%20/%20demo%29%3A%0A%0AWho%27s%20asking%3A%0A">Request demo or data room</a>
-      <a class="btn btn-ghost" href="/services/#licensing">Licensing &amp; acquisition terms</a>
-      <a class="btn btn-ghost" href="/case-studies/">All case studies</a>
-    </div>
-  </div>
-</section>
+<section class="contact"><div class="wrap"><div class="sec-tag" style="margin-bottom:18px">Archive</div><h2>Review the primary case studies.</h2><p>This scheduling work remains an experiment; the selected-work index leads with operated and implemented systems.</p><div class="hero-ctas" style="justify-content:center"><a class="btn btn-solid" href="/case-studies/">View selected work</a></div></div></section>
 </main>
 
-<footer>
-  <div class="foot-inner">
-    <div class="foot-grid">
-      <div class="foot-col">
-        <a href="/" class="logo">FULL STACK <span>ASSETS</span></a>
-        <p style="color:var(--dim);font-size:.85rem;margin-top:14px;max-width:32ch">Nic Albertson builds and documents revenue-ready software assets, solo, from Fall River, Massachusetts.</p>
-      </div>
-      <div class="foot-col">
-        <h4>Case Studies</h4>
-        <a href="/case-studies/constellation-coo.html">Constellation COO</a>
-        <a href="/case-studies/taskflow.html">TaskFlow</a>
-        <a href="/case-studies/storeforge.html">StoreForge</a>
-        <a href="/case-studies/">View all →</a>
-      </div>
-      <div class="foot-col">
-        <h4>Work with me</h4>
-        <a href="/services/#engagements">Audit &amp; build sprints</a>
-        <a href="/services/#engagements">Fractional engineering</a>
-        <a href="/services/#licensing">Licensing &amp; acquisition</a>
-        <a href="/services/">All services →</a>
-      </div>
-      <div class="foot-col">
-        <h4>Connect</h4>
-        <a href="/#about">About</a>
-        <a href="/blog/">Insights</a>
-        <a href="mailto:hello@fullstackassets.com">hello@fullstackassets.com</a>
-        <a href="https://github.com/Full-Stack-Assets" target="_blank" rel="noopener">GitHub</a>
-      </div>
-    </div>
-    <div class="foot-bottom">
-      <span>© 2026 Full Stack Assets · Nic Albertson</span>
-      <span>Built solo · Fall River, MA</span>
-    </div>
-  </div>
-</footer>
+<footer><div class="foot-inner"><div class="foot-grid">
+  <div class="foot-col"><a href="/" class="logo">FULL STACK <span>ASSETS</span></a><p style="color:var(--dim);font-size:.85rem;margin-top:14px;max-width:32ch">Product-minded full-stack engineer building reliable workflow, data, and deployment systems.</p></div>
+  <div class="foot-col"><h4>Selected work</h4><a href="/case-studies/beyondmythos.html">BeyondMythos</a><a href="/case-studies/tradewind-dealflow.html">Tradewind DealFlow</a><a href="/case-studies/taskflow.html">TaskFlow</a></div>
+  <div class="foot-col"><h4>Work together</h4><a href="/resume/">Résumé</a><a href="/services/">Services</a><a href="/services/#inquiry">Project inquiry</a></div>
+  <div class="foot-col"><h4>Connect</h4><a href="/#about">About</a><a href="mailto:hello@fullstackassets.com">hello@fullstackassets.com</a><a href="https://github.com/Full-Stack-Assets" target="_blank" rel="noopener">GitHub</a></div>
+</div><div class="foot-bottom"><span>© 2026 Full Stack Assets · Nic Albertson</span><span>Fall River, MA</span></div></div></footer>
 <button class="totop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <script src="/assets/site.js"></script>
 </body>

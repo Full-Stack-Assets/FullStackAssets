@@ -11,19 +11,19 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Documenting Software Like It's Already For Sale | Full Stack Assets</title>
-<meta name="description" content="The habits that turn a working prototype into something a buyer can actually diligence — architecture reasoning, deployment docs, honest benchmarks, and commit history that tells the truth.">
+<title>Documenting Software So Another Engineer Can Run It | Full Stack Assets</title>
+<meta name="description" content="How architecture reasoning, deployment instructions, behavior-focused tests, and legible history make software maintainable by the next engineer.">
 <meta name="author" content="Nic Albertson">
 <link rel="canonical" href="https://fullstackassets.com/blog/documenting-for-acquisition.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Full Stack Assets">
-<meta property="og:title" content="Documenting Software Like It's Already For Sale">
-<meta property="og:description" content="The habits that turn a working prototype into something a buyer can actually diligence — architecture reasoning, deployment docs, honest benchmarks, and commit history that tells the truth.">
+<meta property="og:title" content="Documenting Software So Another Engineer Can Run It">
+<meta property="og:description" content="How architecture reasoning, deployment instructions, behavior-focused tests, and legible history make software maintainable by the next engineer.">
 <meta property="og:url" content="https://fullstackassets.com/blog/documenting-for-acquisition.html">
 <meta property="og:image" content="https://fullstackassets.com/assets/og-card.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Documenting Software Like It's Already For Sale">
-<meta name="twitter:description" content="The habits that turn a working prototype into something a buyer can actually diligence — architecture reasoning, deployment docs, honest benchmarks, and commit history that tells the truth.">
+<meta name="twitter:title" content="Documenting Software So Another Engineer Can Run It">
+<meta name="twitter:description" content="How architecture reasoning, deployment instructions, behavior-focused tests, and legible history make software maintainable by the next engineer.">
 <meta name="twitter:image" content="https://fullstackassets.com/assets/og-card.png">
 <meta name="theme-color" content="#0B1426">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B1426'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23F2A93B'/%3E%3C/svg%3E">
@@ -39,8 +39,8 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "Documenting Software Like It's Already For Sale",
-  "description": "The habits that turn a working prototype into something a buyer can actually diligence — architecture reasoning, deployment docs, honest benchmarks, and commit history that tells the truth.",
+  "headline": "Documenting Software So Another Engineer Can Run It",
+  "description": "How architecture reasoning, deployment instructions, behavior-focused tests, and legible history make software maintainable by the next engineer.",
   "author": {"@type": "Person", "name": "Nic Albertson", "url": "https://fullstackassets.com/"},
   "publisher": {"@type": "Person", "name": "Nic Albertson"},
   "mainEntityOfPage": "https://fullstackassets.com/blog/documenting-for-acquisition.html",
@@ -58,12 +58,10 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
     </button>
     <div class="nav-links">
-      <a href="/#assets">Case Studies</a>
-      <a href="/#capabilities">Capabilities</a>
-      <a href="/#process">Process</a>
-      <a href="/#about">About</a>
-      <a href="/blog/" class="active">Insights</a>
+      <a href="/#work">Work</a>
       <a href="/services/">Services</a>
+      <a href="/#about">About</a>
+      <a href="/resume/">Résumé</a>
       <a href="/#contact" class="nav-cta">Contact</a>
     </div>
   </div>
@@ -72,10 +70,10 @@
 <main id="main">
 <div class="page-hero">
   <div class="wrap">
-    <div class="breadcrumbs"><a href="/">Home</a><span class="sep">/</span><a href="/blog/">Insights</a><span class="sep">/</span><span>Documenting Software Like It's Already For Sale</span></div>
-    <div class="eyebrow">Strategy</div>
-    <h1>Documenting software like it's already for sale</h1>
-    <p class="lede">Most side projects are optimized to demo well. Almost none are optimized to survive a stranger actually trying to run, extend, or acquire them — and that gap stays invisible right up until someone tries.</p>
+    <div class="breadcrumbs"><a href="/">Home</a><span class="sep">/</span><a href="/blog/">Insights</a><span class="sep">/</span><span>Documenting Software So Another Engineer Can Run It</span></div>
+    <div class="eyebrow">Engineering Practice</div>
+    <h1>Documenting Software So Another Engineer Can Run It</h1>
+    <p class="lede">A system is not maintainable if its architecture, deployment path, tests, and operating constraints exist only in the original engineer's memory.</p>
     <dl class="meta-row">
       <div class="meta-item"><dt>Published</dt><dd>July 3, 2026</dd></div>
       <div class="meta-item"><dt>Read time</dt><dd>6 min</dd></div>
@@ -90,29 +88,29 @@
     <div class="article-layout">
       <div class="prose">
 
-        <p>Every project in the Full Stack Assets catalog gets built under one non-negotiable rule: if it can't be handed off to someone else, it isn't finished. Not "shipped," not "deployed," not "working on my machine" — finished. That standard sounds obvious until you actually try to enforce it, because almost everything about how side projects and portfolio pieces get built pushes in the opposite direction. You optimize for the demo. You optimize for the moment a stranger looks at a live URL, clicks around for ninety seconds, and forms an opinion. Nothing about that moment rewards you for writing down why you chose Postgres over a document store, or for making your deploy script work on a machine that isn't yours. So most of us don't, and the gap between "demos well" and "survives contact with a stranger" sits there quietly, undiscovered, until someone actually tries to run the thing without you standing next to them.</p>
+        <p>I use one practical definition of finished: another engineer can understand the system, deploy it, verify its behavior, and make a safe change without reconstructing every decision from scratch. A polished demo does not prove that. The handoff has to make hidden context explicit and give the next operator a reliable path through the codebase.</p>
 
         <h2 id="architecture-and-why">Documentation above the README line</h2>
-        <p>A README that lists install commands is table stakes, not documentation. It tells a reader what to type. It doesn't tell them anything about the decisions that produced the system they're about to inherit — and decisions are exactly what a technical buyer or a future engineer needs, because code alone only shows you the state that decisions produced, not the reasoning that ruled out the alternatives.</p>
-        <p>The level I hold my own catalog to is closer to due diligence than to onboarding: why is the queue backed by this broker instead of a simpler polling job, what happens under partial failure, why does this service own its own data instead of sharing a table with the one next to it. Not because every choice needs to be defended forever, but because a system a reviewer can't reconstruct the reasoning for is a system they can't safely change. They'll either break something they didn't understand, or — more commonly — they'll assume the whole thing is fragile and walk away from an asset that was actually sound. Architecture documentation isn't decoration. It's the difference between a buyer trusting the design and a buyer distrusting everything they can't personally verify.</p>
+        <p>A README that lists install commands is table stakes. Useful architecture documentation explains why the system has its current boundaries: why a queue exists instead of a polling job, what happens under partial failure, which service owns a piece of data, and which alternatives were rejected.</p>
+        <p>Code shows the state those decisions produced, but rarely preserves the reasoning behind them. A concise architecture note gives the next engineer enough context to change the system intentionally instead of treating every boundary as accidental.</p>
 
         <h2 id="deploy-and-tests">Deployment instructions and tests that prove behavior</h2>
-        <p>The second half of due-diligence-grade documentation is assuming zero tribal knowledge on the way out the door. Not "should work with standard config," but a deployment path that a reviewer can follow on a clean machine with no Slack thread to fall back on and no call with me to unblock them. The <a href="/case-studies/taskflow.html">TaskFlow</a> case study is the clearest example in the catalog: it shipped with 30 files and roughly 36,000 words of deployment documentation, covering three separate targets — Vercel, Docker, and a bare VPS — because "it deploys" isn't a claim, it's three different claims depending on where someone actually needs to run it, and each one needed to be proven independently rather than assumed to generalize from the other two.</p>
-        <p>Tests matter here too, but not as a percentage. A coverage number tells a reviewer nothing about whether the system does what it claims to do — it only tells them how much of the code got executed while some assertion, of unknown quality, ran alongside it. Tests that demonstrate behavior look different: they name the scenario, assert the actual business outcome, and fail in a way that tells you what broke rather than just that something did. <a href="/case-studies/storeforge.html">StoreForge</a> is built and labeled in the catalog as an acquisition asset for exactly this reason — full backend plus storefront, not a prototype with a happy path — and that label only holds up if the tests underneath it actually prove the checkout, inventory, and payment flows behave correctly under the conditions a real store hits, not just that the functions execute without throwing.</p>
+        <p>Deployment documentation should assume zero tribal knowledge. It needs prerequisites, environment variables by name, setup commands, migration steps, health checks, rollback guidance, and the failure modes most likely to block a clean deployment. "It deploys" is only meaningful when the documented path has been exercised on the target environment.</p>
+        <p>Tests matter here as executable operating knowledge. Good tests name the scenario, assert the user- or operator-visible outcome, and fail in a way that explains what changed. A coverage percentage alone cannot tell the next engineer whether retries, persistence, validation, or recovery behavior still match the system's contract.</p>
 
         <h2 id="commit-history">Commit history as a trust signal</h2>
-        <p>Nobody reads commit history for fun, but a technical reviewer doing real diligence will read it, and what they find changes how much they trust everything else in the repo. A history that's mostly "fix," "wip," and "update stuff" tells a reviewer that decisions got made and lost — that the current state of the code is the only artifact left, with no trail back to why it looks the way it does. A history where commits are scoped, messages explain the reasoning behind a change and not just its mechanics, and the sequence reads like a reconstructable narrative tells a completely different story: that the person who built this thinks about the next reader, even when the next reader might just be themselves in six months.</p>
-        <p>I treat this as a discipline that pays for itself regardless of whether an asset is ever actually sold. Legible history is what lets me pick a project back up after eight months away and understand my own reasoning without re-deriving it. The acquisition framing just raises the stakes on a habit that was already worth having — a wall of "fix" commits is a bad experience for a stranger doing diligence, but it's also a bad experience for future-me, and I'd rather build the habit once than maintain two different standards depending on who might eventually be reading.</p>
+        <p>A history made of "fix," "wip," and "update stuff" loses decisions that are expensive to recover later. Scoped commits and messages that explain the reason for a change let another engineer trace when a boundary moved, why a dependency was introduced, or which failure prompted a new guardrail.</p>
+        <p>Legible history is part of the handoff, not an administrative extra. It shortens investigation time for future maintainers and gives architecture notes and tests a timeline they can be checked against.</p>
 
         <h2 id="benchmarks-claims">Benchmarks, claims, and the credibility tax</h2>
-        <p>"Fast" is not a claim a technical buyer can verify, which means it's not really a claim at all — it's marketing copy wearing an engineering costume. The <a href="/case-studies/constellation-coo.html">Constellation COO</a> case study is where I hold myself to the opposite standard: 16.5% better SLA compliance measured against a documented baseline, under repeated trials, with bootstrap confidence intervals separating real signal from noise, backed by a test suite of 39 passing tests a reviewer can run themselves rather than take my word for.</p>
-        <p>The reason I insist on that level of specificity isn't perfectionism — it's that vague performance claims actively cost more credibility than having no benchmark at all. A reviewer who reads "blazing fast" learns nothing and trusts you a little less, because the phrase signals that either the number wasn't measured or wasn't good enough to publish honestly. A reviewer who reads a documented methodology, a stated baseline, and a confidence interval learns something real, and — just as importantly — can go check it. Unverifiable claims put the burden of trust entirely on the reader. Verifiable ones put the burden of proof on the artifact, which is where it belongs when someone is deciding whether to pay for what you built.</p>
+        <p>Performance notes need the same discipline. Record the baseline, workload, environment, repetitions, and known limits so another engineer can reproduce the result and understand what it does not prove. A synthetic benchmark is useful evidence for a controlled comparison, but it is not production telemetry.</p>
+        <p>Specific methods make claims maintainable. If the environment changes, the next engineer can rerun the same procedure and decide whether the old result still applies instead of inheriting an adjective with no evidence behind it.</p>
 
-        <h2 id="discipline-pays-off">The discipline pays off even if it's never sold</h2>
-        <p>I'd be lying if I said every project in the catalog gets a formal acquisition inquiry. Most don't, at least not yet. But I've come to think the acquisition framing was never really about acquisition — it's a forcing function for a standard that's easy to let slip if the only audience you're writing for is yourself. "Document this well enough that a stranger with no context could run it, extend it, and trust the numbers in it" is a much harder bar than "document this well enough that I remember how it works." Hold yourself to the harder bar and the easier one takes care of itself.</p>
-        <p>So I build every asset in the catalog — designed, built, tested, and documented solo — as if the next reader is someone I've never met, running technical diligence on whether to trust it with money or a production workload. Software is real estate: find undervalued ground, build something solid on it, and make it produce. A property with no clean paper trail isn't an asset yet, no matter how good it looks from the street. Documentation is the paper trail. Do it like someone's always about to check.</p>
+        <h2 id="discipline-pays-off">Handoff is an engineering outcome</h2>
+        <p>The useful standard is simple: document the system well enough that a capable engineer with no prior context can run it, extend it, and verify its important claims. That is a higher bar than writing enough notes to remind yourself what you meant, and it produces better software even when the original engineer remains on the team.</p>
+        <p>A handoff should identify ownership boundaries, deployment and rollback paths, expected operational signals, known limitations, and the tests that protect critical behavior. When those artifacts agree, the next engineer inherits a system they can reason about rather than a collection of unexplained files.</p>
 
-        <div class="callout"><strong>Due-diligence-readiness signals:</strong> a written architecture doc that explains why, not just what · deployment steps that work from a clean machine, no tribal knowledge required · tests that demonstrate behavior, not just a coverage percentage · commit history a stranger could read as a narrative, not a wall of "fix" and "wip" · known limitations stated plainly instead of hidden or glossed over · any performance claim backed by a documented baseline and methodology, not an adjective.</div>
+        <div class="callout"><strong>Handoff checklist:</strong> architecture notes explain why, not just what · deployment steps work from a clean machine · tests demonstrate critical behavior · commit history preserves decision context · known limitations are stated plainly · performance claims include a reproducible baseline and methodology.</div>
 
         <div class="byline">
           <div class="avatar">NA</div>
@@ -130,7 +128,7 @@
           <li><a href="#deploy-and-tests">Deployment docs and real tests</a></li>
           <li><a href="#commit-history">Commit history as trust signal</a></li>
           <li><a href="#benchmarks-claims">Benchmarks vs. vague claims</a></li>
-          <li><a href="#discipline-pays-off">Why it pays off unsold</a></li>
+          <li><a href="#discipline-pays-off">Handoff as an outcome</a></li>
         </ol>
         <div class="share-box">
           <div class="toc-label">Share</div>
@@ -143,11 +141,11 @@
       </aside>
       <div class="consult-box rv">
         <div class="tag">Work with me</div>
-        <h3>Buying or selling a software asset?</h3>
-        <p>Every asset in my catalog is packaged for diligence — and available to license or acquire with a proper data room and transition support.</p>
+        <h3>Need a system another engineer can own?</h3>
+        <p>A focused build includes tests, deployment support, operator documentation, and a clear handoff path.</p>
         <div class="row">
-          <a class="btn btn-solid btn-sm" href="/services/#licensing">Licensing &amp; acquisition</a>
-          <a class="btn btn-ghost btn-sm" href="mailto:hello@fullstackassets.com?subject=Inquiry%20from%20the%20blog">Email the builder</a>
+          <a class="btn btn-solid btn-sm" href="/services/#inquiry">Discuss a project</a>
+          <a class="btn btn-ghost btn-sm" href="mailto:hello@fullstackassets.com?subject=Engineering%20role">Discuss a role</a>
         </div>
       </div>
     </div>
@@ -160,8 +158,8 @@
     <div class="related">
       <a class="post-card" href="/blog/shipping-20-microsaas-solo.html">
         <div class="post-tag">Product</div>
-        <h3>Shipping 20+ Micro-SaaS Products Solo: A Playbook</h3>
-        <p>The repeatable loop that makes a one-person product catalog possible without burning out.</p>
+        <h3>A Repeatable System for Shipping Small Products</h3>
+        <p>A practical loop for keeping small product work focused and evidence-backed.</p>
       </a>
       <a class="post-card" href="/blog/constraint-optimized-orchestration.html">
         <div class="post-tag">AI Orchestration</div>
@@ -176,7 +174,7 @@
   <div class="wrap">
     <div class="sec-tag" style="margin-bottom:18px">Contact</div>
     <h2>Building something similar and want a second opinion?</h2>
-    <p>Happy to talk through documentation standards, due-diligence readiness, or what it'd take to get one of these assets deploy-ready for you.</p>
+    <p>Happy to talk through architecture notes, behavior-focused tests, deployment runbooks, or a maintainable handoff.</p>
     <div class="hero-ctas" style="justify-content:center">
       <a class="btn btn-solid" href="mailto:hello@fullstackassets.com">hello@fullstackassets.com</a>
       <a class="btn btn-ghost" href="/blog/">All insights</a>
@@ -186,39 +184,12 @@
 </main>
 
 <footer>
-  <div class="foot-inner">
-    <div class="foot-grid">
-      <div class="foot-col">
-        <a href="/" class="logo">FULL STACK <span>ASSETS</span></a>
-        <p style="color:var(--dim);font-size:.85rem;margin-top:14px;max-width:32ch">Nic Albertson builds and documents revenue-ready software assets, solo, from Fall River, Massachusetts.</p>
-      </div>
-      <div class="foot-col">
-        <h4>Case Studies</h4>
-        <a href="/case-studies/constellation-coo.html">Constellation COO</a>
-        <a href="/case-studies/taskflow.html">TaskFlow</a>
-        <a href="/case-studies/storeforge.html">StoreForge</a>
-        <a href="/case-studies/">View all →</a>
-      </div>
-      <div class="foot-col">
-        <h4>Work with me</h4>
-        <a href="/services/#engagements">Audit &amp; build sprints</a>
-        <a href="/services/#engagements">Fractional engineering</a>
-        <a href="/services/#licensing">Licensing &amp; acquisition</a>
-        <a href="/services/">All services →</a>
-      </div>
-      <div class="foot-col">
-        <h4>Connect</h4>
-        <a href="/#about">About</a>
-        <a href="/blog/">Insights</a>
-        <a href="mailto:hello@fullstackassets.com">hello@fullstackassets.com</a>
-        <a href="https://github.com/Full-Stack-Assets" target="_blank" rel="noopener">GitHub</a>
-      </div>
-    </div>
-    <div class="foot-bottom">
-      <span>© 2026 Full Stack Assets · Nic Albertson</span>
-      <span>Built solo · Fall River, MA</span>
-    </div>
-  </div>
+  <div class="foot-inner"><div class="foot-grid">
+    <div class="foot-col"><a href="/" class="logo">FULL STACK <span>ASSETS</span></a><p style="color:var(--dim);font-size:.85rem;margin-top:14px;max-width:32ch">Product-minded full-stack engineer building reliable workflow, data, and deployment systems.</p></div>
+    <div class="foot-col"><h4>Selected work</h4><a href="/case-studies/beyondmythos.html">BeyondMythos</a><a href="/case-studies/tradewind-dealflow.html">Tradewind DealFlow</a><a href="/case-studies/taskflow.html">TaskFlow</a></div>
+    <div class="foot-col"><h4>Work together</h4><a href="/resume/">Résumé</a><a href="/services/">Services</a><a href="/services/#inquiry">Project inquiry</a></div>
+    <div class="foot-col"><h4>Connect</h4><a href="/#about">About</a><a href="mailto:hello@fullstackassets.com">hello@fullstackassets.com</a><a href="https://github.com/Full-Stack-Assets" target="_blank" rel="noopener">GitHub</a></div>
+  </div><div class="foot-bottom"><span>© 2026 Full Stack Assets · Nic Albertson</span><span>Fall River, MA</span></div></div>
 </footer>
 <button class="totop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <script src="/assets/site.js"></script>
