@@ -60,7 +60,7 @@ test("homepage featured projects expose responsibility, stack, proof, and safe d
 
   const cardFor = (name) => cards.find((card) => card.includes(`<h3>${name}</h3>`));
   const expectations = [
-    ["BeyondMythos", "/case-studies/beyondmythos.html", /Git · Vercel · Stripe · provider APIs/],
+    ["BeyondMythos", "/case-studies/beyondmythos.html", /Git · cloud deployment · Stripe · provider APIs/],
     ["Tradewind DealFlow", "/case-studies/tradewind-dealflow.html", /TypeScript · controlled storage · automated tests/],
     ["TaskFlow", "/case-studies/taskflow.html", /TypeScript · Node.js 22 · Web APIs/],
   ];

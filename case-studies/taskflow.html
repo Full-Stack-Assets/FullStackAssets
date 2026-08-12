@@ -31,7 +31,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,700;12..96,800&family=Public+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
-<script defer src="/_vercel/insights/script.js"></script>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -87,7 +87,7 @@
         <p>TaskFlow Runtime separates orchestration into explicit <strong>Plan → Execute → Verify</strong> phases. Typed workflow definitions declare steps, inputs, retry limits, and verification behavior. The engine owns sequencing, retries, event logging, cost aggregation, terminal status, metrics, and persistence; individual workflows own only their domain logic.</p>
 
         <h2 id="product-boundary">One product boundary, two names</h2>
-        <p><strong>TaskFlow Runtime</strong> is the code that exists today. It exposes typed workflow contracts, contract-tested HTTP behavior through a Node adapter, a Web Request/Response handler, a Vercel-compatible endpoint, atomic JSON run storage, and evidence-focused metrics. <strong>TaskFlow Studio</strong> is reserved for a future visual authoring and observability interface. The Studio is a product target—not a current capability.</p>
+        <p><strong>TaskFlow Runtime</strong> is the code that exists today. It exposes typed workflow contracts, contract-tested HTTP behavior through a Node adapter, a Web Request/Response handler, a serverless-compatible endpoint, atomic JSON run storage, and evidence-focused metrics. <strong>TaskFlow Studio</strong> is reserved for a future visual authoring and observability interface. The Studio is a product target—not a current capability.</p>
 
         <h2 id="workflow">The customer-oriented workflow</h2>
         <p>The included workflow processes consulting intake for a service business. It validates and normalizes submitted details, classifies the opportunity by budget, generates a consulting brief, and verifies that the brief preserves the requested service, goals, timeline, and qualification logic.</p>
@@ -127,7 +127,7 @@
           <li>Atomic file persistence with safe run identifiers</li>
           <li>Structured retry exhaustion and verification failure behavior</li>
           <li>Contract and HTTP behavior covered across Node and Web Request/Response boundaries</li>
-          <li>Node, Web API, Vercel, Docker, and bare-VPS deployment guidance</li>
+          <li>Node, Web API, cloud deployment, Docker, and bare-VPS deployment guidance</li>
           <li>Architecture, threat model, dependency inventory, metrics methodology, security policy, and deployment documentation</li>
           <li>Automated tests for workflow execution, retries, persistence, metrics, contract behavior, and failure paths</li>
         </ul>

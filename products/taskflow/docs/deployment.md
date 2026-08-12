@@ -42,9 +42,9 @@ Environment=PORT=3000
 Environment=TASKFLOW_RUN_DIR=/var/lib/taskflow/runs
 ```
 
-## Vercel
+## cloud deployment
 
-Set the Vercel project root directory to `products/taskflow` when deploying from the monorepo. `api/run.ts` exports a Node-compatible `POST` handler.
+Set the cloud deployment project root directory to `products/taskflow` when deploying from the monorepo. `api/run.ts` exports a Node-compatible `POST` handler.
 
 The file-backed store is suitable only for local demonstration. Serverless production deployment must inject a durable external `RunStore`; ephemeral filesystems cannot be treated as durable run history.
 
