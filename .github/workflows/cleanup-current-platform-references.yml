@@ -23,7 +23,7 @@ jobs:
 
           retired = 'Ver' + 'cel'
           retired_lower = retired.lower()
-          files = subprocess.check_output(['git','grep','-Il',retired_lower], text=True).splitlines()
+          files = subprocess.check_output(['git','grep','-Il','-i',retired_lower], text=True).splitlines()
           for filename in files:
               path = Path(filename)
               try:
