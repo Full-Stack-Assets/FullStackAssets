@@ -86,7 +86,7 @@ Focused in-app Browser results:
 - Primary Work link activation: navigated to `#work` and closed the menu with `inert` restored.
 - Browser warning/error log: empty.
 
-Browser limitation: native Tab injection did not advance focus in the background subagent Browser tab. The live DOM/visibility/inert-derived sequential order above, the accessibility snapshot (which omitted all closed-menu links), and the real-script Node interaction test compensate without claiming a Tab keystroke result that the Browser did not produce. The local server also returned an expected 404 for `/_vercel/insights/script.js`, which is supplied only by Vercel in deployment; the tested local CSS and JavaScript assets returned 200.
+Browser limitation: native Tab injection did not advance focus in the background subagent Browser tab. The live DOM/visibility/inert-derived sequential order above, the accessibility snapshot (which omitted all closed-menu links), and the real-script Node interaction test compensate without claiming a Tab keystroke result that the Browser did not produce. The local server also returned an expected 404 for `/_cloud-deployment/insights/script.js`, which is supplied only by cloud deployment in deployment; the tested local CSS and JavaScript assets returned 200.
 
 ## Changed files
 

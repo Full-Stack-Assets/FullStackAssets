@@ -6,7 +6,7 @@
 
 **Architecture:** Keep the production site's static HTML/CSS/JavaScript architecture and existing navy/amber/cyan design system. Add dependency-free Node test scripts for content, structure, and links; change the site in independently verifiable slices; then run local visual and interaction checks in the in-app Browser before any deployment.
 
-**Tech Stack:** Static HTML5, CSS, browser JavaScript, Node.js built-in `node:test`, Python static server for local preview, Vercel static hosting.
+**Tech Stack:** Static HTML5, CSS, browser JavaScript, Node.js built-in `node:test`, Python static server for local preview, cloud deployment static hosting.
 
 ## Global Constraints
 
@@ -655,7 +655,7 @@ Include:
 - Name, title, Fall River location, email, GitHub, and portfolio URL.
 - Summary: `Product-minded full-stack engineer who turns messy operational workflows into reliable, deployable software.`
 - Selected systems: BeyondMythos, Tradewind DealFlow, TaskFlow.
-- Capabilities: TypeScript/JavaScript, Python, React/Next.js, APIs/data intake, tests, CI/CD, Vercel, workflow automation, AI provider integration.
+- Capabilities: TypeScript/JavaScript, Python, React/Next.js, APIs/data intake, tests, CI/CD, cloud deployment, workflow automation, AI provider integration.
 - Education: `A.S., AI & Software Engineering — in progress` only.
 - A `Print / Save as PDF` button with `data-print-resume` and `class="btn btn-solid no-print"`.
 

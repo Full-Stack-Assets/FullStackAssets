@@ -74,7 +74,7 @@ Implements the domain-specific consulting intake workflow. It does not manage fi
 
 ### HTTP adapters
 
-`src/http/handler.ts` uses the Web `Request`/`Response` interface. `src/server.ts` adapts Node HTTP. `api/run.ts` provides a Vercel-compatible `POST` export.
+`src/http/handler.ts` uses the Web `Request`/`Response` interface. `src/server.ts` adapts Node HTTP. `api/run.ts` provides a serverless-compatible `POST` export.
 
 ## Run record invariants
 

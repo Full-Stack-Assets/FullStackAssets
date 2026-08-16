@@ -155,7 +155,7 @@ Organize capabilities by problems solved:
 - Product engineering — TypeScript, React, Next.js, APIs, product UX.
 - Workflow and data systems — intake, validation, provenance, persistence, review queues.
 - Automation and AI integration — provider abstraction, retries, scheduled workflows, evaluation.
-- Delivery and operations — tests, CI/CD, Vercel, documentation, handoff.
+- Delivery and operations — tests, CI/CD, cloud deployment, documentation, handoff.
 
 Remove patent prosecution and build-to-acquisition positioning.
 
@@ -253,7 +253,7 @@ Emphasize:
 - metrics and failure handling;
 - HTTP and contract behavior;
 - test coverage of critical paths;
-- Docker, Vercel, and VPS deployment documentation.
+- Docker, cloud deployment, and VPS deployment documentation.
 
 Remove documentation word counts and raw file counts as proof.
 
