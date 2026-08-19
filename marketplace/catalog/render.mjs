@@ -24,6 +24,7 @@ function formatPrice(commerce) {
   return `${escapeHtml(commerce.currency ?? '')} ${Number(commerce.amount/100).toFixed(2)}`.trim();
 }
 function verifiedInstallAvailable(entry) {
+  if (String(entry.commercial_state).toUpperCase() === 'REFERENCE_ONLY') return false;
   return (entry.compatibility ?? []).some((item)=>String(item.state ?? item.compatibility_state).toUpperCase()==='VERIFIED' && item.package_available === true);
 }
 function renderCapabilityGraph(entry) {
