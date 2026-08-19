@@ -9,3 +9,14 @@ export function requireAppRole(context, allowedRoles) {
   }
   return context;
 }
+
+export function requireOrganizationMembership(context, organizationId, {admin=false}={}) {
+  const membership=(context?.memberships??[]).find((item)=>item.organization_id===organizationId && item.status!=='REVOKED');
+  if(!membership || (admin && membership.app_role!=='ORG_ADMIN')) {
+    const error=new Error('Organization membership is not authorized for this action');
+    error.code='FORBIDDEN';
+    error.status=403;
+    throw error;
+  }
+  return membership;
+}
