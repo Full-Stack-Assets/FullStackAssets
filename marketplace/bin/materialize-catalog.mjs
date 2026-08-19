@@ -13,20 +13,30 @@ const metaPath=arg('--meta') ? resolve(arg('--meta')) : null;
 function encodedPayload(){
   if(source && partsDir) throw new Error('Use exactly one of --source or --parts');
   if(partsDir){
-    const names=readdirSync(partsDir).filter((name)=>name.endsWith('.b64')).sort();
+    const names=readdirSync(partsDir).filter((name)=>/^\d{3}\.b64$/.test(name)).sort();
     if(!names.length) throw new Error('CATALOG_BASELINE_PARTS_MISSING');
+    if(names[0] !== '000.b64') throw new Error('CATALOG_BASELINE_PARTS_INVALID_START');
+    for(let i=0;i<names.length;i++){
+      const expected=`${String(i).padStart(3,'0')}.b64`;
+      if(names[i]!==expected) throw new Error(`CATALOG_BASELINE_PARTS_GAP:${expected}`);
+    }
     return names.map((name)=>readFileSync(join(partsDir,name),'utf8').trim()).join('');
   }
-  return readFileSync(source ?? resolve('data/library/catalog.snapshot.json.gz.b64'),'utf8').trim();
+  if(!source) throw new Error('CATALOG_BASELINE_SOURCE_REQUIRED');
+  return readFileSync(source,'utf8').trim();
 }
 try{
   const encoded=encodedPayload();
-  const bytes=gunzipSync(Buffer.from(encoded,'base64'));
+  const compressed=Buffer.from(encoded,'base64');
+  const bytes=gunzipSync(compressed);
+  const catalog=JSON.parse(bytes.toString('utf8'));
   if(metaPath){
     const meta=JSON.parse(readFileSync(metaPath,'utf8'));
+    if(meta.compressed_bytes !== undefined && compressed.length!==meta.compressed_bytes) throw new Error(`CATALOG_BASELINE_COMPRESSED_SIZE_MISMATCH:${compressed.length}`);
+    if(meta.uncompressed_bytes !== undefined && bytes.length!==meta.uncompressed_bytes) throw new Error(`CATALOG_BASELINE_UNCOMPRESSED_SIZE_MISMATCH:${bytes.length}`);
     const hash=createHash('sha256').update(bytes).digest('hex');
     if(hash!==meta.uncompressed_sha256) throw new Error(`CATALOG_BASELINE_HASH_MISMATCH:${hash}`);
+    if(meta.entry_count !== undefined && catalog.entries?.length!==meta.entry_count) throw new Error(`CATALOG_BASELINE_ENTRY_COUNT_MISMATCH:${catalog.entries?.length ?? 0}`);
   }
-  JSON.parse(bytes.toString('utf8'));
   writeFileSync(out,bytes);
 }catch(error){console.error(error?.stack ?? String(error));process.exit(1);}
