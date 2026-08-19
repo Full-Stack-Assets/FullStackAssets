@@ -4,6 +4,15 @@ import { createProduct, createProductVersion } from './records.mjs';
 function hashHex(value) { return createHash('sha256').update(String(value)).digest('hex'); }
 export function deterministicProductId(canonicalRef) { return `PRD-${hashHex(canonicalRef).slice(0,12).toUpperCase()}`; }
 function deterministicVersionId(productId, version, hash) { return `PRDV-${hashHex(`${productId}|${version}|${hash}`).slice(0,12).toUpperCase()}`; }
+
+function normalizeCanonEvent(event = {}) {
+  return {
+    ...event,
+    id: event.id ?? event.event_id ?? null,
+    content_hash: event.content_hash ?? event.next_hash ?? null,
+    new_version: event.new_version ?? event.next_version ?? null,
+  };
+}
 function projectionFingerprint(event) {
   return hashHex([event.id, event.entity_type, event.entity_id, event.new_version ?? '', event.content_hash ?? ''].join('|'));
 }
@@ -19,11 +28,13 @@ function productType(entityType) {
   return 'COLLECTION';
 }
 
-export async function projectCanonEvent(repo, event, canonicalEntity) {
-  if (!event?.id || !event?.entity_id || !event?.entity_type) throw new TypeError('Canonical event identity is required');
+export async function projectCanonEvent(repo, rawEvent, canonicalEntity) {
+  const event = normalizeCanonEvent(rawEvent);
+  if (!event.id || !event.entity_id || !event.entity_type) throw new TypeError('Canonical event identity is required');
   if (canonicalEntity?.id !== event.entity_id || canonicalEntity?.entity_type !== event.entity_type) {
     throw new Error('Canonical event/entity identity mismatch');
   }
+  if (!event.content_hash) throw new TypeError('Canonical event content hash is required');
   if (canonicalEntity.content_hash !== event.content_hash) throw new Error('Canonical event/entity content hash mismatch');
   const fingerprint = projectionFingerprint(event);
   if (await repo.getProjectionReceipt(fingerprint)) return { status:'NOOP', product_id:null, product_version_id:null };
