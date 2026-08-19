@@ -1,0 +1,23 @@
+name: Marketplace Customer
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install marketplace API dependencies
+        working-directory: apps/marketplace-api
+        run: npm install --ignore-scripts --no-audit --no-fund
+      - name: Run Unit 4 API tests
+        run: node --test tests/marketplace/api/*.test.mjs
