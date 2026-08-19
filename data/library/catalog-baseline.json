@@ -1,8 +1,8 @@
 {
   "format": "gzip+base64",
-  "uncompressed_sha256": "3e53cf3d75389295d562d1b933ba676efeb5c39f8987be1ab5cf38514487258e",
-  "uncompressed_bytes": 199648,
-  "compressed_bytes": 24186,
+  "uncompressed_sha256": "2356ac66d862650276f8f0ef02183fa3aa3e9324e7f739cd1d2f548c6fa8bd15",
+  "uncompressed_bytes": 220481,
+  "compressed_bytes": 23831,
   "entry_count": 176,
   "source_observations": {
     "roles": 123,
