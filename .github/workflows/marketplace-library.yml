@@ -1,20 +1,26 @@
 name: Marketplace Library
+
 on:
   pull_request:
+
+permissions:
+  contents: read
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Unit 1 Canon tests
-        run: node --test tests/marketplace/canon/*.test.mjs
-      - name: Unit 2 Core tests
-        run: node --test tests/marketplace/core/*.test.mjs
-      - name: Unit 3 Catalog tests
-        run: node --test tests/marketplace/catalog/*.test.mjs
-      - name: Existing site tests
-        run: node --test tests/*.test.mjs
+      - name: Materialize public catalog baseline
+        run: node marketplace/bin/materialize-catalog.mjs --parts data/library/catalog-baseline --meta data/library/catalog-baseline.json --out data/library/catalog.snapshot.json
+      - name: Build static Library
+        run: node marketplace/bin/build-library.mjs --catalog data/library/catalog.snapshot.json --out library
+      - name: Inject homepage Library discovery link
+        run: node marketplace/bin/inject-library-discovery.mjs --file index.html
+      - name: Run repository and marketplace tests
+        run: node --test tests/*.test.mjs tests/marketplace/canon/*.test.mjs tests/marketplace/core/*.test.mjs tests/marketplace/catalog/*.test.mjs
