@@ -1,0 +1,20 @@
+name: Marketplace Library
+on:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Unit 1 Canon tests
+        run: node --test tests/marketplace/canon/*.test.mjs
+      - name: Unit 2 Core tests
+        run: node --test tests/marketplace/core/*.test.mjs
+      - name: Unit 3 Catalog tests
+        run: node --test tests/marketplace/catalog/*.test.mjs
+      - name: Existing site tests
+        run: node --test tests/*.test.mjs
