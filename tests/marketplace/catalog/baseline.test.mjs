@@ -5,16 +5,19 @@ import { join } from 'node:path';
 import { gunzipSync } from 'node:zlib';
 import { createHash } from 'node:crypto';
 
+function baselineNames(dir='data/library/catalog-baseline') {
+  return readdirSync(dir).filter((name)=>/^\d{3}\.b64$/.test(name)).sort();
+}
 function readBaselineParts(dir='data/library/catalog-baseline') {
-  return readdirSync(dir)
-    .filter((name)=>name.endsWith('.b64'))
-    .sort()
-    .map((name)=>readFileSync(join(dir,name),'utf8').trim())
-    .join('');
+  const names=baselineNames(dir);
+  assert.deepEqual(names,names.map((_,i)=>`${String(i).padStart(3,'0')}.b64`));
+  return names.map((name)=>readFileSync(join(dir,name),'utf8').trim()).join('');
 }
 
 test('derived public catalog baseline matches its receipt and contains only reference entries',()=>{
   const meta=JSON.parse(readFileSync('data/library/catalog-baseline.json','utf8'));
+  const names=baselineNames();
+  assert.equal(names.length,8);
   const encoded=readBaselineParts();
   const compressed=Buffer.from(encoded,'base64');
   assert.equal(compressed.length,meta.compressed_bytes);
