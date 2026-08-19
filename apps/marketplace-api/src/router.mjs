@@ -21,6 +21,17 @@ export function createRouter({services={}}={}){
         const result=await services.distributions.compatibility(context,decodeURIComponent(compatibilityMatch[1]));
         return result?json(result):errorResponse(404,'VERSION_NOT_FOUND');
       }
+      const enterpriseRegistry=/^\/v1\/enterprise\/registries\/([^/]+)$/.exec(path);
+      if(method==='GET'&&enterpriseRegistry){
+        if(!services.enterprise?.registry)return errorResponse(503,'ENTERPRISE_SERVICE_UNAVAILABLE');
+        const result=await services.enterprise.registry(context,decodeURIComponent(enterpriseRegistry[1]));
+        return result?json(result):errorResponse(404,'REGISTRY_NOT_FOUND');
+      }
+      const enterprisePolicy=/^\/v1\/enterprise\/organizations\/([^/]+)\/policy$/.exec(path);
+      if(method==='GET'&&enterprisePolicy){
+        if(!services.enterprise?.policy)return errorResponse(503,'ENTERPRISE_SERVICE_UNAVAILABLE');
+        return json(await services.enterprise.policy(context,decodeURIComponent(enterprisePolicy[1])));
+      }
       const library=services.customerLibrary;
       if(method==='GET'&&path==='/v1/me')return json(await library.getMe(context));
       if(method==='GET'&&path==='/v1/library')return json(await library.listLibrary(context,{organizationId:organizationId(url)}));
