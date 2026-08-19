@@ -10,7 +10,15 @@ export function buildLaunchEvidence({unitReceipts={},releaseGates={},enterpriseG
   const enterpriseFailed=ENTERPRISE_GATES.filter((g)=>enterpriseGates[g]!=='PASS');
   const critical=criticalFindings.filter((f)=>String(f.severity).toUpperCase()==='CRITICAL'&&f.resolved!==true);
   const status=!missingUnits.length&&release.status==='PASS'&&!enterpriseFailed.length&&!critical.length?'PASS':'BLOCK';
-  return Object.freeze({status,unit_receipts:Object.freeze({...unitReceipts}),missing_units:Object.freeze(missingUnits),release,Object.freeze,enterprise_failed:Object.freeze(enterpriseFailed),critical_findings:Object.freeze(critical),evidence_complete:status==='PASS'});
+  return Object.freeze({
+    status,
+    unit_receipts:Object.freeze({...unitReceipts}),
+    missing_units:Object.freeze(missingUnits),
+    release:Object.freeze({...release}),
+    enterprise_failed:Object.freeze(enterpriseFailed),
+    critical_findings:Object.freeze(critical),
+    evidence_complete:status==='PASS',
+  });
 }
 
 export function assertLaunchEvidenceComplete(bundle){
