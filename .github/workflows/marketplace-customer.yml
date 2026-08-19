@@ -19,5 +19,7 @@ jobs:
       - name: Install marketplace API dependencies
         working-directory: apps/marketplace-api
         run: npm install --ignore-scripts --no-audit --no-fund
+      - name: Expose app dependencies to repository tests
+        run: ln -s apps/marketplace-api/node_modules node_modules
       - name: Run Unit 4 API tests
         run: node --test tests/marketplace/api/*.test.mjs
