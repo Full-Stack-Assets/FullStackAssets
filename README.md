@@ -50,13 +50,15 @@ Materialize the derived catalog baseline and build the static Library with:
 
 ```bash
 node marketplace/bin/materialize-catalog.mjs \
-  --source data/library/catalog.snapshot.json.gz.b64 \
+  --parts data/library/catalog-baseline \
   --meta data/library/catalog-baseline.json \
   --out data/library/catalog.snapshot.json
 node marketplace/bin/build-library.mjs \
   --catalog data/library/catalog.snapshot.json \
   --out library
 ```
+
+The baseline is split into ordered `.b64` chunks for reliable transport; `catalog-baseline.json` contains the authoritative projection receipt used to verify compressed size, uncompressed SHA-256, uncompressed bytes, and entry count before rendering.
 
 The Pages workflow also injects the `/library/` discovery link and sitemap root into the deployment workspace, then re-runs static-site verification before Jekyll packages the site. The source portfolio remains person-first and its three featured projects remain unchanged.
 
