@@ -1,0 +1,30 @@
+{
+  "unitReceipts": {
+    "1": {"status":"PASS","receipt_id":"UNIT-1"},
+    "2": {"status":"PASS","receipt_id":"UNIT-2"},
+    "3": {"status":"PASS","receipt_id":"UNIT-3"},
+    "4": {"status":"PASS","receipt_id":"UNIT-4"},
+    "5": {"status":"PASS","receipt_id":"UNIT-5"},
+    "6": {"status":"PASS","receipt_id":"UNIT-6"},
+    "7": {"status":"PASS","receipt_id":"UNIT-7"},
+    "8": {"status":"PASS","receipt_id":"UNIT-8"}
+  },
+  "releaseGates": {
+    "REGISTRY_INTEGRITY":"PASS",
+    "PUBLICATION_RULES":"PASS",
+    "ENTITLEMENT_ISOLATION":"PASS",
+    "PAYMENT_RECONCILIATION":"PASS",
+    "ARTIFACT_AUTHORIZATION":"PASS",
+    "AUDIT_LOGGING":"PASS",
+    "ROLLBACK":"PASS",
+    "SECURITY_SCAN":"PASS",
+    "ACCESSIBILITY":"PASS",
+    "STATIC_CATALOG_FALLBACK":"PASS"
+  },
+  "enterpriseGates": {
+    "RUNTIME_DISTRIBUTION":"PASS",
+    "ENTERPRISE_ISOLATION":"PASS",
+    "PUBLISHER_GOVERNANCE":"PASS"
+  },
+  "criticalFindings": []
+}
