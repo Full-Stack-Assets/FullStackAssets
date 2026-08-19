@@ -17,9 +17,17 @@ function projectionFingerprint(event) {
   return hashHex([event.id, event.entity_type, event.entity_id, event.new_version ?? '', event.content_hash ?? ''].join('|'));
 }
 function outboxId(type, aggregateId, eventId) { return `OB-${hashHex(`${type}|${aggregateId}|${eventId}`).slice(0,16).toUpperCase()}`; }
-function slugify(value, fallback) {
+function slugify(value, fallback='') {
   const slug = String(value ?? '').toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   return slug || String(fallback).toLowerCase();
+}
+function canonicalProductSlug(canonicalRef, canonicalEntity) {
+  const prefix = slugify(canonicalRef, canonicalRef);
+  const provided = slugify(canonicalEntity?.slug);
+  if (provided === prefix || provided.startsWith(`${prefix}-`)) return provided;
+  if (provided) return `${prefix}-${provided}`;
+  const name = slugify(canonicalEntity?.name);
+  return name ? `${prefix}-${name}` : prefix;
 }
 function productType(entityType) {
   if (entityType === 'SKILL') return 'SKILL';
@@ -48,7 +56,7 @@ export async function projectCanonEvent(repo, rawEvent, canonicalEntity) {
         id: deterministicProductId(event.entity_id),
         publisher_id: 'PUB-001',
         type: productType(event.entity_type),
-        slug: slugify(canonicalEntity.name, event.entity_id),
+        slug: canonicalProductSlug(event.entity_id, canonicalEntity),
         canonical_refs: [event.entity_id],
         visibility: 'PRIVATE',
         commercial_state: 'REFERENCE_ONLY',
