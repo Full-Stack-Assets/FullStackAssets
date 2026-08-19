@@ -24,14 +24,18 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Verify marketplace and existing site sources
+        run: node --test tests/*.test.mjs tests/marketplace/canon/*.test.mjs tests/marketplace/core/*.test.mjs tests/marketplace/catalog/*.test.mjs
       - name: Materialize public catalog baseline
-        run: node marketplace/bin/materialize-catalog.mjs --parts data/library/catalog-baseline --meta data/library/catalog-baseline.json --out data/library/catalog.snapshot.json
-      - name: Build static Library
-        run: node marketplace/bin/build-library.mjs --catalog data/library/catalog.snapshot.json --out library
+        run: node marketplace/bin/materialize-catalog.mjs --source data/library/catalog.snapshot.json.gz.b64 --meta data/library/catalog-baseline.json --out data/library/catalog.snapshot.json
       - name: Inject homepage Library discovery link
         run: node marketplace/bin/inject-library-discovery.mjs --file index.html
-      - name: Verify repository before Pages build
-        run: node --test tests/*.test.mjs tests/marketplace/canon/*.test.mjs tests/marketplace/core/*.test.mjs tests/marketplace/catalog/*.test.mjs
+      - name: Inject Library sitemap root
+        run: node marketplace/bin/inject-library-sitemap.mjs --file sitemap.xml
+      - name: Build static Library
+        run: node marketplace/bin/build-library.mjs --catalog data/library/catalog.snapshot.json --out library
+      - name: Verify assembled static site
+        run: node --test tests/*.test.mjs tests/marketplace/catalog/*.test.mjs
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Build with Jekyll
