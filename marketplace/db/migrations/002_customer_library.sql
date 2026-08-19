@@ -79,6 +79,8 @@ CREATE TABLE installations (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   CHECK ((user_id IS NOT NULL)::int + (organization_id IS NOT NULL)::int = 1)
 );
+CREATE UNIQUE INDEX uq_installations_user ON installations(user_id,product_version_id,runtime) WHERE user_id IS NOT NULL;
+CREATE UNIQUE INDEX uq_installations_org ON installations(organization_id,product_version_id,runtime) WHERE organization_id IS NOT NULL;
 CREATE TABLE collections (
   id TEXT PRIMARY KEY,
   user_id TEXT REFERENCES users(id),
