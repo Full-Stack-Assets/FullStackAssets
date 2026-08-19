@@ -74,9 +74,11 @@ CREATE TABLE runtime_distributions (
   compatibility_state TEXT NOT NULL CHECK (compatibility_state IN ('VERIFIED','EXPERIMENTAL','UNAVAILABLE','BLOCKED','DEPRECATED')),
   test_receipt_id TEXT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  UNIQUE (product_version_id, runtime, adapter_version)
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+CREATE UNIQUE INDEX uq_runtime_distribution
+ON runtime_distributions (product_version_id, runtime, COALESCE(adapter_version, ''));
 
 CREATE TABLE evaluation_records (
   id TEXT PRIMARY KEY,
@@ -155,7 +157,10 @@ BEGIN
   IF OLD.publication_state = 'PUBLISHED' THEN
     RAISE EXCEPTION 'Published ProductVersion rows are immutable; change availability or create a new version';
   END IF;
-  RETURN CASE WHEN TG_OP = 'DELETE' THEN OLD ELSE NEW END;
+  IF TG_OP = 'DELETE' THEN
+    RETURN OLD;
+  END IF;
+  RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
