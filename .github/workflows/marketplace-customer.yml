@@ -21,5 +21,11 @@ jobs:
         run: npm install --ignore-scripts --no-audit --no-fund
       - name: Expose app dependencies to repository tests
         run: ln -s apps/marketplace-api/node_modules node_modules
-      - name: Run Unit 4 API tests
-        run: node --test tests/marketplace/api/*.test.mjs
+      - name: Run full Unit 1-4 verification
+        run: node --test tests/*.test.mjs tests/marketplace/canon/*.test.mjs tests/marketplace/core/*.test.mjs tests/marketplace/catalog/*.test.mjs tests/marketplace/api/*.test.mjs tests/marketplace/customer/*.test.mjs
+      - name: Preserve generated package lock for reproducibility
+        uses: actions/upload-artifact@v4
+        with:
+          name: marketplace-api-package-lock
+          path: apps/marketplace-api/package-lock.json
+          retention-days: 1
