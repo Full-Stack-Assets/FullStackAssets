@@ -16,6 +16,7 @@ test('Unit 2 consumes the actual Unit 1 Canon event envelope', async()=>{
   assert.equal(result.status,'CREATED');
   const product=await repo.getProductByCanonicalRef('SKL-046');
   assert.ok(product);
+  assert.equal(product.slug,'skl-046-repository-archaeology');
   const versions=await repo.listProductVersions(product.id);
   assert.equal(versions[0].canonical_snapshot.hashes[0],entity.content_hash);
 });
