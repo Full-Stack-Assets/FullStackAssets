@@ -14,14 +14,15 @@ function page(overrides={}){
 
 test('detail page exposes capability, boundary, compatibility, trust, and version sections',()=>{
   const html=page();
-  for(const label of ['What it does','What it does not do','Included Skills','Compatibility','Trust &amp; Verification','Versions']) assert.match(html,new RegExp(label.replace('&','&amp;')));
+  for(const pattern of [/What it does/,/What it does not do/,/Included Skills/,/Compatibility/,/Trust &amp; Verification/,/Versions/]) assert.match(html,pattern);
   assert.match(html,/SKL-026/);
   assert.match(html,/uses skill/);
   assert.match(html,/CHATGPT/);
   assert.match(html,/VERIFIED/);
 });
 
-test('install appears only with a verified packaged runtime distribution',()=>{
-  assert.match(page(),/>Install</);
-  assert.doesNotMatch(page({compatibility:[{runtime:'CHATGPT',state:'VERIFIED',package_available:false}]}),/>Install</);
+test('reference-only never installs; install requires a verified packaged runtime on an acquirable product',()=>{
+  assert.doesNotMatch(page(),/>Install</);
+  assert.match(page({commercial_state:'FREE'}),/>Install</);
+  assert.doesNotMatch(page({commercial_state:'FREE',compatibility:[{runtime:'CHATGPT',state:'VERIFIED',package_available:false}]}),/>Install</);
 });
