@@ -36,4 +36,36 @@ Run the stacked Unit 1 + Unit 2 verification with:
 node --test tests/marketplace/canon/*.test.mjs tests/marketplace/core/*.test.mjs
 ```
 
+### Unit 3: Public Library
+
+The public Library is generated from a derived, hash-verified marketplace catalog mirror. The checked-in baseline contains the eligible Canon reference inventory as `REFERENCE_ONLY`; it is not an editable source of truth and does not make items installable or purchasable.
+
+Run Unit 3 tests with:
+
+```bash
+node --test tests/marketplace/catalog/*.test.mjs
+```
+
+Materialize the derived catalog baseline and build the static Library with:
+
+```bash
+node marketplace/bin/materialize-catalog.mjs \
+  --parts data/library/catalog-baseline \
+  --meta data/library/catalog-baseline.json \
+  --out data/library/catalog.snapshot.json
+node marketplace/bin/build-library.mjs \
+  --catalog data/library/catalog.snapshot.json \
+  --out library
+```
+
+The baseline is split into ordered `.b64` chunks for reliable transport; `catalog-baseline.json` contains the authoritative projection receipt used to verify compressed size, uncompressed SHA-256, uncompressed bytes, and entry count before rendering.
+
+The Pages workflow also injects the `/library/` discovery link and sitemap root into the deployment workspace, then re-runs static-site verification before Jekyll packages the site. The source portfolio remains person-first and its three featured projects remain unchanged.
+
+Run the full stacked verification with:
+
+```bash
+node --test tests/*.test.mjs tests/marketplace/canon/*.test.mjs tests/marketplace/core/*.test.mjs tests/marketplace/catalog/*.test.mjs
+```
+
 Design and implementation plans live under `docs/superpowers/specs/` and `docs/superpowers/plans/`.

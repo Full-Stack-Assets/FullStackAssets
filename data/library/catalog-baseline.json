@@ -1,0 +1,14 @@
+{
+  "format": "gzip+base64",
+  "uncompressed_sha256": "2356ac66d862650276f8f0ef02183fa3aa3e9324e7f739cd1d2f548c6fa8bd15",
+  "uncompressed_bytes": 220481,
+  "compressed_bytes": 23831,
+  "entry_count": 176,
+  "source_observations": {
+    "roles": 123,
+    "skills": 45,
+    "integrations": 20,
+    "overlays": 8
+  },
+  "commercial_state": "REFERENCE_ONLY"
+}
