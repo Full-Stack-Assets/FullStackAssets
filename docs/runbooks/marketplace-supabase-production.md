@@ -9,6 +9,7 @@ Human Authority approved the production provider choice on 2026-08-20. Dynamic m
 - **OIDC/JWKS:** Supabase Auth tokens are verified by the existing `jose` OIDC verifier. Application roles and Human Authority grants are persisted separately; Human Authority is never inferred from admin/reviewer status.
 - **Artifact storage:** private Supabase Storage bucket `marketplace-artifacts`, preserving the approved S3-compatible artifact-storage contract, content-addressed artifacts, and short-lived signed reads.
 - **Public static Library:** independently deployed at `https://fullstackassets.com/library/` by the canonical GitHub Pages host.
+- **Authenticated browser surfaces:** `https://fullstackassets.com/my-library/`, `https://fullstackassets.com/publisher/`, and `https://fullstackassets.com/enterprise/`, served by the same canonical Pages host and authenticated through the approved Supabase browser session boundary.
 
 ## Commerce status
 
@@ -24,7 +25,7 @@ Marketplace migrations `001` through `009` are applied. Provider-specific harden
 
 ## Live verification receipts
 
-The production system was exercised against real Supabase Auth, PostgreSQL, Edge Functions, and Storage rather than fixtures:
+The production system was exercised against real Supabase Auth, PostgreSQL, Edge Functions, Storage, and the canonical Pages host rather than fixtures:
 
 1. `marketplace-api/health` returned HTTP `200` in production runtime logs.
 2. Unauthenticated `/v1/me` returned HTTP `401`.
@@ -37,6 +38,12 @@ The production system was exercised against real Supabase Auth, PostgreSQL, Edge
 9. The signed-storage test exposed and fixed a runtime URL-reconstruction defect: relative signed paths must retain Supabase's `/storage/v1` service prefix. A regression test now locks that contract.
 10. Cleanup verification returned zero disposable verifier Auth users, marketplace users, organizations, publishers, products, versions, reviews, verifier roles, Human Authority grants, and `verification/` storage objects.
 11. The temporary smoke verifier was replaced with an inert HTTP `410` `VERIFIER_DISABLED` handler.
+12. Supabase `marketplace-api` version 3 is `ACTIVE`; its deployed source was reconciled against the canonical repository implementation.
+13. The production browser-auth repair passed all ten repository workflows before merge. It uses the Supabase publishable credential only, `shouldCreateUser: false`, persisted/refreshing browser sessions, and bearer-token requests to the existing Edge API.
+14. The canonical Pages host was repaired with a RED/GREEN deployment contract so `my-library`, `publisher`, `enterprise`, and `assets/marketplace-auth.js` are required deployment artifacts rather than optional copies.
+15. `https://fullstackassets.com/my-library/` was independently retrieved live and rendered the production passwordless sign-in control.
+16. `https://fullstackassets.com/publisher/` was independently retrieved live as `Publisher Studio | Full Stack Assets`.
+17. `https://fullstackassets.com/enterprise/` was independently retrieved live and rendered the production passwordless sign-in control and private-registry shell.
 
 ## Security state
 
@@ -44,15 +51,20 @@ Every marketplace table has RLS enabled and direct `anon`/`authenticated` table 
 
 ## Performance state
 
-Supabase performance advisor identified INFO-level unindexed marketplace foreign keys. Migration 009 adds covering indexes for those marketplace relationships. A repeat advisor scan no longer reports marketplace unindexed-foreign-key findings; newly created indexes may appear as `unused_index` until representative production traffic accumulates. Pre-existing BuildGraph advisor observations are outside this marketplace release and were not modified.
+Supabase performance advisor identified INFO-level unindexed marketplace foreign keys. Migration 009 adds covering indexes for those marketplace relationships. A repeat advisor scan no longer reports marketplace unindexed-foreign-key findings; newly created indexes may appear as `unused_index` until representative production traffic accumulates. The only remaining unindexed-foreign-key advisory is on the pre-existing BuildGraph `knowledge_entity_sources` table and is outside this marketplace release.
+
+## Browser deployment boundary
+
+The browser uses Supabase Auth only to obtain and refresh the authenticated session. It does not receive service-role credentials and does not receive direct database privileges. `assets/marketplace-auth.js` sends the Supabase access token to the marketplace Edge API as `Authorization: Bearer <access_token>`. Server-side authorization continues to resolve organization membership, publisher membership, entitlements, application roles, and Human Authority grants from production records. Browser authentication therefore does not broaden the authority model.
 
 ## Rollback
 
 - **Edge:** redeploy the previously verified function version or disable the function without affecting the independently served public Library.
+- **Pages:** revert the canonical apex-host commit that adds dynamic route propagation; the backend remains independently recoverable.
 - **Database:** do not destructively drop production tables automatically; use verified backup/restore evidence or a reviewed compensating migration.
 - **Artifacts:** content-addressed artifacts are immutable; change availability records rather than package bytes.
 - **Auth:** revoke marketplace app roles/Human Authority grants without changing Canon.
 
 ## Authority boundary
 
-Canon remains authoritative and cannot be mutated by commerce, Publisher Studio, runtime adapters, or enterprise policy. Enterprise overlays may only narrow authority. Payment success is evidence, not entitlement authority. Consequential/I4 actions remain Human Authority even after purchase or installation.
+Canon remains authoritative and cannot be mutated by commerce, Publisher Studio, runtime adapters, enterprise policy, or browser authentication. Enterprise overlays may only narrow authority. Payment success is evidence, not entitlement authority. Consequential/I4 actions remain Human Authority even after purchase, installation, or authentication.
