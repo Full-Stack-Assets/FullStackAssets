@@ -97,10 +97,11 @@ const readiness=createReadinessService({checks:{database:async()=>Boolean((await
 const commerceDisabled={async create(){throw Object.assign(new Error('Paid launch is not enabled'),{status:503,code:'COMMERCE_DISABLED'});}};
 const router=createRouter({services:{auth:{authenticate},customerLibrary,catalog:catalogRepository,distributions,enterprise,publisher,readiness,checkout:commerceDisabled}});
 
-export default {
-  async fetch(request:Request){
-    const origin=allowedOrigin(request);
-    if(request.method==='OPTIONS')return cors(new Response(null,{status:204}),origin);
-    return cors(await router(normalizeRequest(request)),origin);
-  },
+const handle=async(request:Request)=>{
+  const origin=allowedOrigin(request);
+  if(request.method==='OPTIONS')return cors(new Response(null,{status:204}),origin);
+  return cors(await router(normalizeRequest(request)),origin);
 };
+
+export default {fetch:handle};
+Deno.serve(handle);
