@@ -7,7 +7,7 @@ Human Authority approved the production provider choice on 2026-08-20. Dynamic m
 - **Compute:** Supabase Edge Function `marketplace-api`, a thin runtime adapter around the existing Web Request/Response marketplace router and services.
 - **PostgreSQL:** existing Supabase Postgres 17 database. Marketplace migrations are additive and leave BuildGraph knowledge tables intact.
 - **OIDC/JWKS:** Supabase Auth tokens are verified by the existing `jose` OIDC verifier. Application roles and Human Authority grants are persisted separately; Human Authority is never inferred from admin/reviewer status.
-- **Artifact storage:** private Supabase Storage bucket `marketplace-artifacts`, preserving content-addressed artifacts and short-lived signed reads.
+- **Artifact storage:** private Supabase Storage bucket `marketplace-artifacts`, preserving the approved S3-compatible artifact-storage contract, content-addressed artifacts, and short-lived signed reads.
 - **Public static Library:** independently deployed at `https://fullstackassets.com/library/` by the canonical GitHub Pages host.
 
 ## Commerce status
@@ -44,7 +44,7 @@ Every marketplace table has RLS enabled and direct `anon`/`authenticated` table 
 
 ## Performance state
 
-Supabase performance advisor identified INFO-level unindexed marketplace foreign keys. Migration 009 adds covering indexes for those marketplace relationships. Pre-existing BuildGraph advisor observations are outside this marketplace release and were not modified.
+Supabase performance advisor identified INFO-level unindexed marketplace foreign keys. Migration 009 adds covering indexes for those marketplace relationships. A repeat advisor scan no longer reports marketplace unindexed-foreign-key findings; newly created indexes may appear as `unused_index` until representative production traffic accumulates. Pre-existing BuildGraph advisor observations are outside this marketplace release and were not modified.
 
 ## Rollback
 
