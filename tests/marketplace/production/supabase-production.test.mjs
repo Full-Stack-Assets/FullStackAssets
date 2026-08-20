@@ -13,7 +13,7 @@ test('Supabase Edge adapter composes the existing marketplace router and service
   assert.match(source,/SUPABASE_DB_URL/);
   assert.match(source,/SUPABASE_URL/);
   assert.match(source,/SUPABASE_JWKS/);
-  assert.match(source,/export default\s*\{\s*fetch/s);
+  assert.match(source,/export default\s*\{\s*(?:async\s+)?fetch/s);
   assert.doesNotMatch(source,/postgres(?:ql)?:\/\/[^\s'\"]+:[^@\s'\"]+@/i);
   assert.doesNotMatch(source,/sk_live_[A-Za-z0-9]+/);
 });
