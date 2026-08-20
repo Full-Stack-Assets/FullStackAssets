@@ -15,6 +15,12 @@ export function createRouter({services={}}={}){
       const context=await authenticate(request,services);if(!context)return errorResponse(401,'UNAUTHORIZED');
       if(method==='POST'&&path==='/v1/checkout')return json(await services.checkout.create(context,await readJson(request)),{status:201});
       if(method==='GET'&&path==='/v1/admin/readiness')return json(await services.readiness.get(context));
+      const compatibilityMatch=/^\/v1\/product-versions\/([^/]+)\/compatibility$/.exec(path);
+      if(method==='GET'&&compatibilityMatch){
+        if(!services.distributions?.compatibility)return errorResponse(503,'DISTRIBUTION_SERVICE_UNAVAILABLE');
+        const result=await services.distributions.compatibility(context,decodeURIComponent(compatibilityMatch[1]));
+        return result?json(result):errorResponse(404,'VERSION_NOT_FOUND');
+      }
       const library=services.customerLibrary;
       if(method==='GET'&&path==='/v1/me')return json(await library.getMe(context));
       if(method==='GET'&&path==='/v1/library')return json(await library.listLibrary(context,{organizationId:organizationId(url)}));
