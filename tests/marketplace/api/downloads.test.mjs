@@ -1,0 +1,12 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { mkdtempSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { createHash } from 'node:crypto';
+import { FilesystemArtifactStore } from '../../../apps/marketplace-api/src/artifacts/filesystem-store.mjs';
+import { createDownloadService } from '../../../apps/marketplace-api/src/services/downloads.mjs';
+function fixtures({entitlements=[]}={}){let grants=0;const artifactStore={getMetadata:async()=>({id:'ART-1',sha256:'a'.repeat(64)}),createReadGrant:async()=>{grants+=1;return {grant:'ok'}}};const catalog={getProductVersion:async()=>({id:'PV-1',product_id:'PRD-1',version:'1.4.2'}),getProduct:async()=>({id:'PRD-1'}),getRuntimeDistribution:async()=>({id:'DIST-1',product_version_id:'PV-1',runtime:'UNIVERSAL',compatibility_state:'VERIFIED',artifact_id:'ART-1',artifact_hash:'a'.repeat(64)})};const customer={listEntitlements:async()=>entitlements};return {service:createDownloadService({customerRepository:customer,catalogRepository:catalog,artifactStore,now:()=>new Date('2026-08-19T12:00:00Z')}),grantCount:()=>grants};}
+test('download without entitlement is forbidden and creates no grant',async()=>{const f=fixtures();await assert.rejects(()=>f.service.authorizeDownload({subject:{type:'USER',id:'USR-A'}},'PV-1','UNIVERSAL'),e=>e.status===403&&e.code==='ENTITLEMENT_REQUIRED');assert.equal(f.grantCount(),0);});
+test('valid entitlement returns immutable artifact metadata and short-lived grant',async()=>{const f=fixtures({entitlements:[{id:'ENT-1',status:'ACTIVE',product_id:'PRD-1',version_policy:'MAJOR_PINNED',acquired_version:'1.4.0',allowed_runtimes:['UNIVERSAL'],user_id:'USR-A'}]});const result=await f.service.authorizeDownload({subject:{type:'USER',id:'USR-A'}},'PV-1','UNIVERSAL');assert.equal(result.entitlement_id,'ENT-1');assert.equal(result.artifact.sha256,'a'.repeat(64));assert.deepEqual(result.grant,{grant:'ok'});assert.equal(f.grantCount(),1);});
+test('filesystem artifact store rejects bytes that do not match declared sha256',async()=>{const root=mkdtempSync(join(tmpdir(),'artifact-'));writeFileSync(join(root,'pkg.zip'),'real-bytes');const store=new FilesystemArtifactStore({root,artifacts:{'ART-1':{id:'ART-1',path:'pkg.zip',sha256:createHash('sha256').update('different-bytes').digest('hex')}}});await assert.rejects(()=>store.createReadGrant('ART-1',{subject:{type:'USER',id:'USR-A'},expiresInSeconds:60}),/ARTIFACT_HASH_MISMATCH/);});
