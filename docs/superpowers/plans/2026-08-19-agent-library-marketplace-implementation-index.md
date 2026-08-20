@@ -2,9 +2,9 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Implement the approved Canon-backed Agent/Skill Library and commercial marketplace in six serial, independently verifiable units.
+**Goal:** Implement the approved Canon-backed Agent/Skill Library and commercial marketplace in eight serial, independently verifiable units.
 
-**Architecture:** The public Full Stack Assets site remains statically deployable through GitHub Pages. Canon stays authoritative and external to marketplace ownership. Node 22 ESM domain/generator code projects Canon into marketplace records and static pages; PostgreSQL, OIDC, artifact storage, Publisher Studio, and commerce are added only after the static registry pipeline is proven.
+**Architecture:** The public Full Stack Assets site remains statically deployable through GitHub Pages. Canon stays authoritative and external to marketplace ownership. Node 22 ESM domain/generator code projects Canon into marketplace records and static pages; PostgreSQL, OIDC, artifact storage, Publisher Studio, commerce, runtime distribution, and enterprise governance are added only after the static registry pipeline is proven.
 
 **Tech Stack:** Node.js 22 ESM, `node:test`, vanilla HTML/CSS/JS, PostgreSQL behind repository adapters, OIDC/JWT via `jose`, S3-compatible artifact storage behind an adapter, Stripe as the first payment adapter, GitHub Actions, GitHub Pages for the public static site.
 
@@ -19,6 +19,7 @@
 - Runtime compatibility is evidence-backed and runtime-specific.
 - Entitlements govern commercial access; payment adapters do not.
 - I4/consequential actions remain Human Authority even after purchase/install.
+- Enterprise policy may narrow canonical authority but never expand it.
 - Existing static-site tests and GitHub Pages deployment remain green throughout.
 - No production merge/deploy is implied by implementation-plan execution.
 
@@ -43,6 +44,12 @@
 
 6. **Unit 6 — Commerce & Production Hardening**  
    `2026-08-19-agent-library-marketplace-unit-6-commerce-hardening.md`
+
+7. **Unit 7 — Runtime Distribution, Compatibility & Evaluation**  
+   `2026-08-19-agent-library-marketplace-unit-7-runtime-distribution.md`
+
+8. **Unit 8 — Enterprise Private Registry & Governance**  
+   `2026-08-19-agent-library-marketplace-unit-8-enterprise-governance.md`
 
 Do not start Unit N+1 until Unit N acceptance tests pass and its interfaces are reviewed.
 
@@ -99,7 +106,7 @@ referenceVisibilityDecision(entity)
 transitionVersion(current, event)
 ```
 
-Unit 3 consumes only public/read-model projections from Unit 2. Units 4–6 consume the same core record semantics and repository contract.
+Unit 3 consumes only public/read-model projections from Unit 2. Units 4–8 consume the same core record semantics and repository contract.
 
 ### Unit 3 produces
 
@@ -119,7 +126,7 @@ searchIndex(index, query, filters)
 renderEntry(entry)
 ```
 
-Public browsing remains available without Units 4–6.
+Public browsing remains available without Units 4–8.
 
 ### Unit 4 produces
 
@@ -188,6 +195,53 @@ createArtifactReceipt(context)
 verifyRelease(gates)
 ```
 
+### Unit 7 produces
+
+Provider-neutral distribution and compatibility contracts:
+
+```text
+RuntimeAdapter
+RuntimePackagePlan
+RuntimeCompatibilityReceipt
+RuntimeDistribution
+```
+
+Interfaces:
+
+```js
+getRuntimeAdapter(runtime)
+buildRuntimePackagePlan(context)
+evaluateRuntimeCompatibility(context)
+buildCompatibilityMatrix(context)
+```
+
+Runtime adapters translate packaging/tool syntax only; they cannot add permissions, integrations, data classes, or authority beyond Canon.
+
+### Unit 8 produces
+
+Enterprise and final-launch governance contracts:
+
+```text
+PrivateRegistry
+EnterprisePolicyOverlay
+PublisherVerification
+RevenueSharePolicy
+LaunchEvidenceBundle
+```
+
+Interfaces:
+
+```js
+projectPrivateRegistry(context)
+applyEnterprisePolicy(context)
+assertPolicyDoesNotExpand(context)
+advancePublisherVerification(context)
+buildLaunchEvidence(context)
+assertLaunchEvidenceComplete(bundle)
+```
+
+Enterprise policy is restriction-only. Final launch evidence may aggregate verified receipts but may not fabricate missing evidence or coerce `UNKNOWN` into `PASS`.
+
 ---
 
 ## Test execution contract
@@ -207,7 +261,9 @@ node --test \
   tests/marketplace/commerce/*.test.mjs \
   tests/marketplace/security/*.test.mjs \
   tests/marketplace/operations/*.test.mjs \
-  tests/marketplace/release/*.test.mjs
+  tests/marketplace/release/*.test.mjs \
+  tests/marketplace/enterprise/*.test.mjs \
+  tests/marketplace/launch/*.test.mjs
 ```
 
 During early units, omit directories that do not yet exist.
@@ -246,21 +302,30 @@ First-party Publisher Studio can commercialize projected Canon items, run eviden
 
 A verified test-mode paid transaction creates exactly one entitlement, authorizes an immutable artifact download, handles refund/revoke according to LicensePolicy, passes package/security/recovery tests, and the ten release gates all have evidence.
 
+### After Unit 7
+
+Every supported runtime distribution is generated from the same immutable canonical ProductVersion, compatibility is evidence-derived per runtime, unsupported runtimes remain `UNAVAILABLE`, one runtime may fail without falsifying another, and no adapter can enlarge canonical authority.
+
+### After Unit 8
+
+Private registries remain organization-isolated and reference marketplace versions without forking Canon; enterprise policies only narrow authority; third-party publisher activation remains evidence- and Human-Authority-gated; and final launch evidence blocks on missing units, failed gates, unresolved critical findings, or `UNKNOWN` evidence.
+
 ---
 
 ## Self-review results
 
-- **Spec coverage:** all approved Sections 1–8 map to one or more Unit tasks. Public reference projection is covered in Units 2–3; immutable events/versions in Units 1–2; customer entitlements in Unit 4; Publisher Studio/publication gates in Unit 5; payment/security/recovery/release in Unit 6.
-- **Authority consistency:** no unit grants marketplace authority upstream into Canon. No payment/install path grants I4 Agent authority.
+- **Spec coverage:** all approved Sections 1–8 map to implementation work. Public reference projection is covered in Units 2–3; immutable events/versions in Units 1–2; customer entitlements in Unit 4; Publisher Studio/publication gates in Unit 5; payment/security/recovery/release in Unit 6; runtime distribution/compatibility in Unit 7; and enterprise/private-registry/final-launch governance in Unit 8.
+- **Authority consistency:** no unit grants marketplace authority upstream into Canon. No payment/install/runtime/enterprise path grants I4 Agent authority.
 - **Identity consistency:** canonical stable IDs remain canonical identity; marketplace Product IDs are separate commercial identities.
 - **Public/commercial consistency:** `REFERENCE_ONLY` is explicit and no Offer/entitlement is implied.
 - **Runtime consistency:** universal package is primary; runtime distributions remain evidence-backed adapters.
-- **Deployment consistency:** GitHub Pages remains the public static deployment. API production deployment remains a separate operational decision and is not silently introduced into the Pages workflow.
+- **Enterprise consistency:** private registries reference marketplace versions and overlays are monotonic restrictions, not alternate Canon definitions.
+- **Deployment consistency:** GitHub Pages remains the public static deployment. API production deployment remains a separate operational decision gate and is not silently introduced into the Pages workflow.
 - **Existing-site consistency:** Unit 3 preserves person-first homepage tests and local-link checks.
-- **No-placeholder scan:** the plans intentionally avoid `TBD`, `TODO`, generic “handle errors,” or unbound future function names. Provider deployment selection is outside implementation semantics and remains an adapter/configuration decision rather than an unfinished code requirement.
+- **No-placeholder scan:** the implementation plans avoid `TBD`, `TODO`, generic “handle errors,” or unbound future function names. Provider deployment selection is outside implementation semantics and remains an adapter/configuration decision rather than an unfinished code requirement.
 
 ---
 
 ## Recommended execution method
 
-Execute **one Unit at a time**, with fresh task context and review at every task boundary. Unit 1 is the correct first execution target because every later feature depends on stable, deterministic Canon projection and duplicate prevention.
+Execute **one Unit at a time**, with fresh task context and review at every task boundary. Later production rollout must preserve the same boundary: the public GitHub Pages slice may be released independently once its acceptance tests pass, while API/database/artifact deployment requires the separately approved production provider decision and live dependency receipts.
