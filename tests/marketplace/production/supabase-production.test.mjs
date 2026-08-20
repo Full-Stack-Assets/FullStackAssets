@@ -14,8 +14,15 @@ test('Supabase Edge adapter composes the existing marketplace router and service
   assert.match(source,/SUPABASE_URL/);
   assert.match(source,/SUPABASE_JWKS/);
   assert.match(source,/export default\s*\{\s*(?:async\s+)?fetch/s);
+  assert.match(source,/Deno\.serve\(handle\)/);
   assert.doesNotMatch(source,/postgres(?:ql)?:\/\/[^\s'\"]+:[^@\s'\"]+@/i);
   assert.doesNotMatch(source,/sk_live_[A-Za-z0-9]+/);
+});
+
+test('Supabase signed storage URLs retain the storage service base path',()=>{
+  const source=read('supabase/functions/marketplace-api/index.ts');
+  assert.match(source,/\/storage\/v1\/object\/sign\//);
+  assert.match(source,/signed\.startsWith\('http'\)\?signed:`\$\{SUPABASE_URL\}\/storage\/v1\$\{signed\}`/);
 });
 
 test('Supabase production hardening blocks direct marketplace table access and persists authority separately',()=>{
