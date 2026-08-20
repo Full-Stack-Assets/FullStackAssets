@@ -1,0 +1,18 @@
+import { router, json, error, requireAuth, db, storage } from '@appdeploy/sdk';
+const CATALOG={entry_count:176,sha256:'2356ac66d862650276f8f0ef02183fa3aa3e9324e7f739cd1d2f548c6fa8bd15',commercial_state:'REFERENCE_ONLY',roles:123,skills:45,integrations:20,overlays:8};
+const safe=(id:string)=>id.replace(/-/g,'');
+const orgTable=(u:string)=>`orgs_${safe(u)}`;
+const regTable=(u:string)=>`registry_${safe(u)}`;
+async function orgs(userId:string){return(await db.list<{name:string;owner_user_id:string}>(orgTable(userId),{limit:20})).items;}
+async function ownedOrg(userId:string,orgId:string){return(await orgs(userId)).find(x=>x.id===orgId);}
+
+export const handler = router({
+    'GET /api/_healthcheck':[async()=>json({message:'Success',service:'capability-registry',version:'1.0.0'})],
+    'GET /api/status':[async()=>json({status:'ready',adapter:'appdeploy-v1',catalog:CATALOG,commerce:'DISABLED_NO_ACTIVE_OFFERS'})],
+    'GET /api/me':[requireAuth(),async ctx=>json({userId:ctx.user!.userId,email:ctx.user!.email,name:ctx.user!.name})],
+    'GET /api/organizations':[requireAuth(),async ctx=>json({items:await orgs(ctx.user!.userId)})],
+    'POST /api/organizations':[requireAuth(),async ctx=>{const name=String((ctx.body as Record<string,unknown>)?.name??'').trim();if(!name||name.length>80)return error('Invalid organization name',400);const[id]=await db.add(orgTable(ctx.user!.userId),[{name,owner_user_id:ctx.user!.userId,created_at:new Date().toISOString()}]);if(!id)return error('Could not create organization',500);return json({id,name},201);}],
+    'GET /api/registry':[requireAuth(),async ctx=>{const orgId=String(ctx.query.organizationId??'');if(!await ownedOrg(ctx.user!.userId,orgId))return error('Forbidden',403);const{items}=await db.list<{organization_id:string;stable_id:string;version:string}>(regTable(ctx.user!.userId),{filter:{organization_id:orgId},limit:100});return json({items:items.filter(x=>x.organization_id===orgId)});}],
+    'POST /api/registry':[requireAuth(),async ctx=>{const b=ctx.body as Record<string,unknown>,orgId=String(b.organizationId??''),stableId=String(b.stableId??'').toUpperCase(),version=String(b.version??'current');if(!await ownedOrg(ctx.user!.userId,orgId))return error('Forbidden',403);if(!/^[A-Z]{2,4}-[A-Z0-9]{2,12}$/.test(stableId))return error('Invalid stable ID',400);const[id]=await db.add(regTable(ctx.user!.userId),[{organization_id:orgId,stable_id:stableId,version,created_at:new Date().toISOString()}]);if(!id)return error('Could not save reference',500);return json({id,organization_id:orgId,stable_id:stableId,version},201);}],
+    'POST /api/registry/export':[requireAuth(),async ctx=>{const orgId=String((ctx.body as Record<string,unknown>)?.organizationId??''),org=await ownedOrg(ctx.user!.userId,orgId);if(!org)return error('Forbidden',403);const{items}=await db.list<{organization_id:string;stable_id:string;version:string}>(regTable(ctx.user!.userId),{filter:{organization_id:orgId},limit:100});const payload=JSON.stringify({schema_version:'1.0',organization:{id:org.id,name:org.name},catalog_receipt:CATALOG,entries:items.filter(x=>x.organization_id===orgId).map(({stable_id,version})=>({stable_id,version})),exported_at:new Date().toISOString()});const path=`exports/${ctx.user!.userId}/${orgId}/registry.json`;const[ok]=await storage.write([{path,content:payload,contentType:'application/json'}]);if(!ok)return error('Export failed',500);const[{url}]=await storage.url([path]);return json({url,sha_hint:CATALOG.sha256.slice(0,16)});}],
+})
