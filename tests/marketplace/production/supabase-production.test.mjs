@@ -5,6 +5,7 @@ import { readFileSync } from 'node:fs';
 const read=(path)=>readFileSync(path,'utf8');
 
 const MARKETPLACE_TABLES=['publishers','products','product_versions','product_version_availability','product_components','runtime_distributions','evaluation_records','publication_records','license_policies','offers','projection_receipts','outbox_events','users','organizations','memberships','purchases','subscriptions','entitlements','installations','collections','collection_items','update_preferences','publisher_memberships','commercial_candidates','canon_change_proposals','publication_reviews','runtime_build_jobs','publisher_audit_events','payment_events','commerce_receipts','runtime_compatibility_receipts','runtime_package_plans','private_registries','private_registry_products','enterprise_policy_overlays','publisher_verifications','publisher_revenue_share_policies','enterprise_audit_events'];
+const PROVIDER_TABLES=['marketplace_app_roles','marketplace_human_authority_grants','organization_canonical_policies'];
 
 test('Supabase Edge adapter composes the existing marketplace router and services',()=>{
   const source=read('supabase/functions/marketplace-api/index.ts');
@@ -17,14 +18,16 @@ test('Supabase Edge adapter composes the existing marketplace router and service
   assert.doesNotMatch(source,/sk_live_[A-Za-z0-9]+/);
 });
 
-test('Supabase production hardening blocks direct public table access and persists authority separately',()=>{
+test('Supabase production hardening blocks direct marketplace table access and persists authority separately',()=>{
   const sql=read('marketplace/db/migrations/007_supabase_production_hardening.sql');
-  for(const table of MARKETPLACE_TABLES){
+  for(const table of [...MARKETPLACE_TABLES,...PROVIDER_TABLES]){
     assert.match(sql,new RegExp(`ALTER TABLE public\\.${table} ENABLE ROW LEVEL SECURITY`,'i'),table);
+    assert.match(sql,new RegExp(`REVOKE ALL ON TABLE public\\.${table} FROM anon, authenticated`,'i'),table);
   }
-  assert.match(sql,/REVOKE ALL ON ALL TABLES IN SCHEMA public FROM anon, authenticated/i);
+  assert.doesNotMatch(sql,/REVOKE ALL ON ALL TABLES IN SCHEMA public/i);
   assert.match(sql,/CREATE TABLE IF NOT EXISTS marketplace_app_roles/i);
   assert.match(sql,/CREATE TABLE IF NOT EXISTS marketplace_human_authority_grants/i);
+  assert.match(sql,/CREATE TABLE IF NOT EXISTS organization_canonical_policies/i);
   assert.match(sql,/marketplace-artifacts/i);
   assert.match(sql,/public\s*=\s*false/i);
 });
