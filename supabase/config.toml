@@ -1,0 +1,7 @@
+project_id = "fbwoqjxgyczsyjkbglbb"
+
+[functions.marketplace-api]
+# The existing router owns authentication because the Stripe webhook path is
+# intentionally verified before user authentication. Protected routes still
+# require a verified Bearer token in the router's auth service.
+verify_jwt = false

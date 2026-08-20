@@ -1,0 +1,1 @@
+export const SECRET_PATTERNS=[/-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/,/sk_(?:live|test)_[A-Za-z0-9]{16,}/,/gh[pousr]_[A-Za-z0-9]{20,}/,/AKIA[0-9A-Z]{16}/];export const EXECUTABLE_EXTENSIONS=new Set(['.exe','.dll','.so','.dylib','.bin']);

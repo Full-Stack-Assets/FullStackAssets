@@ -1,0 +1,44 @@
+name: Marketplace Production
+
+on:
+  pull_request:
+    branches:
+      - codex/agent-library-marketplace-unit-8
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install locked marketplace API dependencies
+        working-directory: apps/marketplace-api
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Expose app dependencies
+        run: ln -s apps/marketplace-api/node_modules node_modules
+      - name: Run Unit 1-8 plus production adapter verification
+        run: >-
+          node --test
+          tests/*.test.mjs
+          tests/marketplace/canon/*.test.mjs
+          tests/marketplace/core/*.test.mjs
+          tests/marketplace/catalog/*.test.mjs
+          tests/marketplace/api/*.test.mjs
+          tests/marketplace/customer/*.test.mjs
+          tests/marketplace/publisher/*.test.mjs
+          tests/marketplace/distribution/*.test.mjs
+          tests/marketplace/commerce/*.test.mjs
+          tests/marketplace/security/*.test.mjs
+          tests/marketplace/operations/*.test.mjs
+          tests/marketplace/release/*.test.mjs
+          tests/marketplace/enterprise/*.test.mjs
+          tests/marketplace/launch/*.test.mjs
+          tests/marketplace/production/*.test.mjs
