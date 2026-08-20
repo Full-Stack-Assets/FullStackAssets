@@ -1,21 +1,13 @@
-name: Deploy Jekyll with GitHub Pages dependencies preinstalled
+name: Marketplace Library
 
 on:
-  push:
-    branches: ["main"]
-  workflow_dispatch:
+  pull_request:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -24,7 +16,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Verify marketplace and existing site sources
+      - name: Verify source contracts
         run: node --test tests/*.test.mjs tests/marketplace/canon/*.test.mjs tests/marketplace/core/*.test.mjs tests/marketplace/catalog/*.test.mjs
       - name: Materialize public catalog baseline
         run: node marketplace/bin/materialize-catalog.mjs --parts data/library/catalog-baseline --meta data/library/catalog-baseline.json --out data/library/catalog.snapshot.json
@@ -36,23 +28,3 @@ jobs:
         run: node marketplace/bin/build-library.mjs --catalog data/library/catalog.snapshot.json --out library
       - name: Verify assembled static site
         run: node --test tests/*.test.mjs tests/marketplace/catalog/*.test.mjs
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./
-          destination: ./_site
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v5

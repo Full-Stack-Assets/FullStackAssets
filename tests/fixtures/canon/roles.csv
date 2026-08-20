@@ -1,0 +1,2 @@
+role_id,name,suggested_skill_ids,suggested_integration_ids,status
+ESP-02,Software Implementation Agent,SKL-026,INT-007,SPECIFIED
