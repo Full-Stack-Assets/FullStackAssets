@@ -14,22 +14,24 @@ test('implementation index reflects the complete eight-unit architecture', () =>
   assert.match(index, /tests\/marketplace\/launch\/\*\.test\.mjs/);
 });
 
-test('README documents Units 4 through 8 and the production deployment boundary', () => {
+test('README documents Units 4 through 8 and the resolved production deployment', () => {
   const readme = read('README.md');
   for (const unit of [4, 5, 6, 7, 8]) assert.match(readme, new RegExp(`Unit ${unit}:`));
-  assert.match(readme, /docs\/runbooks\/marketplace-release\.md/);
-  assert.match(readme, /API production deployment.*decision gate/is);
-  assert.match(readme, /GitHub Pages.*public static/i);
+  assert.match(readme, /docs\/runbooks\/marketplace-supabase-production\.md/);
+  assert.match(readme, /Supabase Edge Function `marketplace-api`/i);
+  assert.match(readme, /GitHub Pages/i);
+  assert.match(readme, /paid commerce remains disabled/i);
 });
 
-test('release runbook keeps backend deployment as an explicit provider decision gate', () => {
+test('release runbook records the approved provider without changing authority boundaries', () => {
   const runbook = read('docs/runbooks/marketplace-release.md');
-  assert.match(runbook, /decision gate/i);
-  assert.match(runbook, /compute\/runtime provider/i);
+  assert.match(runbook, /provider gate.*resolved/i);
+  assert.match(runbook, /Supabase Edge Function/i);
   assert.match(runbook, /PostgreSQL/i);
-  assert.match(runbook, /OIDC/i);
-  assert.match(runbook, /S3-compatible/i);
-  assert.match(runbook, /Stripe.*paid launch/is);
-  assert.match(runbook, /GitHub Pages.*independently/is);
+  assert.match(runbook, /Auth\/OIDC\/JWKS/i);
+  assert.match(runbook, /marketplace-artifacts/i);
+  assert.match(runbook, /paid commerce remains intentionally disabled/i);
+  assert.match(runbook, /GitHub Pages/i);
+  assert.match(runbook, /Human Authority/i);
   assert.doesNotMatch(runbook, /AppDeploy/i);
 });
