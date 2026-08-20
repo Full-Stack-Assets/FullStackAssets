@@ -9,29 +9,26 @@ const dynamicPages=[
   'enterprise/index.html','enterprise/registry/index.html','enterprise/publishers/index.html'
 ];
 
-test('every dynamic marketplace shell targets the live Edge API and loads shared auth',()=>{
-  for(const file of dynamicPages){
-    assert.equal(existsSync(file),true,file);
-    const html=readFileSync(file,'utf8');
-    assert.match(html,new RegExp(`marketplace-api-base[^>]+${API.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}`),file);
-    assert.match(html,/marketplace-auth\.js/,file);
-    assert.match(html,/data-marketplace-auth/,file);
-  }
+test('all dynamic marketplace route shells exist',()=>{
+  for(const file of dynamicPages)assert.equal(existsSync(file),true,file);
 });
 
-test('browser auth uses only publishable Supabase credentials and controlled sign-in',()=>{
+test('shared browser auth targets production using only publishable credentials',()=>{
   const source=readFileSync('assets/marketplace-auth.js','utf8');
   assert.match(source,/supabase-js@2\.112\.3/);
+  assert.match(source,new RegExp(API.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')));
   assert.match(source,/sb_publishable_/);
   assert.match(source,/shouldCreateUser:\s*false/);
   assert.match(source,/Authorization.*Bearer/s);
+  assert.match(source,/signInWithOtp/);
+  assert.match(source,/signOut/);
   assert.doesNotMatch(source,/service[_-]?role|SUPABASE_SECRET_KEY|sk_live_/i);
 });
 
-test('dynamic clients delegate protected requests through the shared auth fetcher',()=>{
+test('dynamic clients import the shared auth module and use authFetch',()=>{
   for(const file of ['assets/my-library.js','assets/publisher-studio.js','assets/enterprise-registry.js']){
     const source=readFileSync(file,'utf8');
-    assert.match(source,/marketplaceAuth/,file);
+    assert.match(source,/marketplace-auth\.js/,file);
     assert.match(source,/authFetch/,file);
   }
 });
