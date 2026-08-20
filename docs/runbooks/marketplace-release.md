@@ -3,57 +3,50 @@
 The Agentic Capability Library has two intentionally separate production surfaces:
 
 1. **Public static Library:** generated from the Canon-backed public catalog projection and deployed through GitHub Pages.
-2. **Dynamic marketplace services:** Customer Library, Publisher Studio, commerce, runtime-distribution state, private enterprise registries, database state, and artifact delivery.
+2. **Dynamic marketplace services:** Customer Library, Publisher Studio, commerce boundary, runtime-distribution state, private enterprise registries, database state, and artifact delivery.
 
-GitHub Pages can deploy the public static Library independently after the Unit 1–3 source, catalog-generation, link, accessibility, and last-known-good checks pass. A backend outage or the absence of a backend deployment must not break public reference browsing.
+GitHub Pages remains independently deployable; a dynamic-service outage must not break public reference browsing.
 
-## Production API decision gate
+## Production API provider gate — resolved
 
-Production API deployment is a **Human Authority decision gate**, not an implicit implementation default. No compute/runtime provider is selected by this repository. Do not introduce or substitute a provider merely to make the deployment checklist appear complete. Production API deployment requires a separately approved provider adapter and credentials.
+Human Authority resolved the production provider/runtime decision on 2026-08-20. The approved dynamic stack is Supabase using the existing `Full-Stack-Assets` project (`fbwoqjxgyczsyjkbglbb`):
 
-Before the dynamic marketplace can be called production-deployed, Human Authority must approve the production provider/runtime adapter and the deployment must have concrete, verified configuration for:
+- Supabase Edge Function `marketplace-api` as the thin runtime adapter around the existing Web Request/Response router and services;
+- Supabase PostgreSQL with marketplace migrations `001`–`009`;
+- Supabase Auth/OIDC/JWKS with application roles and Human Authority persisted separately;
+- private Supabase Storage bucket `marketplace-artifacts` with content-addressed keys and short-lived signed reads;
+- `https://fullstackassets.com/library/` remains the canonical public GitHub Pages surface.
 
-- a compute/runtime provider capable of running the Node.js 22 marketplace API;
-- PostgreSQL, including production connection credentials, migration execution, backup/restore evidence, and readiness checks;
-- OIDC, including issuer, audience, JWKS URI, redirect/origin configuration, and the application-role mapping used by the marketplace;
-- an S3-compatible artifact store, including endpoint, region, bucket, scoped access credentials, immutable object-key behavior, and signed-read validation;
-- the public marketplace API origin, TLS, CORS, and browser/auth cookie or bearer-token behavior required by `/my-library/`, Publisher Studio, and enterprise surfaces;
-- Stripe production credentials and webhook configuration **only if paid launch is separately approved**. Stripe evidence never substitutes for entitlement authority.
-
-Production secret values must never be committed to this repository.
+No substitute architecture was introduced. Production secret values are not committed.
 
 ## Release evidence
 
-The static release and dynamic release are verified independently.
-
 ### Public static release
 
-Required evidence includes:
-
-- Canon/public projection checks pass;
-- the catalog baseline hash/entry receipt validates;
-- Library generation is deterministic;
-- the prior live Library remains intact on a failed candidate build;
-- site/link/accessibility checks pass;
-- the GitHub Pages workflow succeeds on the released commit;
-- the live `/library/` surface is fetched after deployment and matches the expected catalog identity.
+Verified evidence includes Canon/public projection checks, catalog hash/entry receipt, deterministic Library generation, last-known-good preservation, site/link/accessibility checks, successful canonical Pages deployment, and direct live retrieval of `/library/`.
 
 ### Dynamic marketplace release
 
-Before Units 4–8 are described as live production services, required evidence includes:
+Live production evidence includes:
 
-- the approved provider adapter is implemented and reviewed without changing Canon or marketplace domain semantics;
-- PostgreSQL migrations and readiness checks pass against the production database;
-- OIDC authentication and organization/publisher isolation are verified on the live service;
-- S3-compatible immutable artifact upload/head/signed-read behavior is verified on the live service;
-- the Stripe webhook signature path and test/production separation are verified if commerce is enabled;
-- the ten marketplace release gates have evidence refs and all return `PASS`;
-- Unit 7 compatibility claims correspond to real runtime evaluation receipts rather than marketing declarations;
-- Unit 8 enterprise isolation and publisher-governance evidence is complete;
-- the final launch evidence bundle contains no missing, `UNKNOWN`, failed, or unresolved critical evidence.
+- all marketplace tables RLS-enabled with direct `anon`/`authenticated` table privileges revoked;
+- real Supabase Auth/OIDC sessions reaching protected routes;
+- unauthenticated protected requests returning `401`;
+- cross-organization and cross-publisher access returning `403`;
+- publication approval without a persisted Human Authority grant returning `403`;
+- authenticated readiness returning `200` against database, storage, auth, and schema dependencies;
+- private content-addressed artifact upload, 60-second signed read, HTTP `200`, and SHA-256 integrity verification;
+- production-verifier fixtures cleaned to zero and the temporary verifier disabled;
+- Supabase security advisor with no WARN-level marketplace findings after fixed function `search_path` hardening;
+- marketplace foreign-key covering indexes applied by migration `009_marketplace_foreign_key_indexes.sql`;
+- fresh repository workflows for Canon, Core, Library, Customer, Publisher, Release, Distribution, Enterprise, Production, and Platform neutrality on the final production release tree.
+
+The detailed provider receipt is in `docs/runbooks/marketplace-supabase-production.md`.
+
+## Commerce boundary
+
+Paid commerce remains intentionally disabled. The production checkout path returns `COMMERCE_DISABLED`; live Stripe credentials and webhook configuration are not part of this release. Enabling paid launch remains a separate Human Authority decision. Payment success never substitutes for entitlement authority.
 
 ## Authority boundary
 
-Canon remains authoritative and cannot be mutated by commerce, Publisher Studio, runtime adapters, or enterprise policy. Enterprise overlays may only narrow authority. Payment success is evidence, not entitlement authority. I4/consequential actions remain Human Authority even after purchase or installation.
-
-Until the production API decision gate is explicitly resolved and the live dependency receipts above exist, the dynamic system is **implementation-verified but not production-deployed**. That status is intentional and must not be papered over by selecting a new provider without approval.
+Canon remains authoritative and cannot be mutated by commerce, Publisher Studio, runtime adapters, or enterprise policy. Enterprise overlays may only narrow authority. I4/consequential actions remain Human Authority even after purchase or installation.
