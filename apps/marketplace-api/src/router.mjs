@@ -7,7 +7,14 @@ export function createRouter({services={}}={}){
     try{
       const url=new URL(request.url);const path=url.pathname;const method=request.method.toUpperCase();
       if(method==='GET'&&path==='/health')return json({status:'ok'});
+      if(method==='POST'&&path==='/v1/payments/stripe/webhook'){
+        if(!services.paymentEvents?.handle)return errorResponse(503,'PAYMENT_WEBHOOK_UNAVAILABLE');
+        const rawBody=await request.text();const signature=request.headers.get('stripe-signature')||'';
+        return json(await services.paymentEvents.handle({rawBody,signature}));
+      }
       const context=await authenticate(request,services);if(!context)return errorResponse(401,'UNAUTHORIZED');
+      if(method==='POST'&&path==='/v1/checkout')return json(await services.checkout.create(context,await readJson(request)),{status:201});
+      if(method==='GET'&&path==='/v1/admin/readiness')return json(await services.readiness.get(context));
       const library=services.customerLibrary;
       if(method==='GET'&&path==='/v1/me')return json(await library.getMe(context));
       if(method==='GET'&&path==='/v1/library')return json(await library.listLibrary(context,{organizationId:organizationId(url)}));
