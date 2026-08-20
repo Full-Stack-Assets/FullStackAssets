@@ -9,7 +9,7 @@ GitHub Pages can deploy the public static Library independently after the Unit 1
 
 ## Production API decision gate
 
-Production API deployment is a **Human Authority decision gate**, not an implicit implementation default. No compute/runtime provider is selected by this repository. Do not introduce or substitute a provider merely to make the deployment checklist appear complete.
+Production API deployment is a **Human Authority decision gate**, not an implicit implementation default. No compute/runtime provider is selected by this repository. Do not introduce or substitute a provider merely to make the deployment checklist appear complete. Production API deployment requires a separately approved provider adapter and credentials.
 
 Before the dynamic marketplace can be called production-deployed, Human Authority must approve the production provider/runtime adapter and the deployment must have concrete, verified configuration for:
 
