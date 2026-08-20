@@ -1,1 +1,0 @@
-export function createMetricRegistry({sink=null}={}){const counts=new Map();return{inc(name,labels={}){const key=`${name}|${JSON.stringify(labels)}`;counts.set(key,(counts.get(key)??0)+1);sink?.({name,labels,value:counts.get(key)});},snapshot(){return Object.fromEntries(counts)}}}

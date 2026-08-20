@@ -1,7 +1,0 @@
-{
-  "pr": ["pull", "request", "code", "review"],
-  "competitor": ["competitive", "market", "rival"],
-  "research": ["source", "intelligence", "investigate"],
-  "bug": ["defect", "issue", "error"],
-  "deploy": ["release", "delivery", "production"]
-}

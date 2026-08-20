@@ -1,1 +1,0 @@
-import test from'node:test';import assert from'node:assert/strict';import{readFileSync}from'node:fs';test('release runbook preserves separate static/api deployment boundary',()=>{const s=readFileSync('docs/runbooks/marketplace-release.md','utf8');assert.match(s,/separate/i);assert.match(s,/requires a separately approved provider adapter and credentials/i);});

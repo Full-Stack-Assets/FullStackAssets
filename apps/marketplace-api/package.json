@@ -1,8 +1,0 @@
-{
-  "name": "@fullstackassets/marketplace-api",
-  "version": "0.1.0",
-  "private": true,
-  "type": "module",
-  "engines": {"node": ">=22"},
-  "dependencies": {"jose": "6.2.8", "pg": "8.22.0", "stripe": "22.3.2"}
-}

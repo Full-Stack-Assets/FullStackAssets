@@ -1,2 +1,0 @@
-from_type,from_id,relation,to_type,to_id
-role,ESP-02,USES_SKILL,skill,SKL-026

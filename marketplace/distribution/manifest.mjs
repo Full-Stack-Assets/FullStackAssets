@@ -1,2 +1,0 @@
-export const SUPPORTED_RUNTIMES=['UNIVERSAL','CHATGPT','CURSOR','GEMINI','GROK','MANUS','MCP'];
-export function createUniversalManifest(x={}){for(const k of ['product_id','product_version_id','canonical_refs','canonical_hashes','components','license_ref','provenance_receipt_id'])if(x[k]===undefined||x[k]===null)throw new TypeError(`MANIFEST_${k.toUpperCase()}_REQUIRED`);return Object.freeze({schema_version:'1.0',...x,runtime_adapters:x.runtime_adapters??[]});}
