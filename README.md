@@ -2,7 +2,50 @@
 
 ## Agentic Capability Library marketplace
 
-The marketplace implementation is built as a stacked branch series. The public site remains a static GitHub Pages property; marketplace code is a downstream projection of the Agentic AI Role Library and must never mutate Canon.
+The marketplace is a Canon-backed, provider-neutral Agent/Skill Library. Canon remains authoritative; marketplace records, commercial state, runtime adapters, customer entitlements, and enterprise policy are downstream and cannot expand canonical authority.
+
+## Current release status
+
+### Production: Units 1–3
+
+Units 1–3 are merged to `main` and form the public static release:
+
+1. **Canon Registry Adapter** — deterministic stable-ID ingestion, hashes, relationships, append-only events, and fail-closed last-known-good behavior.
+2. **Marketplace Core** — `REFERENCE_ONLY` Product/ProductVersion projection, immutable version semantics, publication policy, and public-reference allowlisting.
+3. **Public Library** — deterministic catalog materialization, search/detail pages, automatic Canon-to-volume generation, and GitHub Pages integration.
+
+The canonical production URL is:
+
+`https://fullstackassets.com/library/`
+
+`Full-Stack-Assets/Full-Stack-Assets.github.io` is the canonical apex Pages host. Its workflow checks out this repository at `main`, validates and materializes the Canon-derived catalog, generates the Library, verifies the assembled source and deployment artifact, preserves the existing Aetheria/BuildGraph routes, and deploys the verified artifact to `fullstackassets.com`.
+
+### Implementation-verified, not production-deployed: Units 4–8
+
+Units 4–8 are preserved as stacked implementation-review branches/PRs and have passed the complete inherited verification stack, but they are deliberately not represented as live production services:
+
+4. **Customer Library** — OIDC identity, app roles, organization isolation, entitlements, immutable artifact authorization, installations, collections, and update state.
+5. **Publisher Studio** — commercial candidates, evaluations/builds, Offers, payload-bound publication review, Human Authority approval, and Canon-change proposals.
+6. **Commerce & Production Hardening** — Stripe adapter boundary, signed/idempotent payment events, entitlement lifecycle, package scanning, immutable artifact receipts, recovery, telemetry, and release gates.
+7. **Runtime Distribution** — provider-neutral universal/runtime packages and evidence-derived compatibility for supported runtimes without authority escalation.
+8. **Enterprise Governance** — private registries, restriction-only enterprise policy, curated publisher verification, revenue-share policy contracts, and final launch-evidence validation.
+
+The corrected Unit 8 tree passed Marketplace Enterprise, Distribution, Release, Publisher, Customer, Library, Core, Canon, and Platform neutrality workflows. That evidence verifies implementation behavior, not live provider deployment.
+
+## Production API decision gate
+
+Dynamic Units 4–8 cannot be called production-deployed until the existing Human Authority decision gate is resolved. The repository does **not** select a compute/runtime provider by default, and no substitute provider should be introduced merely to close a deployment checklist.
+
+Production API deployment requires a separately approved provider adapter and credentials, plus verified production configuration for:
+
+- Node.js 22 compute/runtime;
+- PostgreSQL migrations, readiness, backup, and restore;
+- OIDC issuer, audience, JWKS, origins/redirects, and app-role mapping;
+- S3-compatible immutable artifact storage and signed reads;
+- API origin, TLS, CORS, and browser authentication behavior;
+- Stripe production credentials/webhook configuration only if paid launch is separately approved.
+
+See `docs/runbooks/marketplace-release.md` for the evidence required to clear this gate.
 
 ### Unit 1: Canon Registry Adapter
 
@@ -30,21 +73,9 @@ node --test tests/marketplace/core/*.test.mjs
 
 Unit 2 projects Canon events into private `REFERENCE_ONLY` Products and immutable draft ProductVersions. It defines the marketplace relational schema, transactional repository contract, projection receipts/outbox events, semantic change severity, publication state machine, Human Authority publication policy, and allowlist-based public reference projection.
 
-Run the stacked Unit 1 + Unit 2 verification with:
-
-```bash
-node --test tests/marketplace/canon/*.test.mjs tests/marketplace/core/*.test.mjs
-```
-
 ### Unit 3: Public Library
 
 The public Library is generated from a derived, hash-verified marketplace catalog mirror. The checked-in baseline contains the eligible Canon reference inventory as `REFERENCE_ONLY`; it is not an editable source of truth and does not make items installable or purchasable.
-
-Run Unit 3 tests with:
-
-```bash
-node --test tests/marketplace/catalog/*.test.mjs
-```
 
 Materialize the derived catalog baseline and build the static Library with:
 
@@ -58,14 +89,14 @@ node marketplace/bin/build-library.mjs \
   --out library
 ```
 
-The baseline is split into ordered `.b64` chunks for reliable transport; `catalog-baseline.json` contains the authoritative projection receipt used to verify compressed size, uncompressed SHA-256, uncompressed bytes, and entry count before rendering.
-
-The Pages workflow also injects the `/library/` discovery link and sitemap root into the deployment workspace, then re-runs static-site verification before Jekyll packages the site. The source portfolio remains person-first and its three featured projects remain unchanged.
-
-Run the full stacked verification with:
+Run the released static stack with:
 
 ```bash
-node --test tests/*.test.mjs tests/marketplace/canon/*.test.mjs tests/marketplace/core/*.test.mjs tests/marketplace/catalog/*.test.mjs
+node --test \
+  tests/*.test.mjs \
+  tests/marketplace/canon/*.test.mjs \
+  tests/marketplace/core/*.test.mjs \
+  tests/marketplace/catalog/*.test.mjs
 ```
 
-Design and implementation plans live under `docs/superpowers/specs/` and `docs/superpowers/plans/`.
+The complete eight-unit implementation plan index and individual plans live under `docs/superpowers/plans/`; the frozen design lives under `docs/superpowers/specs/`.
