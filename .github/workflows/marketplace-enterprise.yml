@@ -1,0 +1,21 @@
+name: Marketplace Enterprise
+on: [pull_request]
+permissions: {contents: read}
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Install locked marketplace API dependencies
+        working-directory: apps/marketplace-api
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Expose app dependencies
+        run: ln -s apps/marketplace-api/node_modules node_modules
+      - name: Run complete Unit 1-8 verification
+        run: node --test tests/*.test.mjs tests/marketplace/canon/*.test.mjs tests/marketplace/core/*.test.mjs tests/marketplace/catalog/*.test.mjs tests/marketplace/api/*.test.mjs tests/marketplace/customer/*.test.mjs tests/marketplace/publisher/*.test.mjs tests/marketplace/distribution/*.test.mjs tests/marketplace/commerce/*.test.mjs tests/marketplace/security/*.test.mjs tests/marketplace/operations/*.test.mjs tests/marketplace/release/*.test.mjs tests/marketplace/enterprise/*.test.mjs tests/marketplace/launch/*.test.mjs
+      - name: Verify release gates
+        run: node marketplace/bin/verify-marketplace-release.mjs --fixture tests/fixtures/release/pass.json
+      - name: Verify final launch evidence
+        run: node marketplace/bin/verify-marketplace-launch.mjs --fixture tests/fixtures/launch/pass.json
