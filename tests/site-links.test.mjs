@@ -25,13 +25,19 @@ function destinationFor(file, href) {
   return join(absolute, "index.html");
 }
 
-test("all local links resolve", () => {
+function isGeneratedLibraryRoute(href) {
+  const withoutQuery = href.split(/[?#]/)[0];
+  return withoutQuery === "/library" || withoutQuery.startsWith("/library/");
+}
+
+test("all checked-in local links resolve or target the separately validated generated Library", () => {
   const failures = [];
   for (const file of htmlFiles()) {
     const source = readFileSync(file, "utf8");
     const hrefs = [...source.matchAll(/href="([^"]+)"/g)].map((match) => match[1]);
     for (const href of hrefs) {
       if (/^(https?:|mailto:|tel:|data:|#)/.test(href)) continue;
+      if (isGeneratedLibraryRoute(href)) continue;
       const destination = destinationFor(file, href);
       if (!existsSync(destination)) failures.push(`${relative(root, file)} -> ${href}`);
     }
