@@ -36,7 +36,15 @@ test('auth creation is confirmed server-side and supports compensating deletion'
   if(!existsSync(path))return;
   const source=readFileSync(path,'utf8');
   assert.match(source,/email_confirm\s*:\s*true/);
-  assert.match(source,/\/auth\/v1\/admin\/users/);
+  assert.match(source,/\/auth\/v1/);
+  assert.match(source,/['"]\/admin\/users['"]/);
   assert.match(source,/method:\s*'DELETE'/);
   assert.doesNotMatch(source,/signUp\s*\(/);
+});
+
+test('bootstrap pool permits lock-holding transaction and independent auth-user count',()=>{
+  assert.equal(existsSync(path),true,'owner bootstrap Edge function must exist');
+  if(!existsSync(path))return;
+  const source=readFileSync(path,'utf8');
+  assert.match(source,/poolOptions:\{max:2\b/);
 });
