@@ -27,12 +27,18 @@ function packageEntries(product,runtime){
   return entries;
 }
 
+export function buildArtifactBytes(product,runtime){
+  if(!product)throw new TypeError('PRODUCT_REQUIRED');
+  if(!runtimeAdapter(runtime))throw new Error(`UNSUPPORTED_RUNTIME:${runtime}`);
+  return createStoreZip(packageEntries(product,String(runtime).toUpperCase()));
+}
+
 export function buildFirstCohortArtifacts({outDir}){
   if(!outDir)throw new TypeError('OUT_DIR_REQUIRED');mkdirSync(outDir,{recursive:true});
   const plans=buildCohortPackagePlans();const products=new Map(FIRST_COHORT.map(x=>[x.product_id,x]));const artifacts=[];
   for(const plan of plans){
     const product=products.get(plan.product_id);if(!product)throw new Error(`COHORT_PRODUCT_MISSING:${plan.product_id}`);
-    const entries=packageEntries(product,plan.runtime);const bytes=createStoreZip(entries);const digest=sha256(bytes);const filename=`${safeName(product.canonical_ref)}-${plan.runtime.toLowerCase()}-${product.version}.zip`;const path=join(outDir,filename);writeFileSync(path,bytes);
+    const bytes=buildArtifactBytes(product,plan.runtime);const digest=sha256(bytes);const filename=`${safeName(product.canonical_ref)}-${plan.runtime.toLowerCase()}-${product.version}.zip`;const path=join(outDir,filename);writeFileSync(path,bytes);
     artifacts.push(Object.freeze({product_id:product.product_id,product_version_id:product.product_version_id,canonical_ref:product.canonical_ref,runtime:plan.runtime,compatibility_state:product.runtime_states[plan.runtime],required_files:runtimeAdapter(plan.runtime).required_files,path,filename,sha256:digest,size_bytes:bytes.length}));
   }
   return Object.freeze(artifacts);
