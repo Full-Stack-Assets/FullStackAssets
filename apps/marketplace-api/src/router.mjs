@@ -14,6 +14,10 @@ export function createRouter({services={}}={}){
       }
       const context=await authenticate(request,services);if(!context)return errorResponse(401,'UNAUTHORIZED');
       if(method==='POST'&&path==='/v1/checkout')return json(await services.checkout.create(context,await readJson(request)),{status:201});
+      if(method==='POST'&&path==='/v1/acquire/free'){
+        if(!services.freeAcquisition?.acquire)return errorResponse(503,'FREE_ACQUISITION_UNAVAILABLE');
+        return json(await services.freeAcquisition.acquire(context,await readJson(request)),{status:201});
+      }
       if(method==='GET'&&path==='/v1/admin/readiness')return json(await services.readiness.get(context));
       const compatibilityMatch=/^\/v1\/product-versions\/([^/]+)\/compatibility$/.exec(path);
       if(method==='GET'&&compatibilityMatch){
