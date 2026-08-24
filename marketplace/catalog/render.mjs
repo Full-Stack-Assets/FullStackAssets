@@ -42,27 +42,35 @@ function list(items, empty='None published') {
   const values=Array.isArray(items)?items:[];
   return values.length ? `<ul>${values.map((value)=>`<li>${escapeHtml(typeof value==='string'?value:JSON.stringify(value))}</li>`).join('')}</ul>` : `<p>${escapeHtml(empty)}</p>`;
 }
+function actionMarkup(entry){
+  const price=formatPrice(entry.commerce);
+  const install=verifiedInstallAvailable(entry) ? '<a class="btn btn-ghost" href="/my-library/">Install</a>' : '';
+  const state=String(entry.commercial_state??'REFERENCE_ONLY').toUpperCase();
+  if(state==='FREE'&&entry.commerce?.offer_id){
+    return `<div data-marketplace-acquire-host><button type="button" class="btn btn-solid" data-free-acquire data-offer-id="${escapeHtml(entry.commerce.offer_id)}">Add to Library</button>${price?`<span class="library-price">${escapeHtml(price)}</span>`:''}${install}</div>`;
+  }
+  return `<span class="btn btn-solid">${escapeHtml(actionLabel(entry))}</span>${price?`<span class="library-price">${escapeHtml(price)}</span>`:''}${install}`;
+}
 
 export function renderEntry(entry) {
   const route = entryRoute(entry);
   const compatibility=(entry.compatibility ?? entry.compatibility_summary ?? []).map((item)=>typeof item==='string'?{runtime:item,state:'AVAILABLE'}:item);
   const evaluation=entry.evaluation_summary ?? {};
   const versions=entry.versions ?? entry.version_summary?.versions ?? (entry.version_summary?.current ? [entry.version_summary.current] : []);
-  const price=formatPrice(entry.commerce);
-  const install=verifiedInstallAvailable(entry) ? '<span class="btn btn-ghost">Install</span>' : '';
-  const action=`<span class="btn btn-solid">${escapeHtml(actionLabel(entry))}</span>${price?`<span class="library-price">${escapeHtml(price)}</span>`:''}${install}`;
+  const action=actionMarkup(entry);
   const compatHtml=compatibility.length ? `<ul>${compatibility.map((item)=>`<li><strong>${escapeHtml(item.runtime)}</strong> · ${escapeHtml(item.state ?? item.compatibility_state ?? 'UNKNOWN')}</li>`).join('')}</ul>` : '<p>No verified runtime distribution published.</p>';
   const trustBits=[];
   if(evaluation.status) trustBits.push(`<li>Status: ${escapeHtml(evaluation.status)}</li>`);
   if(evaluation.tests !== undefined) trustBits.push(`<li>Tests: ${escapeHtml(evaluation.tests)}</li>`);
   if(evaluation.critical_failures !== undefined) trustBits.push(`<li>Critical failures: ${escapeHtml(evaluation.critical_failures)}</li>`);
+  const acquireScript=String(entry.commercial_state).toUpperCase()==='FREE'&&entry.commerce?.offer_id?'<script type="module" src="/assets/library-acquire.js"></script>':'';
   const body = `<header class="page-hero"><div class="wrap"><div class="breadcrumbs"><a href="/library/">Library</a><span class="sep">/</span><a href="/library/${groupForType(entry.type)}/">${escapeHtml(groupForType(entry.type))}</a><span class="sep">/</span><span>${escapeHtml(entry.id)}</span></div><div class="eyebrow">${escapeHtml(entry.id)} · ${escapeHtml(entry.domain ?? entry.type)}</div><h1>${escapeHtml(entry.name)}</h1><p class="lede">${escapeHtml(entry.description ?? '')}</p><div class="hero-ctas">${action}</div></div></header>
 <section><div class="wrap"><div class="sec-head"><h2>What it does</h2></div><p>${escapeHtml(entry.description ?? 'No public description published.')}</p>${list(entry.use_cases,'No public use cases published.')}</div></section>
 <section><div class="wrap"><div class="sec-head"><h2>What it does not do</h2></div><p>${escapeHtml(entry.boundary ?? 'No additional public boundary text published.')}</p></div></section>
 <section><div class="wrap"><div class="sec-head"><h2>Included Skills</h2></div>${list(entry.skill_ids,'No direct Skills published.')}<div class="library-capability-graph">${renderCapabilityGraph(entry)}</div></div></section>
 <section><div class="wrap"><div class="sec-head"><h2>Compatibility</h2></div>${compatHtml}</div></section>
 <section><div class="wrap"><div class="sec-head"><h2>Trust &amp; Verification</h2></div>${trustBits.length?`<ul>${trustBits.join('')}</ul>`:'<p>No public evaluation summary published.</p>'}</div></section>
-<section><div class="wrap"><div class="sec-head"><h2>Versions</h2></div>${list(versions,'No public version history published.')}</div></section>`;
+<section><div class="wrap"><div class="sec-head"><h2>Versions</h2></div>${list(versions,'No public version history published.')}</div></section>${acquireScript}`;
   return pageShell({title:entry.name,description:entry.description ?? entry.name,canonicalPath:route,body});
 }
 
