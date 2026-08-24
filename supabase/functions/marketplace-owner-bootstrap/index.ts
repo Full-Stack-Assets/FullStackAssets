@@ -8,7 +8,7 @@ const SUPABASE_DB_URL=required('SUPABASE_DB_URL');
 const SUPABASE_SECRET_KEY=(Deno.env.get('SUPABASE_SECRET_KEY')??Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')??'').trim();
 if(!SUPABASE_SECRET_KEY)throw new Error('SUPABASE_SECRET_KEY_REQUIRED');
 const issuer=`${SUPABASE_URL}/auth/v1`;
-const db=createPostgres({connectionString:SUPABASE_DB_URL,poolOptions:{max:1,idleTimeoutMillis:10000,connectionTimeoutMillis:10000}});
+const db=createPostgres({connectionString:SUPABASE_DB_URL,poolOptions:{max:2,idleTimeoutMillis:10000,connectionTimeoutMillis:10000}});
 
 function secureEqual(a:string,b:string){
   const aa=new TextEncoder().encode(a);const bb=new TextEncoder().encode(b);
