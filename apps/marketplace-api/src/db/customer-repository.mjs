@@ -10,6 +10,18 @@ export function createCustomerRepository(db){
     async listMemberships(userId){const r=await db.query("SELECT * FROM memberships WHERE user_id=$1 AND status='ACTIVE' ORDER BY organization_id",[userId]);return r.rows;},
     async listEntitlements(subject){const w=subjectWhere(subject);const r=await db.query(`SELECT * FROM entitlements WHERE ${w.sql} ORDER BY product_id,id`,w.params);return r.rows;},
     async getEntitlement(id,subject){const w=subjectWhere(subject,2);const r=await db.query(`SELECT * FROM entitlements WHERE id=$1 AND ${w.sql}`,[id,...w.params]);return r.rows[0]??null;},
+    async findActive(subject,productId){const w=subjectWhere(subject,2);const r=await db.query(`SELECT * FROM entitlements WHERE product_id=$1 AND ${w.sql} AND status='ACTIVE' AND starts_at<=NOW() AND (expires_at IS NULL OR expires_at>NOW()) ORDER BY created_at DESC,id LIMIT 1`,[productId,...w.params]);return r.rows[0]??null;},
+    async grantFree(record){
+      const w=subjectWhere(record.subject,2);const lockKey=`free-acquire:${record.subject.type}:${record.subject.id}:${record.product_id}`;
+      return db.transaction(async(tx)=>{
+        await tx.query('SELECT pg_advisory_xact_lock(hashtext($1))',[lockKey]);
+        const existing=await tx.query(`SELECT * FROM entitlements WHERE product_id=$1 AND ${w.sql} AND status='ACTIVE' AND starts_at<=NOW() AND (expires_at IS NULL OR expires_at>NOW()) ORDER BY created_at DESC,id LIMIT 1`,[record.product_id,...w.params]);
+        if(existing.rows[0])return existing.rows[0];
+        const id=`ENT-${crypto.randomUUID()}`;
+        const r=await tx.query(`INSERT INTO entitlements (id,${w.column},product_id,license_policy_id,acquired_version,version_policy,allowed_runtimes,starts_at,status) VALUES ($1,$2,$3,$4,$5,$6,$7,NOW(),'ACTIVE') RETURNING *`,[id,record.subject.id,record.product_id,record.license_policy_id,record.acquired_version,record.version_policy,JSON.stringify(record.allowed_runtimes??[])]);
+        return r.rows[0];
+      });
+    },
     async listInstallations(subject){const w=subjectWhere(subject);const r=await db.query(`SELECT * FROM installations WHERE ${w.sql} ORDER BY updated_at DESC,id`,w.params);return r.rows;},
     async upsertInstallation(record){
       const w=subjectWhere(record.subject);const column=w.column;

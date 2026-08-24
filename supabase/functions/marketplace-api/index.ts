@@ -8,6 +8,7 @@ import { createDistributionService } from '../../../apps/marketplace-api/src/ser
 import { createEnterpriseService } from '../../../apps/marketplace-api/src/services/enterprise.mjs';
 import { createPublisherService } from '../../../apps/marketplace-api/src/services/publisher.mjs';
 import { createReadinessService } from '../../../apps/marketplace-api/src/services/readiness.mjs';
+import { createFreeAcquisitionService } from '../../../apps/marketplace-api/src/services/free-acquisition.mjs';
 
 const required=(name:string)=>{const value=Deno.env.get(name)?.trim();if(!value)throw new Error(`${name}_REQUIRED`);return value;};
 const SUPABASE_URL=required('SUPABASE_URL');
@@ -52,7 +53,12 @@ const catalogRepository={
   async getProduct(id:string){const r=await db.query('SELECT * FROM products WHERE id=$1',[id]);return r.rows[0]??null;},
   async getProductVersion(id:string){const r=await db.query('SELECT * FROM product_versions WHERE id=$1',[id]);return r.rows[0]??null;},
   async resolveProductVersion(productId:string,version:string){const r=await db.query('SELECT * FROM product_versions WHERE product_id=$1 AND version=$2',[productId,version]);return r.rows[0]??null;},
+  async getLatestPublishedVersion(productId:string){const r=await db.query("SELECT * FROM product_versions WHERE product_id=$1 AND publication_state='PUBLISHED' ORDER BY created_at DESC,id DESC LIMIT 1",[productId]);return r.rows[0]??null;},
   async getRuntimeDistribution(productVersionId:string,runtime:string){const r=await db.query('SELECT *,package_location AS artifact_id FROM runtime_distributions WHERE product_version_id=$1 AND runtime=$2 ORDER BY updated_at DESC LIMIT 1',[productVersionId,runtime]);return r.rows[0]??null;},
+};
+
+const offerRepository={
+  async getActiveOffer(id:string){const r=await db.query('SELECT * FROM offers WHERE id=$1 AND active=TRUE',[id]);return r.rows[0]??null;},
 };
 
 const distributionRepository={
@@ -90,12 +96,13 @@ const publisherRepository={
 
 const downloadService=createDownloadService({customerRepository,catalogRepository,artifactStore});
 const customerLibrary=createCustomerLibraryService({customerRepository,catalogRepository,downloadService});
+const freeAcquisition=createFreeAcquisitionService({offerRepository,catalogRepository,entitlementRepository:customerRepository});
 const distributions=createDistributionService({repo:distributionRepository});
 const enterprise=createEnterpriseService({repo:enterpriseRepository});
 const publisher=createPublisherService({repo:publisherRepository});
 const readiness=createReadinessService({checks:{database:async()=>Boolean((await db.query('SELECT 1 AS ok')).rows[0]?.ok),storage:async()=>Boolean((await db.query('SELECT 1 FROM storage.buckets WHERE id=$1',[ARTIFACT_BUCKET])).rows[0]),auth:async()=>Boolean(SUPABASE_JWKS?.keys?.length),schema:async()=>Boolean((await db.query("SELECT to_regclass('public.marketplace_app_roles') AS roles,to_regclass('public.private_registries') AS registries")).rows[0]?.roles)}});
 const commerceDisabled={async create(){throw Object.assign(new Error('Paid launch is not enabled'),{status:503,code:'COMMERCE_DISABLED'});}};
-const router=createRouter({services:{auth:{authenticate},customerLibrary,catalog:catalogRepository,distributions,enterprise,publisher,readiness,checkout:commerceDisabled}});
+const router=createRouter({services:{auth:{authenticate},customerLibrary,catalog:catalogRepository,freeAcquisition,distributions,enterprise,publisher,readiness,checkout:commerceDisabled}});
 
 const handle=async(request:Request)=>{
   const origin=allowedOrigin(request);
