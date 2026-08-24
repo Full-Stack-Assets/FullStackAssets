@@ -3,14 +3,17 @@ import assert from 'node:assert/strict';
 import {mkdtempSync,rmSync,existsSync,readFileSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
+import {createHash} from 'node:crypto';
 
 const modulePath='marketplace/launch/artifacts.mjs';
 
 test('first cohort artifact builder emits 70 deterministic ZIP packages with required files',async()=>{
   assert.equal(existsSync(modulePath),true,'artifact builder must exist');
   if(!existsSync(modulePath))return;
-  const {buildFirstCohortArtifacts}=await import('../../../marketplace/launch/artifacts.mjs');
+  const {buildFirstCohortArtifacts,buildArtifactBytes}=await import('../../../marketplace/launch/artifacts.mjs');
+  assert.equal(typeof buildArtifactBytes,'function');
   const {readStoreZip}=await import('../../../marketplace/distribution/store-zip.mjs');
+  const {FIRST_COHORT}=await import('../../../marketplace/launch/first-cohort.mjs');
   const one=mkdtempSync(join(tmpdir(),'first10-a-'));const two=mkdtempSync(join(tmpdir(),'first10-b-'));
   try{
     const a=buildFirstCohortArtifacts({outDir:one});
@@ -20,7 +23,10 @@ test('first cohort artifact builder emits 70 deterministic ZIP packages with req
       assert.equal(a[i].sha256,b[i].sha256);
       assert.match(a[i].sha256,/^[a-f0-9]{64}$/);
       assert.ok(a[i].path.endsWith('.zip'));
-      const bytes=readFileSync(a[i].path);assert.equal(bytes.subarray(0,4).toString('hex'),'504b0304');
+      const product=FIRST_COHORT.find(x=>x.product_id===a[i].product_id);
+      const pure=buildArtifactBytes(product,a[i].runtime);
+      assert.equal(createHash('sha256').update(pure).digest('hex'),a[i].sha256);
+      const bytes=readFileSync(a[i].path);assert.deepEqual(bytes,pure);assert.equal(bytes.subarray(0,4).toString('hex'),'504b0304');
       const entries=readStoreZip(bytes);
       for(const required of a[i].required_files){
         if(required.endsWith('/'))assert.ok([...entries.keys()].some(name=>name.startsWith(required)),`${a[i].runtime} requires ${required}`);
