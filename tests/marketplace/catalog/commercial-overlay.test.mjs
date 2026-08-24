@@ -8,13 +8,13 @@ test('commercial overlay promotes exactly the first ten without mutating Canon i
   assert.equal(existsSync(path),true,'commercial overlay module must exist');
   if(!existsSync(path))return;
   const {applyCommercialOverlay,firstCohortCommercialOverlay}=await import('../../../marketplace/catalog/commercial-overlay.mjs');
-  const base={generated_at:null,publishers:[],taxonomy:{domains:['D'],types:['SKILL'],commercial_states:['REFERENCE_ONLY']},entries:[
-    {id:'PRD-0BD1D7BD75AE',type:'SKILL',slug:'original',name:'Canonical Name',description:'Canonical description',domain:'D',commercial_state:'REFERENCE_ONLY'},
-    {id:'PRD-OTHER',type:'SKILL',slug:'other',name:'Other',description:'Other description',domain:'D',commercial_state:'REFERENCE_ONLY'},
-  ]};
+  const {FIRST_COHORT}=await import('../../../marketplace/launch/first-cohort.mjs');
+  const cohortEntries=FIRST_COHORT.map((product,index)=>({id:product.product_id,type:product.type,slug:index===0?'original':product.canonical_ref.toLowerCase(),name:index===0?'Canonical Name':product.name,description:index===0?'Canonical description':product.purpose,domain:'D',commercial_state:'REFERENCE_ONLY'}));
+  const base={generated_at:null,publishers:[],taxonomy:{domains:['D'],types:['AGENT','SKILL'],commercial_states:['REFERENCE_ONLY']},entries:[...cohortEntries,{id:'PRD-OTHER',type:'SKILL',slug:'other',name:'Other',description:'Other description',domain:'D',commercial_state:'REFERENCE_ONLY'}]};
   const before=structuredClone(base);
   const result=applyCommercialOverlay(base,firstCohortCommercialOverlay());
   assert.deepEqual(base,before,'baseline input must remain immutable');
+  assert.equal(result.entries.filter(e=>e.commercial_state==='FREE').length,10);
   const promoted=result.entries.find(e=>e.id==='PRD-0BD1D7BD75AE');
   const untouched=result.entries.find(e=>e.id==='PRD-OTHER');
   assert.equal(promoted.name,'Canonical Name');
