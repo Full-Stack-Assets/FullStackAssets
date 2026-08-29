@@ -1,0 +1,113 @@
+name: Library Pages host
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/library-pages.yml'
+      - 'tools/prepare_library_pages.py'
+      - 'tests/test_prepare_library_pages.py'
+      - 'marketplace/**'
+      - 'my-library/**'
+      - 'publisher/**'
+      - 'enterprise/**'
+      - 'assets/marketplace-auth.js'
+      - 'assets/library-acquire.js'
+      - 'CNAME'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: library-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Test library host builder
+        run: python -m unittest tests/test_prepare_library_pages.py -v
+
+      - name: Verify marketplace contracts
+        run: >-
+          node --test
+          tests/marketplace/canon/*.test.mjs
+          tests/marketplace/core/*.test.mjs
+          tests/marketplace/catalog/*.test.mjs
+
+      - name: Materialize public catalog baseline
+        run: >-
+          node marketplace/bin/materialize-catalog.mjs
+          --parts data/library/catalog-baseline
+          --meta data/library/catalog-baseline.json
+          --out data/library/catalog.snapshot.json
+
+      - name: Build static Library
+        run: >-
+          node marketplace/bin/build-library.mjs
+          --catalog data/library/catalog.snapshot.json
+          --out library
+
+      - name: Build library Pages artifact
+        run: >-
+          python tools/prepare_library_pages.py
+          --source .
+          --output site
+
+      - name: Verify library host artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f site/index.html
+          test -f site/library/index.html
+          test -f site/library/search-index.json
+          test -f site/my-library/index.html
+          test -f site/publisher/index.html
+          test -f site/enterprise/index.html
+          test -f site/assets/marketplace-auth.js
+          test -f site/assets/library-acquire.js
+          test "$(cat site/CNAME)" = "library.fullstackassets.com"
+          test ! -e site/resume
+          grep -q 'library.fullstackassets.com/library/' site/sitemap.xml
+          ! grep -q 'https://fullstackassets.com/resume/' site/sitemap.xml
+
+      - name: Configure GitHub Pages
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    if: github.event_name == 'workflow_dispatch'
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
