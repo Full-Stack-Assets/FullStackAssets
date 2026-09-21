@@ -38,16 +38,14 @@
 
 **Modify**
 
-- `index.html` — homepage metadata, navigation, hero, proof, featured work, capabilities, process, about, services preview, contact, footer, constellation labels.
+- `index.html` — homepage metadata, navigation, hero, proof, featured work, capabilities, process, about, services preview, contact, footer.
 - `assets/style.css` — audience paths, responsive featured cards, inquiry and résumé layouts, focus states, mobile spacing, reduced motion, print styles.
 - `assets/site.js` — remove purchase enhancement, strengthen mobile navigation, add inquiry mail composition and résumé printing.
 - `case-studies/index.html` — selected-work hierarchy with BeyondMythos first.
 - `case-studies/taskflow.html` — replace volume claims with tested workflow evidence.
-- `case-studies/constellation-coo.html` — demote and reframe as an experimental agent-scheduling engine.
 - `services/index.html` — exactly two service offers, fit criteria, process, and inquiry CTA.
 - `purchase/index.html` — replace checkout with a qualified inquiry form while preserving the route.
 - `blog/index.html` — engineering-note positioning and discoverability cleanup.
-- `blog/constraint-optimized-orchestration.html` — retain scheduling-engine article without IP positioning.
 - `blog/documenting-for-acquisition.html` — reframe around maintainable handoff and operational documentation.
 - `blog/shipping-20-microsaas-solo.html` — reframe around a repeatable shipping system without a product-count identity.
 - `blog/feed.xml` — aligned descriptions and patent-article removal.
@@ -419,13 +417,13 @@ About copy must identify Nic as a product-minded engineer in Fall River, Massach
 
 Services preview contains only Product and Systems Audit and Fixed-Scope Build Sprint. Contact contains `Discuss a role`, `Discuss a project`, `View GitHub`, and `View résumé`.
 
-- [ ] **Step 8: Update footer and constellation labels**
+- [ ] **Step 8: Update footer**
 
 Footer selected work is BeyondMythos, Tradewind DealFlow, and TaskFlow. Footer description:
 
 > Product-minded full-stack engineer building reliable workflow, data, and deployment systems.
 
-Change the constellation `ASSETS` array to:
+Change the hero-canvas `ASSETS` array to:
 
 ```js
 const ASSETS = ["BEYONDMYTHOS", "TRADEWIND", "TASKFLOW", "WORKFLOWS", "DATA", "DEPLOYMENT"];
@@ -455,7 +453,6 @@ git commit -m "feat: reposition portfolio homepage"
 - Create: `case-studies/tradewind-dealflow.html`
 - Modify: `case-studies/index.html:1-222`
 - Modify: `case-studies/taskflow.html:1-198`
-- Modify: `case-studies/constellation-coo.html:1-248`
 - Test: `tests/site-content.test.mjs`
 
 **Interfaces:**
@@ -477,9 +474,6 @@ test("selected case studies use evidence-backed framing", () => {
   assert.match(taskflow, /persistence/i);
   assert.match(taskflow, /tests/i);
   assert.doesNotMatch(taskflow, /36K|30 files/i);
-  const experiment = read("case-studies/constellation-coo.html");
-  assert.match(experiment, /Experimental agent-scheduling engine/);
-  assert.match(experiment, /synthetic benchmark/i);
 });
 ```
 
@@ -516,11 +510,9 @@ Use sections `#problem`, `#boundaries`, `#workflow`, `#reliability`, and `#statu
 
 Lead with three expanded cards in approved order. Place HostGraph, VERITAS, and other credible supporting work in a `Supporting work` section with honest status labels. Place the scheduling experiment in `Experiments and archive`; do not use it in the page hero or primary footer.
 
-- [ ] **Step 6: Update TaskFlow and Constellation**
+- [ ] **Step 6: Update TaskFlow**
 
 For TaskFlow, replace file/documentation volume with typed workflow definitions, retries, persistence, metrics, contract/HTTP behavior, tests, and deployment documentation.
-
-For Constellation, use title and page heading `Experimental agent-scheduling engine`. Preserve benchmark numbers only with `synthetic benchmark` and limitations beside them. Replace byline role with `Product and engineering`.
 
 - [ ] **Step 7: Run case-study tests**
 
@@ -684,7 +676,7 @@ git commit -m "feat: add printable engineering resume"
 - Delete: `blog/patents-for-indie-engineers.html`
 - Modify: `blog/index.html`
 - Modify: `blog/feed.xml`
-- Modify: `blog/constraint-optimized-orchestration.html`
+- Delete: `blog/constraint-optimized-orchestration.html`
 - Modify: `blog/documenting-for-acquisition.html`
 - Modify: `blog/shipping-20-microsaas-solo.html`
 - Modify: `case-studies/autoblog-pipeline.html`
@@ -891,7 +883,7 @@ At a 390×844 viewport:
 
 - [ ] **Step 7: Compare old and new homepage visual identity**
 
-Place the original audit capture `../fullstackassets-audit-2026-07-29/01-home-desktop.png` beside a new 1440-pixel-wide homepage screenshot. Confirm the palette, typography, line treatment, constellation motif, and panel language remain recognizable while hero messaging and project hierarchy are visibly different.
+Place the original audit capture `../fullstackassets-audit-2026-07-29/01-home-desktop.png` beside a new 1440-pixel-wide homepage screenshot. Confirm the palette, typography, line treatment, starfield motif, and panel language remain recognizable while hero messaging and project hierarchy are visibly different.
 
 - [ ] **Step 8: Rerun the complete suite after visual fixes**
 
