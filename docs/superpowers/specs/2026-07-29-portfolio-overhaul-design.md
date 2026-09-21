@@ -21,7 +21,7 @@ The site must present entrepreneurship and end-to-end product ownership as evide
 - Do not migrate the site to a JavaScript framework.
 - Make BeyondMythos Autonomous Deployment Engine the lead project.
 - Feature Tradewind DealFlow and TaskFlow alongside BeyondMythos.
-- Remove patent claims and all statements that Constellation COO is the flagship or main project.
+- Remove patent claims and patent-positioning language across the site.
 - Keep the current GitHub account and position it as a person-first engineering profile.
 - Remove Purchase from global navigation.
 - Reduce public services to a product and systems audit plus a fixed-scope build sprint.
@@ -76,7 +76,6 @@ Routes:
 - `/case-studies/` — selected work and supporting project index.
 - `/case-studies/beyondmythos.html` — lead case study.
 - `/case-studies/taskflow.html` — featured case study.
-- `/case-studies/constellation-coo.html` — retained but reframed experimental project.
 - `/services/` — two focused service offers and fit criteria.
 - `/purchase/` — replaced with a project-inquiry page or redirected to the inquiry section on `/services/`.
 - `/resume/` — printable professional snapshot.
@@ -106,7 +105,7 @@ Calls to action:
 - `View résumé` — secondary.
 - `Discuss a project` — secondary.
 
-The constellation canvas may remain as ambient brand artwork, but it must not overlap or compete with the mobile headline.
+The starfield canvas may remain as ambient brand artwork, but it must not overlap or compete with the mobile headline.
 
 ### Audience paths
 
@@ -257,26 +256,6 @@ Emphasize:
 
 Remove documentation word counts and raw file counts as proof.
 
-## Constellation COO treatment
-
-Remove all of the following:
-
-- patent-pending language;
-- patent claim counts;
-- sole-inventor labels;
-- flagship or main-project labels;
-- patent-protection sections;
-- patent-focused calls to action;
-- acquisition/data-room positioning tied to patent ownership.
-
-If retained, title or describe the route as:
-
-> Experimental agent-scheduling engine
-
-Its proof may include Python, pytest, synthetic benchmark methodology, and measured benchmark results when the limitations are stated explicitly.
-
-It will not appear in the homepage featured-project group or the primary footer.
-
 ## Services design
 
 ### Product and systems audit
@@ -373,7 +352,7 @@ Footer positioning:
 
 > Product-minded full-stack engineer building reliable workflow, data, and deployment systems.
 
-Remove “built solo,” “revenue-ready assets,” licensing, acquisitions, and Constellation links from the global footer.
+Remove “built solo,” “revenue-ready assets,” licensing, and acquisitions from the global footer.
 
 ## Visual and responsive behavior
 
@@ -385,7 +364,7 @@ Preserve existing:
 - fine-line borders;
 - restrained reveal animations;
 - mono uppercase labels;
-- canvas constellation motif.
+- canvas starfield motif.
 
 Improve:
 
@@ -442,7 +421,6 @@ In scope:
 - selected-work index;
 - BeyondMythos case study;
 - TaskFlow positioning updates;
-- Constellation demotion and reframing;
 - services;
 - inquiry route;
 - résumé route;
@@ -480,7 +458,6 @@ Permitted exception: none for patent language in deployed HTML, XML, JavaScript,
 
 - Homepage has the approved navigation and three featured projects.
 - BeyondMythos appears first.
-- Constellation is absent from homepage featured work and primary footer.
 - Services exposes only the audit and build sprint as primary offers.
 - Purchase is absent from global navigation.
 - Sitemap includes BeyondMythos and résumé.
