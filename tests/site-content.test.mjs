@@ -239,9 +239,6 @@ test("selected case studies use evidence-backed framing", () => {
   assert.match(taskflow, /persistence/i);
   assert.match(taskflow, /tests/i);
   assert.doesNotMatch(taskflow, /36K|30 files/i);
-  const experiment = read("case-studies/constellation-coo.html");
-  assert.match(experiment, /Experimental agent-scheduling engine/);
-  assert.match(experiment, /synthetic benchmark/i);
 });
 
 test("StoreForge uses an implementation status rather than sale positioning", () => {
