@@ -71,11 +71,7 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-  <url>
-    <loc>https://fullstackassets.com/blog/constraint-optimized-orchestration.html</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
+  
   <url>
     <loc>https://fullstackassets.com/blog/shipping-20-microsaas-solo.html</loc>
     <changefreq>yearly</changefreq>
