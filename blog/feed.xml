@@ -21,12 +21,6 @@
     <pubDate>Wed, 01 Jul 2026 00:00:00 GMT</pubDate>
     <description>A practical loop for keeping small product work focused: scope, instrument, document, and make an explicit decision about what happens next.</description>
   </item>
-  <item>
-    <title>Constraint-Optimized Orchestration: Rethinking How Agent Fleets Get Scheduled</title>
-    <link>https://fullstackassets.com/blog/constraint-optimized-orchestration.html</link>
-    <guid>https://fullstackassets.com/blog/constraint-optimized-orchestration.html</guid>
-    <pubDate>Thu, 25 Jun 2026 00:00:00 GMT</pubDate>
-    <description>Why fitness-scoring beats round-robin and greedy-cheapest routing once an LLM agent fleet has to respect real cost, latency, and concurrency budgets.</description>
-  </item>
+  
 </channel>
 </rss>
